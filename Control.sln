@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bridge", "Bridge\Bridge.csproj", "{9CAA3780-0DA3-4D7F-A521-68BE3CB8F65A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cartographer", "Cartographer\Cartographer.csproj", "{A135982E-6752-4952-AF6D-C3FE1A79CA73}"
@@ -10,6 +8,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Itinerary Creator", "Itinerary Creator\Itinerary Creator.csproj", "{C767408A-FDC7-47DE-8ECB-7E1171D82DDA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MMWebAPI", "MMWebAPI\MMWebAPI.csproj", "{6C4CF31E-9B8C-4BA9-8AF2-CD6D759D4417}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTypes", "DataTypes\DataTypes.csproj", "{FF378CD6-C1B8-4C5E-9544-A4AC26DBBC34}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +33,10 @@ Global
 		{6C4CF31E-9B8C-4BA9-8AF2-CD6D759D4417}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C4CF31E-9B8C-4BA9-8AF2-CD6D759D4417}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C4CF31E-9B8C-4BA9-8AF2-CD6D759D4417}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF378CD6-C1B8-4C5E-9544-A4AC26DBBC34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF378CD6-C1B8-4C5E-9544-A4AC26DBBC34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF378CD6-C1B8-4C5E-9544-A4AC26DBBC34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF378CD6-C1B8-4C5E-9544-A4AC26DBBC34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

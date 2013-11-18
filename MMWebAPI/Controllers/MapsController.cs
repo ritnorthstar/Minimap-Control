@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using DataTypes;
 
 namespace MMWebAPI.Controllers
 {
@@ -33,14 +34,14 @@ namespace MMWebAPI.Controllers
             var response = Request.CreateResponse<Map>(HttpStatusCode.Created, map);
 
             // Include resource location in response header
-            string uri = Url.Link("DefaultApi", new { id = map.Id });
+            string uri = Url.Link("DefaultApi", new { id = map.id });
             response.Headers.Location = new Uri(uri);
             return response;
         }
 
         public void PutMap(int id, Map map)
         {
-            map.Id = id;
+            map.id = id;
             if (!repository.Update(map))
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
