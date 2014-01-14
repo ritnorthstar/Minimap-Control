@@ -12,9 +12,9 @@ namespace DataTypes
 
         public int id;
         public string name;
-        public IEnumerable<Wall> walls;
-        public IEnumerable<TableRow> tables;
-        public IEnumerable<Beacon> beacons;
+        public HashSet<Wall> walls;
+        public HashSet<TableRow> tables;
+        public HashSet<Beacon> beacons;
 
         public Map() { }
 
