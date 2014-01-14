@@ -14,6 +14,7 @@ namespace DataTypes
         public string name;
         public IEnumerable<Wall> walls;
         public IEnumerable<TableRow> tables;
+        public IEnumerable<Beacon> beacons;
 
         public Map() { }
 
@@ -23,6 +24,7 @@ namespace DataTypes
             this.name = name;
             walls = new HashSet<Wall>();
             tables = new HashSet<TableRow>();
+            beacons = new HashSet<Beacon>();
         }
     }
 }

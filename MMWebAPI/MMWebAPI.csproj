@@ -84,7 +84,6 @@
     </Compile>
     <Compile Include="Models\IMapRepository.cs" />
     <Compile Include="Models\LocalMapRepository.cs" />
-    <Compile Include="Models\Map.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
