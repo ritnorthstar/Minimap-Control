@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Beacon.cs" />
     <Compile Include="Drawable.cs" />
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="TableBlock.cs" />
     <Compile Include="Impassable.cs" />

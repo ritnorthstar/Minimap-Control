@@ -16,7 +16,7 @@ namespace DataTypes
             this.y2 = y2;
         }
 
-        public void DrawSelf(System.Windows.Controls.Canvas c, double zoomFactor)
+        public void DrawSelf(System.Windows.Controls.Canvas c)
         {
             throw new NotImplementedException();
         }

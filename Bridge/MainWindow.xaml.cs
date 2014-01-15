@@ -84,7 +84,7 @@ namespace Bridge
             activeMap = Map.FromFile(filename);
             Console.WriteLine("Name: " + activeMap.name);
             Console.WriteLine("Number of tables: " + ((HashSet<DataTypes.TableBlock>)activeMap.tables).Count);
-            activeMap.DrawSelf(canvas, zoomFactor);
+            activeMap.DrawSelf(canvas);
         }
 
         private void QuitProgram(object sender, ExecutedRoutedEventArgs args)

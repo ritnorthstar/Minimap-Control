@@ -9,6 +9,6 @@ namespace DataTypes
 {
     interface Drawable
     {
-        void DrawSelf(Canvas c, double zoomFactor);
+        void DrawSelf(Canvas c);
     }
 }

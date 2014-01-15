@@ -35,13 +35,13 @@ namespace DataTypes
             return JsonConvert.SerializeObject(this);
         }
 
-        public void DrawSelf(Canvas c, double zoomFactor)
+        public void DrawSelf(Canvas c)
         {
             try
             {
-                foreach (Wall w in walls) w.DrawSelf(c, zoomFactor);
-                foreach (Beacon b in beacons) b.DrawSelf(c, zoomFactor);
-                foreach (TableBlock t in tables) t.DrawSelf(c, zoomFactor);
+                foreach (Wall w in walls) w.DrawSelf(c);
+                foreach (Beacon b in beacons) b.DrawSelf(c);
+                foreach (TableBlock t in tables) t.DrawSelf(c);
             }
             catch (NotImplementedException) { }
         }

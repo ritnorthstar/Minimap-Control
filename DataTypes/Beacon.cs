@@ -19,7 +19,7 @@ namespace DataTypes
             this.y = y;
         }
 
-        public void DrawSelf(Canvas c, double zoomFactor)
+        public void DrawSelf(Canvas c)
         {
             // TODO: implement this
         }
