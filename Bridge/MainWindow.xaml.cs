@@ -13,7 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DataTypes;
-using Newtonsoft.Json;
 using System.IO;
 
 
@@ -26,12 +25,12 @@ namespace Bridge
     {
         Point currentPoint = new Point();
         Point offset;
-        Map map;
+        Map activeMap;
+        double zoomFactor = 2.0;
 
         public MainWindow()
         {
             InitializeComponent();
-            //makeMap();
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs args)
@@ -41,6 +40,7 @@ namespace Bridge
 
         private void Canvas_MouseDown_1(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            // Console.WriteLine("Clicked");
             if (e.ButtonState == MouseButtonState.Pressed)
             {
                 offset = e.GetPosition(sender as FrameworkElement);
@@ -67,20 +67,6 @@ namespace Bridge
             }
         }
 
-        private void makeMap()
-        {
-            string output = String.Empty;
-
-            Map map = new Map("Gordon Field House");
-            map.tables.Add(new DataTypes.TableRow(20, 20, 80, 30));
-            map.tables.Add(new DataTypes.TableRow(20, 50, 80, 60));
-            map.tables.Add(new DataTypes.TableRow(20, 80, 80, 90));
-
-            output = JsonConvert.SerializeObject(map);
-
-            Console.WriteLine(output);
-        }
-
         private void OpenMapDialog(object sender, ExecutedRoutedEventArgs args)
         {
             Microsoft.Win32.OpenFileDialog openDialog = new Microsoft.Win32.OpenFileDialog();
@@ -90,17 +76,63 @@ namespace Bridge
             
             Nullable<bool> result = openDialog.ShowDialog();
 
-            if(result == true)
+            if (result == false) return; // TODO: throw an exception
+
+            string filename = openDialog.FileName;
+            Console.WriteLine("File selected: " + filename);
+
+            activeMap = Map.FromFile(filename);
+            Console.WriteLine("Name: " + activeMap.name);
+            Console.WriteLine("Number of tables: " + ((HashSet<DataTypes.TableBlock>)activeMap.tables).Count);
+            activeMap.DrawSelf(canvas, zoomFactor);
+        }
+
+        private void QuitProgram(object sender, ExecutedRoutedEventArgs args)
+        {
+            Application.Current.Shutdown();
+        }
+
+        bool serverIsRunning = false; // TODO: use an actual server class
+        const string SERVER_STOPPED = "Stopped", SERVER_RUNNING = "Running", SERVER_PAUSED = "Paused";
+
+        private void ToggleRunningStatus(object sender, RoutedEventArgs args)
+        {
+            bool success = false;
+            string status;
+
+            if(serverIsRunning)
             {
-                string filename = openDialog.FileName;
-                Console.WriteLine("File selected: " + filename);
-
-                string json = File.ReadAllText(filename);
-                map = JsonConvert.DeserializeObject<Map>(json);
-                Console.WriteLine("Name: " + map.name);
-                Console.WriteLine("Number of tables: " + ((HashSet<DataTypes.TableRow>)map.tables).Count);
-
+                serverIsRunning = false; // pause server
+                success = true;
+                status = SERVER_PAUSED;
+                toggleRunningMenuItem.Header = "Continue";
             }
+
+            else
+            {
+                serverIsRunning = true; // resume server
+                success = true;
+                status = SERVER_RUNNING;
+                toggleRunningMenuItem.Header = "Pause";
+            }
+
+            if(success)
+            {
+                runningStatusItem.Text = status;
+            }
+        }
+
+        private void RestartServer(object sender, RoutedEventArgs args)
+        {
+            serverIsRunning = false;
+            runningStatusItem.Text = SERVER_STOPPED;
+            toggleRunningMenuItem.Header = "Start";
+        }
+
+        private void LaunchAboutWindow(object sender, RoutedEventArgs args)
+        {
+            AboutWindow aboutWindow = new AboutWindow { Owner = this };
+            aboutWindow.ShowDialog();
         }
     }
 }

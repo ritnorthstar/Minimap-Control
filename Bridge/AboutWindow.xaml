@@ -1,0 +1,16 @@
+﻿<Window x:Class="Bridge.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowStartupLocation="CenterOwner"
+        Title="About Minimap" Height="300" Width="300">
+    <StackPanel VerticalAlignment="Center">
+        <TextBlock Margin="10" FontSize="20" TextAlignment="Center">Minimap</TextBlock>
+        <TextBlock Margin="10" FontSize="14" TextAlignment="Center" TextWrapping="Wrap">A collaboration betweeen RIT's North Star and Lockheed Martin, 2013-2014</TextBlock>
+        <TextBlock FontSize="12" TextAlignment="Center" TextWrapping="Wrap">Benjin Dubishar</TextBlock>
+        <TextBlock FontSize="12" TextAlignment="Center" TextWrapping="Wrap">Chris Carey</TextBlock>
+        <TextBlock FontSize="12" TextAlignment="Center" TextWrapping="Wrap">Josh Osgood</TextBlock>
+        <TextBlock FontSize="12" TextAlignment="Center" TextWrapping="Wrap">JP Mardelli</TextBlock>
+        <TextBlock FontSize="12" TextAlignment="Center" TextWrapping="Wrap">Paul Mittan</TextBlock>
+        <TextBlock FontSize="12" TextAlignment="Center" TextWrapping="Wrap">Prof. John Loser</TextBlock>
+    </StackPanel>
+</Window>

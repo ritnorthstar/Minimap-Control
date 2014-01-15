@@ -4,29 +4,42 @@
         Title="Minimap" Height="600" Width="800">
     <Window.CommandBindings>
         <CommandBinding Command="Open" Executed="OpenMapDialog" />
+        <CommandBinding Command="Close" Executed="QuitProgram" />
     </Window.CommandBindings>
     <Window.InputBindings>
         <KeyBinding Key="O" Modifiers="Control" Command="Open" />
+        <KeyBinding Key="Q" Modifiers="Control" Command="Close" />
     </Window.InputBindings>
     
     <DockPanel>
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="_File">
-                <MenuItem Header="_Open" Command="Open" InputGestureText="Ctrl + O"/>
-                <MenuItem Header="_Close"/>
-                <MenuItem Header="_Save"/>
-            </MenuItem>
-            <MenuItem Header="_View">
-                <MenuItem Header="Load..." Click="MenuItem_Click" />
-                <MenuItem Header="Load again" Click="MenuItem_Click" />
+            <MenuItem Header="_Minimap">
+                <MenuItem Header="_Open Map" Command="Open" InputGestureText="Ctrl + O"/>
+                <MenuItem Header="_Preferences" />
                 <Separator />
-                <MenuItem Header="Step" Click="MenuItem_Click" InputGestureText="F2" />
+                <MenuItem Header="_About Minimap" Click="LaunchAboutWindow" />
+                <MenuItem Header="_Quit" Command="Close" InputGestureText="Ctrl + Q"/>
             </MenuItem>
+            <MenuItem Header="_Server">
+                <MenuItem Header="Start" Click="ToggleRunningStatus" Name="toggleRunningMenuItem" />
+                <MenuItem Header="Reset" Click="RestartServer" />
+                <Separator />
+                <MenuItem Header="Configuration" />
+            </MenuItem>
+            
         </Menu>
-        <Canvas Name="canvas" MouseDown="Canvas_MouseDown_1" MouseMove="Canvas_MouseMove_1" >
-            <Canvas.Background>
-                <SolidColorBrush Color="White" Opacity="0"/>
-            </Canvas.Background>
-        </Canvas>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem>
+                <TextBlock Name="runningStatusItem">Server stopped</TextBlock>
+            </StatusBarItem>
+        </StatusBar>
+        <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
+            <Canvas Name="canvas" MouseDown="Canvas_MouseDown_1" MouseMove="Canvas_MouseMove_1" >
+                <Canvas.Background>
+                    <SolidColorBrush Color="White" Opacity="0"/>
+                </Canvas.Background>
+            </Canvas>
+        </ScrollViewer>
+        
     </DockPanel>
 </Window>

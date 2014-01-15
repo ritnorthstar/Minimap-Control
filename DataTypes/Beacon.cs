@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace DataTypes
 {
-    public class Beacon
+    public class Beacon : Drawable
     {
         public string id;
         public double x, y;
@@ -16,6 +17,11 @@ namespace DataTypes
             this.id = id;
             this.x = x;
             this.y = y;
+        }
+
+        public void DrawSelf(Canvas c, double zoomFactor)
+        {
+            // TODO: implement this
         }
     }
 }

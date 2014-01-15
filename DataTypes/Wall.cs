@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataTypes
 {
-    public class Wall : Impassable
+    public class Wall : Impassable, Drawable
     {
         public Wall(double x1, double y1, double x2, double y2)
         {
@@ -14,6 +14,11 @@ namespace DataTypes
             this.y1 = y1;
             this.x2 = x2;
             this.y2 = y2;
+        }
+
+        public void DrawSelf(System.Windows.Controls.Canvas c, double zoomFactor)
+        {
+            throw new NotImplementedException();
         }
     }
 }
