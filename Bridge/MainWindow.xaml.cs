@@ -40,12 +40,10 @@ namespace Bridge
 
         private void Canvas_MouseDown_1(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            // Console.WriteLine("Clicked");
             if (e.ButtonState == MouseButtonState.Pressed)
             {
                 offset = e.GetPosition(sender as FrameworkElement);
-                Console.WriteLine("Offset: " + offset.ToString());
-                currentPoint = e.GetPosition(this);
+                currentPoint = e.GetPosition(sender as FrameworkElement);
             }
         }
 
@@ -58,10 +56,10 @@ namespace Bridge
                 line.Stroke = SystemColors.WindowFrameBrush;
                 line.X1 = currentPoint.X;
                 line.Y1 = currentPoint.Y;
-                line.X2 = e.GetPosition(this).X;
-                line.Y2 = e.GetPosition(this).Y;
+                line.X2 = e.GetPosition(sender as FrameworkElement).X;
+                line.Y2 = e.GetPosition(sender as FrameworkElement).Y;
 
-                currentPoint = e.GetPosition(this);
+                currentPoint = e.GetPosition(sender as FrameworkElement);
 
                 canvas.Children.Add(line);
             }
