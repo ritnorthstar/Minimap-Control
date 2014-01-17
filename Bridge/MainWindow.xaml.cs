@@ -23,10 +23,8 @@ namespace Bridge
     /// </summary>
     public partial class MainWindow : Window
     {
-        Point currentPoint = new Point();
-        Point offset;
+        Point currentPoint = new Point(-1, -1);
         Map activeMap;
-        double zoomFactor = 2.0;
 
         public MainWindow()
         {
@@ -38,18 +36,23 @@ namespace Bridge
             Console.WriteLine("Event!");
         }
 
-        private void Canvas_MouseDown_1(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void canvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ButtonState == MouseButtonState.Pressed)
             {
-                offset = e.GetPosition(sender as FrameworkElement);
                 currentPoint = e.GetPosition(sender as FrameworkElement);
             }
         }
-
-        private void Canvas_MouseMove_1(object sender, System.Windows.Input.MouseEventArgs e)
+        
+        private void canvas_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed)
+            currentPoint.X = -1;
+            currentPoint.Y = -1;
+        }
+
+        private void Canvas_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed && currentPoint.X != -1)
             {
                 Line line = new Line();
 
@@ -82,6 +85,7 @@ namespace Bridge
             activeMap = Map.FromFile(filename);
             Console.WriteLine("Name: " + activeMap.name);
             Console.WriteLine("Number of tables: " + ((HashSet<DataTypes.TableBlock>)activeMap.tables).Count);
+            canvas.Children.Clear();
             activeMap.DrawSelf(canvas);
         }
 
@@ -132,5 +136,16 @@ namespace Bridge
             AboutWindow aboutWindow = new AboutWindow { Owner = this };
             aboutWindow.ShowDialog();
         }
+
+        private void ResetZoomWindow(object sender, MouseButtonEventArgs args)
+        {
+            mapCanvasScaleSlider.Value = 1.0;
+        }
+
+        private void ClearScreen(object sender, RoutedEventArgs e)
+        {
+            canvas.Children.Clear();
+        }
+
     }
 }
