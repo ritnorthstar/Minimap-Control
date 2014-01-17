@@ -44,10 +44,15 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
+    <Reference Include="ZoomableCanvas, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLLs\ZoomableCanvas.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Beacon.cs" />
     <Compile Include="Drawable.cs" />
+    <Compile Include="DrawingItemsSource.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="TableBlock.cs" />
@@ -57,6 +62,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DLLs\ZoomableCanvas.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
