@@ -14,10 +14,12 @@ namespace DataTypes
     public class DrawingItemsSource : IList, ZoomableCanvas.ISpatialItemsSource
     {
         private List<Drawable> drawingElements;
+        private int count;
 
-        public DrawingItemsSource()
+        public DrawingItemsSource(int size = 25)
         {
             drawingElements = new List<Drawable>();
+            count = size;
         }
 
         /// <summary>
@@ -117,7 +119,7 @@ namespace DataTypes
         {
             get
             {
-                return 25;// drawingElements.Count;
+                return count;// drawingElements.Count;
             }
         }
 
