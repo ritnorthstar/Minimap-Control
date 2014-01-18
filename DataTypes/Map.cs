@@ -9,7 +9,7 @@ using System.Windows.Controls;
 
 namespace DataTypes
 {
-    public class Map : Drawable
+    public class Map
     {
         public static int nextId = 0;
 
@@ -35,15 +35,22 @@ namespace DataTypes
             return JsonConvert.SerializeObject(this);
         }
 
-        public void DrawSelf(Canvas c)
+        public void GetDrawable()
         {
             try
             {
-                foreach (Wall w in walls) w.DrawSelf(c);
-                foreach (Beacon b in beacons) b.DrawSelf(c);
-                foreach (TableBlock t in tables) t.DrawSelf(c);
+                foreach (Wall w in walls) w.GetDrawable();
+                foreach (Beacon b in beacons) b.GetDrawable();
+                foreach (TableBlock t in tables) t.GetDrawable();
             }
-            catch (NotImplementedException) { }
+            catch (NotImplementedException e) { throw e; }
+        }
+
+        public void DrawOn(DrawingItemsSource source)
+        {
+            foreach (Wall w in walls) source.AddChild(w);
+            foreach (Beacon b in beacons) source.AddChild(b);
+            foreach (TableBlock t in tables) source.AddChild(t);
         }
 
         public static Map FromJson(string json)

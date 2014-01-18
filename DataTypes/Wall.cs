@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace DataTypes
 {
-    public class Wall : Impassable, Drawable
+    public class Wall : Impassable, IDrawable
     {
+        public double x { get; set; }
+        public double y { get; set; }
+
         public Wall(double x1, double y1, double x2, double y2)
         {
             this.x1 = x1;
@@ -16,7 +19,7 @@ namespace DataTypes
             this.y2 = y2;
         }
 
-        public void DrawSelf(System.Windows.Controls.Canvas c)
+        public object GetDrawable()
         {
             throw new NotImplementedException();
         }

@@ -51,7 +51,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Beacon.cs" />
-    <Compile Include="Drawable.cs" />
+    <Compile Include="DebugRect.cs" />
+    <Compile Include="IDrawable.cs" />
     <Compile Include="DrawingItemsSource.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Map.cs" />

@@ -75,21 +75,7 @@
             </StatusBarItem>
         </StatusBar>
 
-        <!--<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-            <Canvas Name="canvas" MouseDown="canvas_MouseDown" MouseMove="Canvas_MouseMove" MouseUp="canvas_MouseUp">
-                <Canvas.LayoutTransform>
-                    <ScaleTransform CenterX="0" CenterY="0"
-                                    ScaleX="{Binding ElementName=mapCanvasScaleSlider,Path=Value}"
-                                    ScaleY="{Binding ElementName=mapCanvasScaleSlider,Path=Value}" />
-                </Canvas.LayoutTransform>
-                <Canvas.Background>
-                    <SolidColorBrush Color="White" Opacity="0"/>
-                </Canvas.Background>
-            </Canvas>
-        </ScrollViewer>-->
-
         <ListBox x:Name="ListboxContainer" SizeChanged="Canvas_SizeChanged">
-
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <ZoomableCanvas Loaded="ZoomableCanvas_Loaded"
@@ -101,11 +87,8 @@
 
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
-
-                    <Setter Property="Canvas.Top" Value="{Binding top}"/>
-                    <Setter Property="Canvas.Left" Value="{Binding left}"/>
-                    <Setter Property="Width" Value="{Binding width}"/>
-                    <Setter Property="Height" Value="{Binding height}"/>
+                    <Setter Property="Canvas.Top" Value="{Binding y}"/>
+                    <Setter Property="Canvas.Left" Value="{Binding x}"/>
 
                     <Setter Property="VerticalContentAlignment" Value="Stretch"/>
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -120,47 +103,40 @@
                                       Stroke="{Binding brush}"
                                       StrokeThickness="2"
                                       Stretch="Fill"/>
-                                    <TextBlock Text="{Binding i}"
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding i}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Grid>
                             </DataTemplate>
                         </Setter.Value>
                     </Setter>
 
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding data}" Value="rectangle">
+                        <DataTrigger Binding="{Binding type}" Value="rectangle">
                             <Setter Property="ContentTemplate">
                                 <Setter.Value>
                                     <DataTemplate>
                                         <Grid>
-                                            <Rectangle Fill="{Binding brush}"
-                                                   RadiusX="10"
-                                                   RadiusY="10"/>
-                                            <TextBlock Text="{Binding i}"
-                                                   HorizontalAlignment="Center"
-                                                   VerticalAlignment="Center"/>
+                                            <Rectangle Fill="{Binding fill}" Stroke="{Binding border}" StrokeThickness="5"
+                                                       Width="{Binding width}" Height="{Binding height}"/>
+                                            <TextBlock Text="{Binding i}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                         </Grid>
                                     </DataTemplate>
                                 </Setter.Value>
                             </Setter>
                         </DataTrigger>
-
-                        <DataTrigger Binding="{Binding data}" Value="ellipse">
+                        
+                        <DataTrigger Binding="{Binding type}" Value="beacon">
                             <Setter Property="ContentTemplate">
                                 <Setter.Value>
                                     <DataTemplate>
                                         <Grid>
-                                            <Ellipse Fill="{Binding brush}"/>
-                                            <TextBlock Text="{Binding i}"
-                                                   HorizontalAlignment="Center"
-                                                   VerticalAlignment="Center"/>
+                                            <Ellipse Fill="DodgerBlue" Width="{Binding outerRadius}" Height="{Binding outerRadius}"/>
+                                            <Ellipse Fill="SkyBlue" Width="{Binding innerRadius}" Height="{Binding innerRadius}"/>
+                                            <TextBlock Text="{Binding id}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                         </Grid>
                                     </DataTemplate>
                                 </Setter.Value>
                             </Setter>
                         </DataTrigger>
-
                     </Style.Triggers>
                 </Style>
             </ListBox.ItemContainerStyle>

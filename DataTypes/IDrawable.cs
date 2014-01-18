@@ -7,8 +7,10 @@ using System.Windows.Controls;
 
 namespace DataTypes
 {
-    interface Drawable
+    public interface IDrawable
     {
-        void DrawSelf(Canvas c);
+        double x { get; set; }
+        double y { get; set; }
+        object GetDrawable();
     }
 }

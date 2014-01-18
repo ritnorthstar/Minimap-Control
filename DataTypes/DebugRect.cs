@@ -10,31 +10,33 @@ using ExtensionMethods;
 
 namespace DataTypes
 {
-    public class Beacon : IDrawable
+    public class DebugRect : IDrawable
     {
         public string id;
         public double x { get; set; }
         public double y { get; set; }
+        public double width, height;
 
-        public Beacon(string id, double x, double y)
+        public DebugRect(double x, double y, double width, double height)
         {
-            this.id = id;
+            this.id = "test";
             this.x = x;
             this.y = y;
+            this.width = width;
+            this.height = height;
         }
 
         public object GetDrawable()
         {
-            string type = "beacon";
+            string type = "rectangle";
+            Brush border = Brushes.Goldenrod;
 
-            int innerRadius = 20, outerRadius = 30;
-
-            return new { type, id, x, y, innerRadius, outerRadius };
+            return new { type, id, x, y, width, height, border};
         }
 
         public override string ToString()
         {
-            return String.Format("{0} - ({1}, {2})", id, x, y);
+            return String.Format("({0}, {1}) - {2}w{3}h", x, y, width, height);
         }
     }
 }

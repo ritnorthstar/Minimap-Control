@@ -25,7 +25,6 @@ namespace Bridge
     /// </summary>
     public partial class MainWindow : Window
     {
-        Point currentPoint = new Point(-1, -1);
         Map activeMap;
         ZoomableCanvas zoomCanvas;
         private DrawingItemsSource source;
@@ -33,8 +32,9 @@ namespace Bridge
         public MainWindow()
         {
             InitializeComponent();
-            source = new DrawingItemsSource(50);
+            source = new DrawingItemsSource();
             ListboxContainer.ItemsSource = source;
+            Console.WriteLine("Hooked up item source; num items: " + source.Count);
         }
 
         private void ZoomableCanvas_Loaded(object sender, RoutedEventArgs e)
@@ -46,38 +46,6 @@ namespace Bridge
         private void MenuItem_Click(object sender, RoutedEventArgs args)
         {
             Console.WriteLine("Event!");
-        }
-
-        private void canvas_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ButtonState == MouseButtonState.Pressed)
-            {
-                currentPoint = e.GetPosition(sender as FrameworkElement);
-            }
-        }
-        
-        private void canvas_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            currentPoint.X = -1;
-            currentPoint.Y = -1;
-        }
-
-        private void Canvas_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed && currentPoint.X != -1)
-            {
-                Line line = new Line();
-
-                line.Stroke = SystemColors.WindowFrameBrush;
-                line.X1 = currentPoint.X;
-                line.Y1 = currentPoint.Y;
-                line.X2 = e.GetPosition(sender as FrameworkElement).X;
-                line.Y2 = e.GetPosition(sender as FrameworkElement).Y;
-
-                currentPoint = e.GetPosition(sender as FrameworkElement);
-
-                //canvas.Children.Add(line);
-            }
         }
 
         Point LastMousePosition;
@@ -149,8 +117,10 @@ namespace Bridge
             activeMap = Map.FromFile(filename);
             Console.WriteLine("Name: " + activeMap.name);
             Console.WriteLine("Number of tables: " + ((HashSet<DataTypes.TableBlock>)activeMap.tables).Count);
-            //canvas.Children.Clear();
-            //activeMap.DrawSelf(canvas);
+            
+            source.ClearChildren();
+            activeMap.DrawOn(source);
+            source.AddChild(new DebugRect(0, 0, source.Extent.Width, source.Extent.Height));
         }
 
         private void QuitProgram(object sender, ExecutedRoutedEventArgs args)
@@ -208,7 +178,7 @@ namespace Bridge
 
         private void ClearScreen(object sender, RoutedEventArgs e)
         {
-            //canvas.Children.Clear();
+            source.ClearChildren();
         }
 
         private void mapCanvasScaleSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -228,7 +198,7 @@ namespace Bridge
             zoomCanvas.Scale = factor;
 
             // Now translate to the proper center
-            Console.WriteLine("scaling on point: " + p.ToString());
+            //Console.WriteLine("scaling on point: " + p.ToString());
             Vector position = (Vector)p;
             zoomCanvas.Offset = (Point)((Vector)(zoomCanvas.Offset + position) * scaleDifference - position);
         }
@@ -238,6 +208,5 @@ namespace Bridge
             Console.WriteLine("offset: " + zoomCanvas.Offset.ToString());
             Console.WriteLine("Actual: " + zoomCanvas.ActualWidth + ", " + zoomCanvas.ActualHeight);
         }
-
     }
 }

@@ -13,13 +13,14 @@ namespace DataTypes
 {
     public class DrawingItemsSource : IList, ZoomableCanvas.ISpatialItemsSource
     {
-        private List<Drawable> drawingElements;
-        private int count;
+        private List<IDrawable> drawingElements;
+        private Rect extent;
 
-        public DrawingItemsSource(int size = 25)
+        public DrawingItemsSource()
         {
-            drawingElements = new List<Drawable>();
-            count = size;
+            extent = new Rect(0, 0, 500, 500);
+            drawingElements = new List<IDrawable>();// { new DebugRect(0, 0, extent.Width, extent.Height) };
+            Console.WriteLine("Just made debugrect");
         }
 
         /// <summary>
@@ -29,10 +30,7 @@ namespace DataTypes
         {
             get
             {
-                var sqrt = Math.Sqrt(Count);
-                return new Rect(0, 0,
-                    100 * (Math.Ceiling(sqrt)),
-                    100 * (Math.Round(sqrt)));
+                return extent;
             }
         }
 
@@ -43,83 +41,81 @@ namespace DataTypes
         /// <returns></returns>
         public IEnumerable<int> Query(Rect viewbox)
         {
-            viewbox.Intersect(Extent);
+            IEnumerable<int> output;
+            Console.WriteLine("elements: " + drawingElements.Count);
 
-            var top = Math.Floor(viewbox.Top / 100);
-            var left = Math.Floor(viewbox.Left / 100);
-            var right = Math.Ceiling(viewbox.Right / 100);
-            var bottom = Math.Ceiling(viewbox.Bottom / 100);
-            var width = Math.Max(right - left, 0);
-            var height = Math.Max(bottom - top, 0);
-
-            foreach (var cell in Quadivide(new Rect(left, top, width, height)))
+            if (drawingElements.Count > 0)
             {
-                var x = cell.X;
-                var y = cell.Y;
-                var i = x > y ?
-                    Math.Pow(x, 2) + y :
-                    Math.Pow(y, 2) + 2 * y - x;
-                if (i < Count)
-                {
-                    yield return (int)i;
-                }
+                output = Enumerable.Range(0, drawingElements.Count);
+                Console.WriteLine("true");
             }
+            else
+            {
+                output = new List<int>();
+                Console.WriteLine("False");
+            }
+            List<string> test = new List<string>();
+
+            foreach(IDrawable d in drawingElements)
+                test.Add(String.Format("{0}: {1} - {2}", test.Count, d.GetType(), d.ToString()));
+    
+            Console.WriteLine("query results (" + test.Count + ":");
+
+            foreach (string s in test)
+                Console.WriteLine(s);
+
+            Console.WriteLine("Output: " + String.Join(", ", output.ToArray<int>()));
+
+            return output;
+        }
+
+        public void AddChild(IDrawable child)
+        {
+            drawingElements.Add(child);
+            updateDrawBounds(child);
+        }
+
+        private void updateDrawBounds(IDrawable child)
+        {
+            if (extent.Width < child.x) extent = new Rect(0, 0, child.x + 50, extent.Height);
+            if (extent.Height < child.y) extent = new Rect(0, 0, extent.Width, child.y + 50);
+            Console.WriteLine("Extent rect updated to " + extent.ToString());
+        }
+
+        public void ClearChildren()
+        {
+            drawingElements.Clear();
         }
 
         public object this[int i]
         {
             get
             {
-                // Give the item a deterministic seed.
-                var rand = new Random(i);
-                var sqrt = (int)Math.Sqrt(i);
+                Console.WriteLine("Getting drawable " + i);
 
-                // With a random width and height between 50 and 100.
-                var width = rand.Next(50, 100);
-                var height = rand.Next(50, 100);
+                if (Count == 0)
+                {
+                    return null;
+                }
 
-                // And place it at a random position in a grid-like pattern.
-                var top = Math.Min(sqrt, i - Math.Pow(sqrt, 2))
-                          * 100 + rand.Next(100 - height);
-                var left = Math.Min(sqrt, sqrt * 2 - (i - Math.Pow(sqrt, 2)))
-                           * 100 + rand.Next(100 - width);
-
-                // Randomly generate the outline of the item.
-                var type = rand.Next(3);
-                var data = type == 0 ? "ellipse" :
-                           type == 1 ? "rectangle" :
-                           String.Format("M{0},{1} C{2},{3} {4},{5} {6},{7}",
-                               rand.NextDouble(),
-                               rand.NextDouble(),
-                               rand.NextDouble(),
-                               rand.NextDouble(),
-                               rand.NextDouble(),
-                               rand.NextDouble(),
-                               rand.NextDouble(),
-                               rand.NextDouble());
-
-                // Give it random gradient colors.
-                var brush = new LinearGradientBrush(
-                                Color.FromScRgb(1f, (float)rand.NextDouble(),
-                                                    (float)rand.NextDouble(),
-                                                    (float)rand.NextDouble()),
-                                Color.FromScRgb(1f, (float)rand.NextDouble(),
-                                                    (float)rand.NextDouble(),
-                                                    (float)rand.NextDouble()),
-                                180 * rand.NextDouble());
-
-                return new { top, left, width, height, data, brush, i };
+                try
+                {
+                    return drawingElements[i].GetDrawable();
+                }
+                catch (NotImplementedException)
+                {
+                    Console.WriteLine("Item #" + i + " isn't implemented (" + drawingElements[i].GetType().ToString() + ")");
+                    return null;
+                }
             }
-            set
-            {
-            }
+            set { }
         }
 
         public int Count
         {
             get
             {
-                return count;// drawingElements.Count;
+                return drawingElements.Count;
             }
         }
 

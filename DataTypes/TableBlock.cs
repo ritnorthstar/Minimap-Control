@@ -10,10 +10,13 @@ using ExtensionMethods;
 
 namespace DataTypes
 {
-    public class TableBlock : Impassable, Drawable
+    public class TableBlock : Impassable, IDrawable
     {
         public int numTablesWide;
         public int numTablesTall;
+
+        public double x { get; set; }
+        public double y { get; set; }
 
         public TableBlock(double x1, double y1, double x2, double y2)
         {
@@ -25,9 +28,9 @@ namespace DataTypes
             numTablesWide = 1;
         }
 
-        public void DrawSelf(Canvas c)
+        public object GetDrawable()
         {
-            Rectangle rect = new Rectangle { Width = this.width, Height = this.height, Stroke = Brushes.Black};
+            /*Rectangle rect = new Rectangle { Width = this.width, Height = this.height, Stroke = Brushes.Black};
             c.AddChild(rect, x1, y1);
 
             for (int n = 1; n < numTablesTall; n++)
@@ -50,7 +53,9 @@ namespace DataTypes
                 l.Y1 = y1;
                 l.Y2 = y2;
                 c.Children.Add(l);
-            }
+            }*/
+
+            throw new NotImplementedException();
         }
     }
 }
