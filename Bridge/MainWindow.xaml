@@ -84,7 +84,6 @@
                                     RealizationPriority="Background"/>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
-
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
                     <Setter Property="Canvas.Top" Value="{Binding y}"/>
@@ -123,7 +122,21 @@
                                 </Setter.Value>
                             </Setter>
                         </DataTrigger>
-                        
+
+                        <DataTrigger Binding="{Binding type}" Value="tableBlock">
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Rectangle Fill="{Binding fill}" Stroke="{Binding border}" StrokeThickness="5"
+                                                       Width="{Binding width}" Height="{Binding height}"/>
+                                            <TextBlock Text="{Binding i}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+
                         <DataTrigger Binding="{Binding type}" Value="beacon">
                             <Setter Property="ContentTemplate">
                                 <Setter.Value>
