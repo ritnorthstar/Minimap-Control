@@ -17,12 +17,15 @@ namespace DataTypes
 
         public double x { get; set; }
         public double y { get; set; }
-        public double width, height;
-
-        public TableBlock(double x1, double y1, double width, double height)
+        public int z { get; set; }
+        new public double width { get; set; }
+        new public double height { get; set; }
+        
+        public TableBlock(double x, double y, double width, double height)
         {
             this.x = x;
             this.y = y;
+            z = 50;
             this.width = width;
             this.height = height;
             numTablesTall = 1;
@@ -53,9 +56,8 @@ namespace DataTypes
             }*/
 
             string type = "tableBlock";
-            Brush border = Brushes.Black;
 
-            return new { type, x, y, width, height, border };
+            return new { type, x, y, width, height, z };
         }
 
         public override string ToString()

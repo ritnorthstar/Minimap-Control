@@ -10,13 +10,16 @@ namespace DataTypes
     {
         public double x { get; set; }
         public double y { get; set; }
+        public int z { get; set; }
+        new public double width { get; set; }
+        new public double height { get; set; }
 
-        public Wall(double x1, double y1, double x2, double y2)
+        public Wall(double x, double y, double width, double height)
         {
-            this.x1 = x1;
-            this.y1 = y1;
-            this.x2 = x2;
-            this.y2 = y2;
+            this.x = x;
+            this.y = y;
+            this.width = width;
+            this.height = height;
         }
 
         public object GetDrawable()

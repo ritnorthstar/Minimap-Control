@@ -87,7 +87,7 @@ namespace Bridge
 
             LastMousePosition = position;
         }
-
+        
         private void Canvas_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (zoomCanvas == null) return;
@@ -207,6 +207,11 @@ namespace Bridge
         {
             Console.WriteLine("offset: " + zoomCanvas.Offset.ToString());
             Console.WriteLine("Actual: " + zoomCanvas.ActualWidth + ", " + zoomCanvas.ActualHeight);
+        }
+        
+        private void ListboxContainer_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            selectedObjectText.Text = e.AddedItems[0].ToString();
         }
     }
 }

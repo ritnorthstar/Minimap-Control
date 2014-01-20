@@ -12,26 +12,30 @@ namespace DataTypes
 {
     public class DebugRect : IDrawable
     {
+        const string type = "rectangle";
         public string id;
         public double x { get; set; }
         public double y { get; set; }
-        public double width, height;
+        public int z { get; set; }
+        public double width { get; set; }
+        public double height { get; set; }
+        public Brush border;
+        public Brush fill;
 
         public DebugRect(double x, double y, double width, double height)
         {
             this.id = "test";
             this.x = x;
             this.y = y;
+            this.z = -1;
             this.width = width;
             this.height = height;
+            border = Brushes.Goldenrod;
         }
 
         public object GetDrawable()
         {
-            string type = "rectangle";
-            Brush border = Brushes.Goldenrod;
-
-            return new { type, id, x, y, width, height, border};
+            return new { type, id, x, y, width, height, border, z };
         }
 
         public override string ToString()

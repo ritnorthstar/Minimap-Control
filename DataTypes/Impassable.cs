@@ -8,11 +8,11 @@ namespace DataTypes
 {
     public abstract class Impassable
     {
-        public double x1 { get; set; }
-        public double y1 { get; set; }
-        public double x2 { get; set; }
-        public double y2 { get; set; }
-        public double width { get { return x2 - x1; } } //TODO: Make sure x2 > x1; either swap at creation or dynamic check
-        public double height { get { return y2 - y1; } }
+        public double x { get; set; }
+        public double y { get; set; }
+        public double width { get; set; }
+        public double height { get; set; }
+        public double x2 { get { return x + width; } }
+        public double y2 { get { return y + height; } }
     }
 }
