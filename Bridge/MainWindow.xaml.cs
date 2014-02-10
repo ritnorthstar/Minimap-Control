@@ -198,7 +198,6 @@ namespace Bridge
             zoomCanvas.Scale = factor;
 
             // Now translate to the proper center
-            //Console.WriteLine("scaling on point: " + p.ToString());
             Vector position = (Vector)p;
             zoomCanvas.Offset = (Point)((Vector)(zoomCanvas.Offset + position) * scaleDifference - position);
         }
