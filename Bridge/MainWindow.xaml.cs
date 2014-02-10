@@ -16,6 +16,7 @@ using DataTypes;
 using System.IO;
 using System.Collections.ObjectModel;
 using System.Windows.Controls.Primitives;
+using Northstar.Minimap.Control.Server.Host;
 
 
 namespace Bridge
@@ -28,6 +29,7 @@ namespace Bridge
         Map activeMap;
         ZoomableCanvas zoomCanvas;
         private DrawingItemsSource source;
+        private WebAPIServer server;
 
         public MainWindow()
         {
@@ -35,6 +37,8 @@ namespace Bridge
             source = new DrawingItemsSource();
             ListboxContainer.ItemsSource = source;
             Console.WriteLine("Hooked up item source; num items: " + source.Count);
+
+            server = new WebAPIServer();
         }
 
         private void ZoomableCanvas_Loaded(object sender, RoutedEventArgs e)
@@ -142,6 +146,8 @@ namespace Bridge
                 success = true;
                 status = SERVER_PAUSED;
                 toggleRunningMenuItem.Header = "Continue";
+
+                server.Stop();
             }
 
             else
@@ -150,6 +156,8 @@ namespace Bridge
                 success = true;
                 status = SERVER_RUNNING;
                 toggleRunningMenuItem.Header = "Pause";
+
+                server.Start();
             }
 
             if(success)
@@ -163,6 +171,8 @@ namespace Bridge
             serverIsRunning = false;
             runningStatusItem.Text = SERVER_STOPPED;
             toggleRunningMenuItem.Header = "Start";
+
+            server.Stop();
         }
 
         private void LaunchAboutWindow(object sender, RoutedEventArgs args)
