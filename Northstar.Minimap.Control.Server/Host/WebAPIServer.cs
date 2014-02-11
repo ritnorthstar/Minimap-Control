@@ -9,12 +9,14 @@ namespace Northstar.Minimap.Control.Server.Host
     public class WebAPIServer
     {
         private IDisposable instance;
+        private string serverUrl = "http://localhost:9000/";
 
         public void Start()
         {
             if (instance == null)
             {
-                instance = WebApp.Start<Startup>(url: "http://localhost:9000/");
+                instance = WebApp.Start<Startup>(url: serverUrl);
+                Console.WriteLine("Starting web server");
             }
         }
 
@@ -24,6 +26,7 @@ namespace Northstar.Minimap.Control.Server.Host
             {
                 instance.Dispose();
                 instance = null;
+                Console.WriteLine("Stopping web server");
             }
         }
 

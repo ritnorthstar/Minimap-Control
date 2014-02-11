@@ -11,6 +11,14 @@ namespace Northstar.Minimap.Control.Server.Models
         private List<Map> maps = new List<Map>();
         private int nextId = 1;
 
+        public LocalMapRepository()
+        {
+            maps.Add(new Map("Clark Gym"));
+            maps.Add(new Map("Gordon Field House"));
+            maps.Add(new Map("Gracie's Field"));
+            maps.Add(new Map("Global Village Plaza"));
+        }
+
         public IEnumerable<Map> GetAll()
         {
             return maps;
