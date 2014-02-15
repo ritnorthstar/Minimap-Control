@@ -15,7 +15,7 @@ namespace Northstar.Minimap.Control.Server.Host
         {
             if (instance == null)
             {
-                instance = WebApp.Start<Startup>(url: serverUrl);
+                instance = WebApp.Start<Startup>(url: "http://*:9000/");
                 Console.WriteLine("Starting web server");
             }
         }
