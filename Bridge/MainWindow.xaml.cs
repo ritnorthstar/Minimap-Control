@@ -17,6 +17,8 @@ using System.IO;
 using System.Collections.ObjectModel;
 using System.Windows.Controls.Primitives;
 using Northstar.Minimap.Control.Server.Host;
+using System.Collections.Specialized;
+using System.Net;
 
 
 namespace Bridge
@@ -41,18 +43,60 @@ namespace Bridge
             server = new WebAPIServer();
         }
 
+        private void QuitProgram(object sender, ExecutedRoutedEventArgs args)
+        {
+            Application.Current.Shutdown();
+        }
+        
+        #region Dialog launching
+
+        private void LaunchAboutWindow(object sender, RoutedEventArgs args)
+        {
+            AboutWindow aboutWindow = new AboutWindow { Owner = this };
+            aboutWindow.ShowDialog();
+        }
+
+        private void OpenMapDialog(object sender, ExecutedRoutedEventArgs args)
+        {
+            Microsoft.Win32.OpenFileDialog openDialog = new Microsoft.Win32.OpenFileDialog();
+
+            openDialog.DefaultExt = ".map";
+            openDialog.Filter = "Minimap map files (*.map)|*.map";
+
+            Nullable<bool> result = openDialog.ShowDialog();
+
+            if (result == false) return; // TODO: throw an exception
+
+            string filename = openDialog.FileName;
+            Console.WriteLine("File selected: " + filename);
+
+            activeMap = Map.FromFile(filename);
+            Console.WriteLine("Name: " + activeMap.name);
+            Console.WriteLine("Number of tables: " + ((HashSet<DataTypes.TableBlock>)activeMap.tables).Count);
+
+            source.ClearChildren();
+            activeMap.DrawOn(source);
+            source.AddChild(new DebugRect(0, 0, source.Extent.Width, source.Extent.Height));
+        }
+
+        #endregion
+        
+        #region UI handling
+
+        #region Canvas
+
+        Point LastMousePosition;
+
         private void ZoomableCanvas_Loaded(object sender, RoutedEventArgs e)
         {
             // Store the canvas in a local variable since x:Name doesn't work.
             zoomCanvas = (ZoomableCanvas)sender;
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs args)
+        private void ClearScreen(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("Event!");
+            source.ClearChildren();
         }
-
-        Point LastMousePosition;
 
         protected override void OnPreviewMouseMove(MouseEventArgs e)
         {
@@ -83,7 +127,7 @@ namespace Bridge
                 }
 
                 else { nextY = (zoomCanvas.ActualHeight - source.Extent.Height * zoomCanvas.Scale) / -2; } // viewport is taller than contents, center
-                
+
                 zoomCanvas.Offset = new Point(nextX, nextY);
                 e.Handled = true;
             }
@@ -91,7 +135,7 @@ namespace Bridge
 
             LastMousePosition = position;
         }
-        
+
         private void Canvas_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (zoomCanvas == null) return;
@@ -103,44 +147,45 @@ namespace Bridge
                 zoomCanvas.Offset = new Point(nextX, nextY);
             }
         }
-        
-        private void OpenMapDialog(object sender, ExecutedRoutedEventArgs args)
+
+        private void scaleOnPoint(double factor, Point p)
         {
-            Microsoft.Win32.OpenFileDialog openDialog = new Microsoft.Win32.OpenFileDialog();
 
-            openDialog.DefaultExt = ".map";
-            openDialog.Filter = "Minimap map files (*.map)|*.map";
-            
-            Nullable<bool> result = openDialog.ShowDialog();
+            double scaleDifference = factor / zoomCanvas.Scale;
+            zoomCanvas.Scale = factor;
 
-            if (result == false) return; // TODO: throw an exception
-
-            string filename = openDialog.FileName;
-            Console.WriteLine("File selected: " + filename);
-
-            activeMap = Map.FromFile(filename);
-            Console.WriteLine("Name: " + activeMap.name);
-            Console.WriteLine("Number of tables: " + ((HashSet<DataTypes.TableBlock>)activeMap.tables).Count);
-            
-            source.ClearChildren();
-            activeMap.DrawOn(source);
-            source.AddChild(new DebugRect(0, 0, source.Extent.Width, source.Extent.Height));
+            // translate to the proper center
+            Vector position = (Vector)p;
+            zoomCanvas.Offset = (Point)((Vector)(zoomCanvas.Offset + position) * scaleDifference - position);
         }
 
-        private void QuitProgram(object sender, ExecutedRoutedEventArgs args)
+        private void ListboxContainer_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Application.Current.Shutdown();
+            selectedObjectText.Text = e.AddedItems[0].ToString();
         }
 
-        bool serverIsRunning = false; // TODO: use an actual server class
+        #endregion
+
+        #region Menu
+
+        bool serverIsRunning = false;
         const string SERVER_STOPPED = "Stopped", SERVER_RUNNING = "Running", SERVER_PAUSED = "Paused";
+
+        private void RestartServer(object sender, RoutedEventArgs args)
+        {
+            serverIsRunning = false;
+            runningStatusItem.Text = SERVER_STOPPED;
+            toggleRunningMenuItem.Header = "Start";
+
+            server.Stop();
+        }
 
         private void ToggleRunningStatus(object sender, RoutedEventArgs args)
         {
             bool success = false;
             string status;
 
-            if(serverIsRunning)
+            if (serverIsRunning)
             {
                 serverIsRunning = false; // pause server
                 success = true;
@@ -152,6 +197,8 @@ namespace Bridge
 
             else
             {
+                if(activeMap == null) OpenMapDialog(null, null);
+                if (activeMap == null) return; // user cancelled map-opening
                 serverIsRunning = true; // resume server
                 success = true;
                 status = SERVER_RUNNING;
@@ -160,67 +207,52 @@ namespace Bridge
                 server.Start();
             }
 
-            if(success)
+            if (success)
             {
                 runningStatusItem.Text = status;
+
+                try
+                {
+                    using (WebClient wb = new WebClient())
+                    {
+                        NameValueCollection data = new NameValueCollection();
+                        data["map"] = activeMap.ToJson();
+
+                        var response = wb.UploadValues("http://127.0.0.1:9000/api/Maps/", "POST", data);
+                    }
+                }
+
+                catch (WebException e) { Console.WriteLine(e.Data); }
             }
         }
+      
+        #endregion
 
-        private void RestartServer(object sender, RoutedEventArgs args)
-        {
-            serverIsRunning = false;
-            runningStatusItem.Text = SERVER_STOPPED;
-            toggleRunningMenuItem.Header = "Start";
+        #region Sidebar
 
-            server.Stop();
-        }
 
-        private void LaunchAboutWindow(object sender, RoutedEventArgs args)
-        {
-            AboutWindow aboutWindow = new AboutWindow { Owner = this };
-            aboutWindow.ShowDialog();
-        }
+
+        #endregion
+
+        #region Statusbar
 
         private void ResetZoomWindow(object sender, MouseButtonEventArgs args)
         {
             mapCanvasScaleSlider.Value = 1.0;
         }
 
-        private void ClearScreen(object sender, RoutedEventArgs e)
-        {
-            source.ClearChildren();
-        }
-
         private void mapCanvasScaleSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             try
             {
-                scaleOnPoint(e.NewValue, new Point(zoomCanvas.ActualWidth/2, zoomCanvas.ActualHeight/2));
+                scaleOnPoint(e.NewValue, new Point(zoomCanvas.ActualWidth / 2, zoomCanvas.ActualHeight / 2));
                 e.Handled = true;
             }
             catch (NullReferenceException) { }
         }
 
-        private void scaleOnPoint(double factor, Point p)
-        {
+        #endregion
 
-            double scaleDifference = factor / zoomCanvas.Scale;
-            zoomCanvas.Scale = factor;
-
-            // Now translate to the proper center
-            Vector position = (Vector)p;
-            zoomCanvas.Offset = (Point)((Vector)(zoomCanvas.Offset + position) * scaleDifference - position);
-        }
-
-        private void printDebugInfo(object sender, ExecutedRoutedEventArgs e)
-        {
-            Console.WriteLine("offset: " + zoomCanvas.Offset.ToString());
-            Console.WriteLine("Actual: " + zoomCanvas.ActualWidth + ", " + zoomCanvas.ActualHeight);
-        }
-        
-        private void ListboxContainer_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            selectedObjectText.Text = e.AddedItems[0].ToString();
-        }
+        #endregion
     }
 }

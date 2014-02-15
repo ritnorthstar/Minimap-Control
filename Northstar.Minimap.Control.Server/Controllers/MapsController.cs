@@ -30,6 +30,7 @@ namespace Northstar.Minimap.Control.Server.Controllers
 
         public HttpResponseMessage PostMap(Map map)
         {
+            Console.WriteLine("Map posted");
             map = repository.Add(map);
             var response = Request.CreateResponse<Map>(HttpStatusCode.Created, map);
 

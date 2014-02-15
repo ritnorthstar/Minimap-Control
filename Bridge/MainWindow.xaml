@@ -6,12 +6,10 @@
     <Window.CommandBindings>
         <CommandBinding Command="Open" Executed="OpenMapDialog" />
         <CommandBinding Command="Close" Executed="QuitProgram" />
-        <CommandBinding Command="Print" Executed="printDebugInfo" />
     </Window.CommandBindings>
     <Window.InputBindings>
         <KeyBinding Key="O" Modifiers="Control" Command="Open" />
         <KeyBinding Key="Q" Modifiers="Control" Command="Close" />
-        <KeyBinding Key="P" Command="Print" />
     </Window.InputBindings>
 
     <DockPanel>
