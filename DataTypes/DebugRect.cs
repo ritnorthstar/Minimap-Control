@@ -19,6 +19,7 @@ namespace DataTypes
         public int z { get; set; }
         public double width { get; set; }
         public double height { get; set; }
+        public string guid { get; set; }
         public Brush border;
         public Brush fill;
 
@@ -31,11 +32,13 @@ namespace DataTypes
             this.width = width;
             this.height = height;
             border = Brushes.Goldenrod;
+            guid = System.Guid.NewGuid().ToString();
         }
 
         public object GetDrawable()
         {
-            return new { type, id, x, y, width, height, border, z };
+            //return this;
+            return new { type, id, x, y, width, height, border, z, guid };
         }
 
         public override string ToString()

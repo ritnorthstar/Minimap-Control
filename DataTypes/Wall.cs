@@ -13,6 +13,7 @@ namespace DataTypes
         public int z { get; set; }
         new public double width { get; set; }
         new public double height { get; set; }
+        public string guid { get; set; }
 
         public Wall(double x, double y, double width, double height)
         {
@@ -20,6 +21,7 @@ namespace DataTypes
             this.y = y;
             this.width = width;
             this.height = height;
+            guid = System.Guid.NewGuid().ToString();
         }
 
         public object GetDrawable()

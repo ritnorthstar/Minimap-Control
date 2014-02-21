@@ -18,8 +18,9 @@ namespace DataTypes
         public HashSet<Wall> walls;
         public HashSet<TableBlock> tables;
         public HashSet<Beacon> beacons;
+        private Dictionary<string, IDrawable> idTable;
 
-        public Map() { }
+        public Map() { idTable = new Dictionary<string, IDrawable>(); }
 
         public Map(string name)
         {
@@ -28,11 +29,34 @@ namespace DataTypes
             walls = new HashSet<Wall>();
             tables = new HashSet<TableBlock>();
             beacons = new HashSet<Beacon>();
+            idTable = new Dictionary<string, IDrawable>();
+        }
+
+        public void Add(IDrawable drawable)
+        {
+            if (drawable is Wall)
+                walls.Add((Wall)drawable);
+            else if (drawable is TableBlock)
+                tables.Add((TableBlock)drawable);
+            else if (drawable is Beacon)
+                beacons.Add((Beacon)drawable);
+
+            idTable[drawable.guid] = drawable;
+        }
+
+        public Dictionary<string, IDrawable> IdTable()
+        {
+            return idTable;
         }
 
         public string ToJson()
         {
             return JsonConvert.SerializeObject(this);
+        }
+
+        public IDrawable GetDrawable(string guid)
+        {
+            return idTable.ContainsKey(guid) ? idTable[guid] : null;
         }
 
         public void GetDrawable()
@@ -53,14 +77,30 @@ namespace DataTypes
             foreach (TableBlock t in tables) source.AddChild(t);
         }
 
+        public void UpdateGuidTable()
+        {
+            List<IDrawable> drawables = walls.ToList<IDrawable>();
+            drawables.AddRange(beacons);
+            drawables.AddRange(tables);
+
+            foreach(IDrawable d in drawables)
+            {
+                if(! idTable.ContainsKey(d.guid))
+                    idTable[d.guid] = d;
+            }
+        }
+
         public static Map FromJson(string json)
         {
-            return JsonConvert.DeserializeObject<Map>(json);
+            Map output = JsonConvert.DeserializeObject<Map>(json);
+            output.UpdateGuidTable();
+            return output;
         }
 
         public static Map FromFile(string filename)
         {
-            return Map.FromJson(File.ReadAllText(filename));
+            Map output =  Map.FromJson(File.ReadAllText(filename));
+            return output;
         }
     }
 }

@@ -18,6 +18,8 @@ namespace DataTypes
         public int z { get; set; }
         public double width { get; set; }
         public double height { get; set; }
+        public string guid { get; set; }
+        const string type = "beacon";
 
         public static int innerRadius = 20, outerRadius = 30;
 
@@ -27,13 +29,13 @@ namespace DataTypes
             this.x = x - outerRadius/2;
             this.y = y - outerRadius/2;
             this.z = 100;
+            guid = System.Guid.NewGuid().ToString();
         }
 
         public object GetDrawable()
         {
-            string type = "beacon";
-            
-            return new { type, id, x, y, innerRadius, outerRadius, z };
+            //return this;
+            return new { type, id, x, y, innerRadius, outerRadius, z, guid };
         }
 
         public override string ToString()

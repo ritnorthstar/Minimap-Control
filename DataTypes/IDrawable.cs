@@ -14,6 +14,7 @@ namespace DataTypes
         int z { get; set; }
         double width { get; set; }
         double height { get; set; }
+        string guid { get; set; }
 
         object GetDrawable();
     }

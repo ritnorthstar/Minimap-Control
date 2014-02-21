@@ -20,6 +20,8 @@ namespace DataTypes
         public int z { get; set; }
         new public double width { get; set; }
         new public double height { get; set; }
+        public string guid { get; set; }
+        const string type = "tableBlock";
         
         public TableBlock(double x, double y, double width, double height)
         {
@@ -28,11 +30,12 @@ namespace DataTypes
             z = 50;
             this.width = width;
             this.height = height;
+            guid = System.Guid.NewGuid().ToString();
             numTablesTall = 1;
             numTablesWide = 1;
         }
 
-        public object GetDrawable()
+        public Object GetDrawable()
         {
             /*
             for (int n = 1; n < numTablesTall; n++)
@@ -54,10 +57,8 @@ namespace DataTypes
                 l.Y1 = y1;
                 l.Y2 = y2;
             }*/
-
-            string type = "tableBlock";
-
-            return new { type, x, y, width, height, z };
+            //return this as object;
+            return new { type, x, y, width, height, z, guid};
         }
 
         public override string ToString()

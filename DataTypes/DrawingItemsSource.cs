@@ -85,12 +85,10 @@ namespace DataTypes
             drawingElements.Clear();
         }
 
-        public object this[int i]
+        public Object this[int i]
         {
             get
             {
-                //Console.WriteLine("Getting drawable " + i);
-
                 if (Count == 0)
                 {
                     return null;

@@ -19,6 +19,7 @@ using System.Windows.Controls.Primitives;
 using Northstar.Minimap.Control.Server.Host;
 using System.Collections.Specialized;
 using System.Net;
+using System.Text.RegularExpressions;
 
 
 namespace Bridge
@@ -161,9 +162,22 @@ namespace Bridge
 
         private void ListboxContainer_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            selectedObjectText.Text = e.AddedItems[0].ToString();
-        }
+            object selected = e.AddedItems[0];
+            //Console.WriteLine(selected.ToString());
+            //Console.WriteLine(selected.GetType().ToString());
+            //dynamic d = selected;
+            //Console.WriteLine("guid: " + d.guid);
+            
+            Match match = Regex.Match(selected.ToString(), "guid = ((?:[0-9a-f]+-?)+)");
 
+            if (match.Success)
+            {
+                string guid = match.Groups[1].Value;
+                IDrawable selectedDrawable = activeMap.GetDrawable(guid);
+                selectedObjectText.Text = selectedDrawable.ToString();
+            }
+        }
+        
         #endregion
 
         #region Menu
