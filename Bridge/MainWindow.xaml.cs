@@ -78,6 +78,13 @@ namespace Bridge
             source.ClearChildren();
             activeMap.DrawOn(source);
             source.AddChild(new DebugRect(0, 0, source.Extent.Width, source.Extent.Height));
+
+            TeamManager manager = TeamManager.Instance();
+            Team t1 = new Team(0, Brushes.Firebrick);
+            manager.Add(new Judge(75, 75, "Jake"), t1);
+
+            manager.DrawOnSource(source);
+            manager.UpdateIdTable(activeMap);
         }
 
         #endregion
@@ -163,10 +170,6 @@ namespace Bridge
         private void ListboxContainer_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             object selected = e.AddedItems[0];
-            //Console.WriteLine(selected.ToString());
-            //Console.WriteLine(selected.GetType().ToString());
-            //dynamic d = selected;
-            //Console.WriteLine("guid: " + d.guid);
             
             Match match = Regex.Match(selected.ToString(), "guid = ((?:[0-9a-f]+-?)+)");
 

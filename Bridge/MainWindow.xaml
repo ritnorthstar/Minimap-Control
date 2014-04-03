@@ -147,7 +147,7 @@
                                         <Grid>
                                             <Rectangle Fill="{Binding fill}" Stroke="{Binding border}" StrokeThickness="5"
                                                        Width="{Binding width}" Height="{Binding height}" Panel.ZIndex="-1"/>
-                                            <TextBlock Text="{Binding i}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            <TextBlock Text="{Binding id}" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                         </Grid>
                                     </DataTemplate>
                                 </Setter.Value>
@@ -162,7 +162,7 @@
                                         <Grid>
                                             <Rectangle Fill="{Binding fill}" Stroke="Black" StrokeThickness="5"
                                                        Width="{Binding width}" Height="{Binding height}" Panel.ZIndex="50"/>
-                                            <TextBlock Text="{Binding i}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{Binding id}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                         </Grid>
                                     </DataTemplate>
                                 </Setter.Value>
@@ -174,8 +174,21 @@
                                 <Setter.Value>
                                     <DataTemplate>
                                         <Grid>
-                                            <Ellipse Fill="DodgerBlue" Width="{Binding outerRadius}" Height="{Binding outerRadius}" Panel.ZIndex="97"/>
-                                            <Ellipse Fill="SkyBlue" Width="{Binding innerRadius}" Height="{Binding innerRadius}" Panel.ZIndex="98"/>
+                                            <Ellipse Fill="DodgerBlue" Width="{Binding outerRadius}" Height="{Binding outerRadius}" Panel.ZIndex="73"/>
+                                            <Ellipse Fill="SkyBlue" Width="{Binding innerRadius}" Height="{Binding innerRadius}" Panel.ZIndex="74"/>
+                                            <TextBlock Text="{Binding id}" HorizontalAlignment="Center" VerticalAlignment="Center" Panel.ZIndex="75"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                        
+                        <DataTrigger Binding="{Binding type}" Value="judge">
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Polygon Points="0,-15 20,-15 10,5" Fill="{Binding fill}"/>
                                             <TextBlock Text="{Binding id}" HorizontalAlignment="Center" VerticalAlignment="Center" Panel.ZIndex="99"/>
                                         </Grid>
                                     </DataTemplate>

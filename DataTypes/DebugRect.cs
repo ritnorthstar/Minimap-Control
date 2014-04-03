@@ -23,22 +23,25 @@ namespace DataTypes
         public Brush border;
         public Brush fill;
 
-        public DebugRect(double x, double y, double width, double height)
+        public DebugRect(double x, double y, double width, double height, string text)
         {
-            this.id = "test";
             this.x = x;
             this.y = y;
             this.z = -1;
             this.width = width;
             this.height = height;
+            id = text;
             border = Brushes.Goldenrod;
             guid = System.Guid.NewGuid().ToString();
+            fill = Brushes.Transparent;
         }
+
+        public DebugRect(double x, double y, double width, double height) : this(x, y, width, height, String.Empty) { }
 
         public object GetDrawable()
         {
             //return this;
-            return new { type, id, x, y, width, height, border, z, guid };
+            return new { type, id, x, y, width, height, border, fill, z, guid };
         }
 
         public override string ToString()

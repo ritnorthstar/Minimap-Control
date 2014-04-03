@@ -72,7 +72,7 @@ namespace DataTypes
             drawingElements.Add(child);
             updateDrawBounds(child);
         }
-
+        
         private void updateDrawBounds(IDrawable child)
         {
             if (extent.Width < child.x + child.width) extent = new Rect(0, 0, child.x + child.width + 50, extent.Height);
@@ -101,6 +101,11 @@ namespace DataTypes
                 catch (NotImplementedException)
                 {
                     Console.WriteLine("Item #" + i + " isn't implemented (" + drawingElements[i].GetType().ToString() + ")");
+                    return null;
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    Console.WriteLine("Error: item source attempt to access " + i + " when size = " + drawingElements.Count);
                     return null;
                 }
             }

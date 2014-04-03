@@ -15,13 +15,15 @@ namespace DataTypes
         public int numTablesWide;
         public int numTablesTall;
 
-        public double x { get; set; }
-        public double y { get; set; }
+        new public double x { get; set; }
+        new public double y { get; set; }
         public int z { get; set; }
         new public double width { get; set; }
         new public double height { get; set; }
         public string guid { get; set; }
         const string type = "tableBlock";
+        public string id = String.Empty;
+        public Brush fill;
         
         public TableBlock(double x, double y, double width, double height)
         {
@@ -33,6 +35,7 @@ namespace DataTypes
             guid = System.Guid.NewGuid().ToString();
             numTablesTall = 1;
             numTablesWide = 1;
+            fill = Brushes.Transparent;
         }
 
         public Object GetDrawable()
@@ -58,7 +61,7 @@ namespace DataTypes
                 l.Y2 = y2;
             }*/
             //return this as object;
-            return new { type, x, y, width, height, z, guid};
+            return new { type, x, y, width, height, id, fill, z, guid, numTablesTall, numTablesWide};
         }
 
         public override string ToString()

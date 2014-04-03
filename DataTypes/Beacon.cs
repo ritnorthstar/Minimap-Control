@@ -34,7 +34,6 @@ namespace DataTypes
 
         public object GetDrawable()
         {
-            //return this;
             return new { type, id, x, y, innerRadius, outerRadius, z, guid };
         }
 
