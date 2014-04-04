@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,22 +8,64 @@ using System.Windows.Media;
 
 namespace DataTypes
 {
-    public class Team
+    public class Team : INotifyPropertyChanged
     {
-        public string name { get; set; }
-        public Color color;
-        public Color secondaryColor;
+        private string _name;
+        private Color _color;
+        private Color _secondaryColor;
+
+        public string name
+        {
+            get { return _name; }
+            set
+            {
+                _name = value;
+                OnPropertyChanged("name");
+            }
+        
+        }
+        public Color color
+        {
+            get { return _color; }
+            set
+            {
+                _color = value;
+                OnPropertyChanged("color");
+            }
+
+        }
+        public Color secondaryColor
+        {
+            get { return _secondaryColor; }
+            set
+            {
+                _secondaryColor = value;
+                OnPropertyChanged("secondaryColor");
+            }
+
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public Team(string name, Color color, Color secondaryColor)
         {
-            this.name = name;
-            this.color = color;
-            this.secondaryColor = secondaryColor;
+            _name = name;
+            _color = color;
+            _secondaryColor = secondaryColor;
         }
 
-        public string ToString()
+        override public string ToString()
         {
             return String.Format("{0}({1})", name, color.ToString());
+        }
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
     }
 }

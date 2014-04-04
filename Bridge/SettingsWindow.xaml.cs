@@ -35,6 +35,23 @@ namespace Bridge
             InitializeComponent();
         }
 
+        private void SettingsWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (saved) return;
+
+            MessageBoxResult response = System.Windows.MessageBox.Show("You haven't saved your changes.  Would you like to?", "Close Confirmation", MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
+
+            if (response == MessageBoxResult.Yes)
+            {
+                saveTeamData();
+                e.Cancel = false;
+            }
+            else if(response == MessageBoxResult.No)
+                e.Cancel = false;
+            else
+                e.Cancel = true;
+        }
+
         private void ClickAddTeam(object sender, RoutedEventArgs e)
         {
             TeamManager manager = TeamManager.Instance();
@@ -47,12 +64,19 @@ namespace Bridge
                 (sender as Button).IsEnabled = false;
         }
 
-        private void ClickSaveData(object sender, RoutedEventArgs e)
+        private void saveTeamData()
         {
             selectedTeam.name = TeamName.Text;
             selectedTeam.color = PrimaryColorPicker.SelectedColor;
             selectedTeam.secondaryColor = SecondaryColorPicker.SelectedColor;
+        }
+
+        private void ClickSaveData(object sender, RoutedEventArgs e)
+        {
+            saveTeamData();
             saved = true;
+            SaveButton.Content = "Saved";
+            SaveButton.IsEnabled = false;
         }
 
         private void ListTeamSelected(object sender, RoutedEventArgs e)
@@ -62,6 +86,10 @@ namespace Bridge
             TeamName.Text = selectedTeam.name;
             PrimaryColorPicker.SelectedColor = selectedTeam.color;
             SecondaryColorPicker.SelectedColor = selectedTeam.secondaryColor;
+
+            saved = true;
+            SaveButton.Content = "Unchanged";
+            SaveButton.IsEnabled = false;
         }
 
         private void RefreshTeamMembers(object sender, RoutedEventArgs e)
@@ -72,6 +100,18 @@ namespace Bridge
         private void invalidateSaved()
         {
             saved = false;
+            SaveButton.Content = "Save Team";
+            SaveButton.IsEnabled = true;
+        }
+
+        private void ColorSelectionChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
+        {
+            invalidateSaved();
+        }
+
+        private void TeamName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            invalidateSaved();
         }
     }
 }

@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         Title="Settings" Height="480" Width="600"
-        WindowStartupLocation="CenterOwner">
+        WindowStartupLocation="CenterOwner"
+        Closing="SettingsWindow_Closing">
     <Grid Margin="5">
         <TabControl>
             <TabItem Header="General">
@@ -50,7 +51,7 @@
                                     <ColumnDefinition Width="2*"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="Name" Grid.Column="0" HorizontalAlignment="Right" Margin="0 0 20 0"/>
-                                <TextBox Name="TeamName" Grid.Column="1"/>
+                                <TextBox Name="TeamName" Grid.Column="1" TextChanged="TeamName_TextChanged"/>
                             </Grid>
                             <Grid Margin="0 0 0 3" Grid.Row="1">
                                 <Grid.ColumnDefinitions>
@@ -58,7 +59,7 @@
                                     <ColumnDefinition Width="2*"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="Primary Color" Grid.Column="0" HorizontalAlignment="Right" Margin="0 0 20 0"/>
-                                <xctk:ColorPicker Grid.Column="1" Height="24" Width="180" Margin="0,0,0,0" HorizontalAlignment="Left"
+                                <xctk:ColorPicker Grid.Column="1" Height="24" Width="180" Margin="0,0,0,0" HorizontalAlignment="Left" SelectedColorChanged="ColorSelectionChanged"
                                                   ShowAdvancedButton="True" DisplayColorAndName="True" UsingAlphaChannel="False" ShowRecentColors="True"
                                                   StandardColors="{Binding ColorList}" AvailableColors="{Binding ColorList}" Name="PrimaryColorPicker"/>
                             </Grid>
@@ -68,7 +69,7 @@
                                     <ColumnDefinition Width="2*"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="Secondary Color" Grid.Column="0" HorizontalAlignment="Right" Margin="0 0 20 0"/>
-                                <xctk:ColorPicker Grid.Column="1" Height="24" Width="180" Margin="0,0,0,0" HorizontalAlignment="Left"
+                                <xctk:ColorPicker Grid.Column="1" Height="24" Width="180" Margin="0,0,0,0" HorizontalAlignment="Left" SelectedColorChanged="ColorSelectionChanged"
                                                   ShowAdvancedButton="True" DisplayColorAndName="True" UsingAlphaChannel="False" ShowRecentColors="True"
                                                   StandardColors="{Binding ColorList}" AvailableColors="{Binding ColorList}" Name="SecondaryColorPicker"/>
                             </Grid>
@@ -82,7 +83,7 @@
                                     </ListView>
 
                                     <WrapPanel DockPanel.Dock="Bottom" HorizontalAlignment="Center" Height="Auto" Grid.Row="1" Margin="0 3 0 0">
-                                        <Button Content="Save" Click="ClickSaveData" Width="Auto" Padding="10 0"/>
+                                        <Button Content="Unchanged" Name="SaveButton" Click="ClickSaveData" Width="100" Padding="10 0" IsEnabled="False"/>
                                         <Button Content="Refresh List" Click="RefreshTeamMembers" Width="Auto" Padding="10 0" Margin="20 0 0 0"/>
                                     </WrapPanel>
                                 </Grid>

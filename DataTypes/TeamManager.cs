@@ -29,12 +29,12 @@ namespace DataTypes
             new Team("Asp", Colors.DarkGreen, Colors.Sienna),
             new Team("Badger", Colors.DimGray, Colors.SeaShell),
             new Team("Tiger", Colors.DarkOrange, Colors.Black),
-            new Team("Manticore", Colors.Orange, Colors.DeepSkyBlue)
+            new Team("Manticore", Colors.Orange, Colors.DeepSkyBlue),
+            new Team("Condor", Colors.SkyBlue,Colors.Peru),
+            new Team("Griffin", Colors.DarkTurquoise,Colors.Brown),
+            new Team("Scorpion", Colors.SandyBrown,Colors.Maroon),
+            new Team("Spider", Colors.Teal,Colors.Purple),
         };
-                                                     //"Condor",
-                                                     //"Ferret", "Griffin", "Hound",
-                                                     //"Leopard",
-                                                     //"Scorpion", "Spider" };
 
         public static Brush DarkenBrush(SolidColorBrush b)
         {
