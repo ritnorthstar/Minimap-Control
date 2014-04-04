@@ -20,7 +20,7 @@
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_Minimap">
                 <MenuItem Header="_Open Map" Command="Open" InputGestureText="Ctrl + O"/>
-                <MenuItem Header="_Preferences" />
+                <MenuItem Header="_Settings" Click="LaunchSettingsWindow" />
                 <Separator />
                 <MenuItem Header="_About Minimap" Click="LaunchAboutWindow" />
                 <MenuItem Header="_Quit" Command="Close" InputGestureText="Ctrl + Q"/>
@@ -188,8 +188,8 @@
                                 <Setter.Value>
                                     <DataTemplate>
                                         <Grid>
-                                            <Polygon Points="0,-15 20,-15 10,5" Fill="{Binding fill}"/>
-                                            <TextBlock Text="{Binding id}" HorizontalAlignment="Center" VerticalAlignment="Center" Panel.ZIndex="99"/>
+                                            <Polygon Points="0,-15 20,-15 10,5" Fill="{Binding fill}" Stroke="{Binding border}" StrokeThickness="3"/>
+                                            <TextBlock Text="{Binding id}" HorizontalAlignment="Center" VerticalAlignment="Center" Panel.ZIndex="99" />
                                         </Grid>
                                     </DataTemplate>
                                 </Setter.Value>

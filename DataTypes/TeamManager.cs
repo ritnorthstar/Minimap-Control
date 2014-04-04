@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace DataTypes
 {
@@ -18,10 +20,48 @@ namespace DataTypes
         }
 
         private Dictionary<Team, List<Judge>> teams;
+        public TeamList teamList;
+
+        public List<Team> sampleTeams = new List<Team> {
+            new Team("Salamander", Colors.MediumSpringGreen, Colors.MediumSlateBlue),
+            new Team("Phoenix", Colors.Gold, Colors.Red),
+            new Team("Dragon", Colors.Crimson, Colors.Maroon),
+            new Team("Asp", Colors.DarkGreen, Colors.Sienna),
+            new Team("Badger", Colors.DimGray, Colors.SeaShell),
+            new Team("Tiger", Colors.DarkOrange, Colors.Black),
+            new Team("Manticore", Colors.Orange, Colors.DeepSkyBlue)
+        };
+                                                     //"Condor",
+                                                     //"Ferret", "Griffin", "Hound",
+                                                     //"Leopard",
+                                                     //"Scorpion", "Spider" };
+
+        public static Brush DarkenBrush(SolidColorBrush b)
+        {
+            Color c = Color.FromRgb((byte)(b.Color.R*.75), (byte)(b.Color.G*.75), (byte)(b.Color.B*.75));
+
+            SolidColorBrush output = b.Clone();
+            output.Color = c;
+
+            Console.WriteLine("Input: " + b.ToString() + "; ouptut: " + output.ToString());
+
+            return output;
+        }
+
+        public Team GetSampleTeam(int i)
+        {
+            return sampleTeams[i];
+        }
 
         private TeamManager()
         {
             teams = new Dictionary<Team, List<Judge>>();
+            teamList = new TeamList();
+        }
+
+        public int Count
+        {
+            get { return teams.Keys.Count; }
         }
 
         public void DrawOnSource(DrawingItemsSource source)
@@ -49,9 +89,13 @@ namespace DataTypes
         public void Add(Judge j, Team t)
         {
             if(!teams.ContainsKey(t))
+            {
                 teams.Add(t, new List<Judge>());
+                teamList.Add(t);
+            }
             j.team = t;
             teams[t].Add(j);
+
         }
 
         public bool Remove(Judge j, Team t)
@@ -77,5 +121,10 @@ namespace DataTypes
             if(!Remove(j, from)) return;
             Add(j, to);
         }
+    }
+
+    public class TeamList : ObservableCollection<Team>
+    {
+        public TeamList() : base() { }
     }
 }

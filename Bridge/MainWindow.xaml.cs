@@ -57,6 +57,13 @@ namespace Bridge
             aboutWindow.ShowDialog();
         }
 
+
+        private void LaunchSettingsWindow(object sender, RoutedEventArgs e)
+        {
+            SettingsWindow settingsWindow = new SettingsWindow { Owner = this };
+            settingsWindow.ShowDialog();
+        }
+
         private void OpenMapDialog(object sender, ExecutedRoutedEventArgs args)
         {
             Microsoft.Win32.OpenFileDialog openDialog = new Microsoft.Win32.OpenFileDialog();
@@ -80,8 +87,14 @@ namespace Bridge
             source.AddChild(new DebugRect(0, 0, source.Extent.Width, source.Extent.Height));
 
             TeamManager manager = TeamManager.Instance();
-            Team t1 = new Team(0, Brushes.Firebrick);
+            Team t1 = manager.GetSampleTeam(0);
+            Team t2 = manager.GetSampleTeam(1);
             manager.Add(new Judge(75, 75, "Jake"), t1);
+            manager.Add(new Judge(115, 75, "John"), t1);
+            manager.Add(new Judge(155, 75, "Jane"), t1);
+            manager.Add(new Judge(75, 175, "Rob"), t2);
+            manager.Add(new Judge(115, 175, "Ralph"), t2);
+            manager.Add(new Judge(155, 175, "Rufio"), t2);
 
             manager.DrawOnSource(source);
             manager.UpdateIdTable(activeMap);
@@ -270,6 +283,8 @@ namespace Bridge
 
         #endregion
 
+        
         #endregion
+
     }
 }

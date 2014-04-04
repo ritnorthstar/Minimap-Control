@@ -12,8 +12,8 @@ namespace DataTypes
 {
     public class Judge : IDrawable
     {
-        new public double x { get; set; }
-        new public double y { get; set; }
+        public double x { get; set; }
+        public double y { get; set; }
         public double width { get; set; }
         public double height { get; set; }
         public int z { get; set; }
@@ -40,13 +40,13 @@ namespace DataTypes
 
         public Object GetDrawable()
         {
-            Brush fill = team.color;
-            return new { type, x, y, id, fill, z, guid };
+            Brush fill = new SolidColorBrush(team.color), border = new SolidColorBrush(team.secondaryColor);
+            return new { type, x, y, id, fill, border, z, guid };
         }
 
         public override string ToString()
         {
-            return String.Format("{0} ({1}) @ {2}, {3}", id, team.color.ToString(), x, y);
+            return String.Format("{0} ({1}) @ {2}, {3}", id, team.name, x, y);
         }
     }
 }

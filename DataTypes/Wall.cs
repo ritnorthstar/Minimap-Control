@@ -8,8 +8,8 @@ namespace DataTypes
 {
     public class Wall : Impassable, IDrawable
     {
-        public double x { get; set; }
-        public double y { get; set; }
+        new public double x { get; set; }
+        new public double y { get; set; }
         public int z { get; set; }
         new public double width { get; set; }
         new public double height { get; set; }

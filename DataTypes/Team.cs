@@ -9,13 +9,20 @@ namespace DataTypes
 {
     public class Team
     {
-        public int id;
-        public Brush color;
+        public string name { get; set; }
+        public Color color;
+        public Color secondaryColor;
 
-        public Team(int id, Brush color)
+        public Team(string name, Color color, Color secondaryColor)
         {
-            this.id = id;
+            this.name = name;
             this.color = color;
+            this.secondaryColor = secondaryColor;
+        }
+
+        public string ToString()
+        {
+            return String.Format("{0}({1})", name, color.ToString());
         }
     }
 }

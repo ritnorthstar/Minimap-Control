@@ -103,7 +103,7 @@ namespace DataTypes
                     Console.WriteLine("Item #" + i + " isn't implemented (" + drawingElements[i].GetType().ToString() + ")");
                     return null;
                 }
-                catch (IndexOutOfRangeException)
+                catch (ArgumentOutOfRangeException)
                 {
                     Console.WriteLine("Error: item source attempt to access " + i + " when size = " + drawingElements.Count);
                     return null;

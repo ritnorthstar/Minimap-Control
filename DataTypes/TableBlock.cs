@@ -22,7 +22,7 @@ namespace DataTypes
         new public double height { get; set; }
         public string guid { get; set; }
         const string type = "tableBlock";
-        public string id = String.Empty;
+        public string id;
         public Brush fill;
         
         public TableBlock(double x, double y, double width, double height)
@@ -61,6 +61,8 @@ namespace DataTypes
                 l.Y2 = y2;
             }*/
             //return this as object;
+
+            id = String.Format("{0} wide\n{1} tall", numTablesWide, numTablesTall);
             return new { type, x, y, width, height, id, fill, z, guid, numTablesTall, numTablesWide};
         }
 
