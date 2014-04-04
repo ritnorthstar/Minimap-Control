@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Shapes;
 using System.Windows.Media;
+using System.Windows;
 using ExtensionMethods;
 
 namespace DataTypes
@@ -63,7 +64,10 @@ namespace DataTypes
             //return this as object;
 
             id = String.Format("{0} wide\n{1} tall", numTablesWide, numTablesTall);
-            return new { type, x, y, width, height, id, fill, z, guid, numTablesTall, numTablesWide};
+            double sectionWidth = width / numTablesWide, sectionHeight = height / numTablesTall;
+            Console.WriteLine(sectionWidth + " x " + sectionHeight);
+            Rect tileRect = new Rect(0, 0, sectionWidth, sectionHeight);
+            return new { type, x, y, width, height, id, fill, z, guid, tileRect };
         }
 
         public override string ToString()

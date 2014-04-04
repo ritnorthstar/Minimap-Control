@@ -160,9 +160,16 @@
                                 <Setter.Value>
                                     <DataTemplate>
                                         <Grid>
-                                            <Rectangle Fill="{Binding fill}" Stroke="Black" StrokeThickness="5"
-                                                       Width="{Binding width}" Height="{Binding height}" Panel.ZIndex="50"/>
-                                            <TextBlock Text="{Binding id}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            <Rectangle Stroke="Black" StrokeThickness="4" Width="{Binding width}" Height="{Binding height}">
+                                                <Rectangle.Fill>
+                                                    <VisualBrush TileMode="Tile" Viewport="{Binding tileRect}" ViewportUnits="Absolute">
+                                                        <VisualBrush.Visual>
+                                                            <Rectangle Stroke="Black" StrokeThickness="2" Fill="Transparent"
+                                                                       Width="{Binding tileRect.Width}" Height="{Binding tileRect.Height}" />
+                                                        </VisualBrush.Visual>
+                                                    </VisualBrush>
+                                                </Rectangle.Fill>
+                                            </Rectangle>
                                         </Grid>
                                     </DataTemplate>
                                 </Setter.Value>
