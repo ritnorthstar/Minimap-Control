@@ -22,7 +22,7 @@ namespace DataTypes
         private Dictionary<Team, List<Judge>> teams;
         public TeamList teamList;
 
-        public List<Team> sampleTeams = new List<Team> {
+        public List<Team> unusedTeams = new List<Team> {
             new Team("Salamander", Colors.MediumSpringGreen, Colors.MediumSlateBlue),
             new Team("Phoenix", Colors.Gold, Colors.Red),
             new Team("Dragon", Colors.Crimson, Colors.Maroon),
@@ -50,7 +50,7 @@ namespace DataTypes
 
         public Team GetSampleTeam(int i)
         {
-            return sampleTeams[i];
+            return i < unusedTeams.Count ? unusedTeams[i] : null;
         }
 
         private TeamManager()

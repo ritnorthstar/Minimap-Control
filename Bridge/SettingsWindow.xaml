@@ -5,6 +5,7 @@
         Title="Settings" Height="480" Width="600"
         WindowStartupLocation="CenterOwner"
         Closing="SettingsWindow_Closing">
+    
     <Grid Margin="5">
         <TabControl>
             <TabItem Header="General">
@@ -27,14 +28,31 @@
                             <RowDefinition Height="24"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <Button Grid.Column="0" Grid.Row="0" Content="Add Team" Click="ClickAddTeam"/>
-                        <ListView ItemsSource="{Binding}" Grid.Column="0" Grid.Row="1" DisplayMemberPath="name"
-                                  SelectionChanged="ListTeamSelected" SelectionMode="Single">
-                            <!--<ListView.ItemContainerStyle>
-                                <Style TargetType="ListViewItem">
-                                    <Setter Property="Foreground" Value="{Binding color}" />
-                                </Style>
-                            </ListView.ItemContainerStyle>-->
+                        <Button Name="AddTeamButton" Grid.Column="0" Grid.Row="0" Content="Add Team" Click="ClickAddTeam"/>
+                        <ListView ItemsSource="{Binding}" Grid.Column="0" Grid.Row="1" SelectionChanged="ListTeamSelected" SelectionMode="Single">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        
+                                        <TextBlock Text="{Binding name}" Margin="3" Grid.Column="0"/>
+                                        <Rectangle Width="20" Margin="3" Stroke="Black" Grid.Column="1">
+                                            <Rectangle.Fill>
+                                                <SolidColorBrush Color="{Binding color}"/>
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+                                        <Rectangle Width="20" Margin="3" Stroke="Black" Grid.Column="2">
+                                            <Rectangle.Fill>
+                                                <SolidColorBrush Color="{Binding secondaryColor}"/>
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
                         </ListView>
                     </Grid>
                     <DockPanel Grid.Column="1" Grid.Row="1" Name="TeamInfo" Margin="15 0 0 0 " Visibility="Visible">
@@ -45,6 +63,7 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
+                            
                             <Grid Margin="0 0 0 3" Grid.Row="0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -53,6 +72,7 @@
                                 <TextBlock Text="Name" Grid.Column="0" HorizontalAlignment="Right" Margin="0 0 20 0"/>
                                 <TextBox Name="TeamName" Grid.Column="1" TextChanged="TeamName_TextChanged"/>
                             </Grid>
+                            
                             <Grid Margin="0 0 0 3" Grid.Row="1">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -63,6 +83,7 @@
                                                   ShowAdvancedButton="True" DisplayColorAndName="True" UsingAlphaChannel="False" ShowRecentColors="True"
                                                   StandardColors="{Binding ColorList}" AvailableColors="{Binding ColorList}" Name="PrimaryColorPicker"/>
                             </Grid>
+                            
                             <Grid Margin="0 0 0 3" Grid.Row="2">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -73,21 +94,27 @@
                                                   ShowAdvancedButton="True" DisplayColorAndName="True" UsingAlphaChannel="False" ShowRecentColors="True"
                                                   StandardColors="{Binding ColorList}" AvailableColors="{Binding ColorList}" Name="SecondaryColorPicker"/>
                             </Grid>
-                            <GroupBox Header="Members" FontSize="15" Margin="0 10 0 0" Grid.Row="3" BorderBrush="Transparent">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
-                                    <ListView Name="TeamMemberList" Grid.Row="0" ScrollViewer.VerticalScrollBarVisibility="Visible">
-                                    </ListView>
+                            
+                            <Grid Grid.Row="3">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <ListView Name="TeamMemberList" Grid.Row="0" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                </ListView>
 
-                                    <WrapPanel DockPanel.Dock="Bottom" HorizontalAlignment="Center" Height="Auto" Grid.Row="1" Margin="0 3 0 0">
-                                        <Button Content="Unchanged" Name="SaveButton" Click="ClickSaveData" Width="100" Padding="10 0" IsEnabled="False"/>
-                                        <Button Content="Refresh List" Click="RefreshTeamMembers" Width="Auto" Padding="10 0" Margin="20 0 0 0"/>
-                                    </WrapPanel>
-                                </Grid>
-                            </GroupBox>
+                                <WrapPanel HorizontalAlignment="Center" Height="Auto" Grid.Row="1" Margin="0 8 0 0">
+                                    <Button Name="SaveButton" Click="ClickSaveData" Width="Auto" Padding="5 0" IsEnabled="False">
+                                        <Image Source="Resources/Icons/save.png" Width="32"/>
+                                    </Button>
+                                    <Button Click="RefreshTeamMembers" Width="Auto" Padding="5 0" Margin="20 0 0 0">
+                                        <Image Source="Resources/Icons/refresh.png" Width="32"/>
+                                    </Button>
+                                    <Button Click="DeleteTeam" Width="Auto" Padding="5 0" Margin="20 0 0 0">
+                                        <Image Source="Resources/Icons/delete.png" Width="32"/>
+                                    </Button>
+                                </WrapPanel>
+                            </Grid>
                         </Grid>
                     </DockPanel>
                 </Grid>

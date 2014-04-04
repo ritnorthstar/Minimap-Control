@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using DataTypes;
 using Xceed.Wpf.Toolkit;
+using System.Globalization;
 
 namespace Bridge
 {
@@ -55,13 +56,16 @@ namespace Bridge
         private void ClickAddTeam(object sender, RoutedEventArgs e)
         {
             TeamManager manager = TeamManager.Instance();
-            Team toAdd = manager.GetSampleTeam(teams.Count);
-            Console.WriteLine(toAdd.ToString());
-            
+            Team toAdd = manager.GetSampleTeam(0);
+            manager.unusedTeams.RemoveAt(0);
+                        
             teams.Add(toAdd);
-            
-            if(teams.Count == manager.sampleTeams.Count)
-                (sender as Button).IsEnabled = false;
+
+            if (manager.unusedTeams.Count == 0)
+            {
+                AddTeamButton.IsEnabled = false;
+                return;
+            }
         }
 
         private void saveTeamData()
@@ -75,20 +79,22 @@ namespace Bridge
         {
             saveTeamData();
             saved = true;
-            SaveButton.Content = "Saved";
+            SaveButton.ToolTip = "Saved";
             SaveButton.IsEnabled = false;
         }
 
         private void ListTeamSelected(object sender, RoutedEventArgs e)
         {
-            selectedTeam = (Team)(sender as ListView).SelectedItems[0];
+            selectedTeam = (Team)(sender as ListView).SelectedItem;
+            if(selectedTeam == null)
+                return;
             TeamInfo.Visibility = Visibility.Visible;
             TeamName.Text = selectedTeam.name;
             PrimaryColorPicker.SelectedColor = selectedTeam.color;
             SecondaryColorPicker.SelectedColor = selectedTeam.secondaryColor;
 
             saved = true;
-            SaveButton.Content = "Unchanged";
+            SaveButton.ToolTip = "No changes to save";
             SaveButton.IsEnabled = false;
         }
 
@@ -100,7 +106,7 @@ namespace Bridge
         private void invalidateSaved()
         {
             saved = false;
-            SaveButton.Content = "Save Team";
+            SaveButton.ToolTip = "Save team";
             SaveButton.IsEnabled = true;
         }
 
@@ -112,6 +118,13 @@ namespace Bridge
         private void TeamName_TextChanged(object sender, TextChangedEventArgs e)
         {
             invalidateSaved();
+        }
+
+        private void DeleteTeam(object sender, RoutedEventArgs e)
+        {
+            TeamManager.Instance().unusedTeams.Add(selectedTeam);
+            teams.Remove(selectedTeam);
+            AddTeamButton.IsEnabled = true;
         }
     }
 }
