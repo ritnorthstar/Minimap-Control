@@ -11,9 +11,11 @@ namespace DataTypes
 {
     public class Drawable : IDrawable
     {
+        public static string BEACON_TYPE = "beacon";
         public static int BEACON_INNER_RADIUS = 20;
         public static int BEACON_OUTER_RADIUS = 30;
 
+        public static string TABLES_TYPE = "tableBlock";
         public static Brush TABLES_FILL = Brushes.Transparent;
 
         public Object Subject { get { return subject; } }
@@ -67,11 +69,11 @@ namespace DataTypes
             MapBeacon beacon = (MapBeacon)Subject;
             return new
             {
-                type = "beacon",
+                type = BEACON_TYPE,
                 guid = beacon.Id,
                 id = beacon.BeaconId,
-                x = beacon.X,
-                y = beacon.Y,
+                x = beacon.X - (BEACON_OUTER_RADIUS / 2),
+                y = beacon.Y - (BEACON_OUTER_RADIUS / 2),
                 z = beacon.Z,
                 innerRadius = BEACON_INNER_RADIUS,
                 outerRadius = BEACON_OUTER_RADIUS
@@ -83,7 +85,7 @@ namespace DataTypes
             MapTables tables = (MapTables)Subject;
             return new
             {
-                type = "tableBlock",
+                type = TABLES_TYPE,
                 guid = tables.Id,
                 x = tables.X,
                 y = tables.Y,
