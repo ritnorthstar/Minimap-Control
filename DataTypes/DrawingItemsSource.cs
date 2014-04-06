@@ -77,8 +77,9 @@ namespace DataTypes
         {
             try
             {
-                Rect bounds = child.GetBounds();
-                extent.Union(bounds.BottomRight);
+                Point corner = child.GetBounds().BottomRight;
+                corner.Offset(50, 50);
+                extent.Union(corner);
                 //Console.WriteLine("Extent rect updated to " + extent.ToString());
             }
             catch (NotImplementedException)
