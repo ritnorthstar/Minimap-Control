@@ -31,6 +31,11 @@ namespace Core.Data
             Height = copy.Height;
         }
 
+        public override String ToString()
+        {
+            return String.Format("MapComponent");
+        }
+
         public virtual Object Clone()
         {
             return new MapComponent(this);

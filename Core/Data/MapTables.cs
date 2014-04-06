@@ -22,6 +22,11 @@ namespace Core.Data
             TablesTall = copy.TablesTall;
         }
 
+        public override String ToString()
+        {
+            return String.Format("Tables: ({0}, {1}), {2}x{3}, {4}x{5}", X, Y, Width, Height, TablesWide, TablesTall);
+        }
+
         public override Object Clone()
         {
             return new MapTables(this);

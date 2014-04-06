@@ -20,6 +20,11 @@ namespace Core.Data
             BeaconId = copy.BeaconId;
         }
 
+        public override String ToString()
+        {
+            return String.Format("Beacon {0} - ({1}, {2})", BeaconId, X, Y);
+        }
+
         public override Object Clone()
         {
             return new MapBeacon(this);

@@ -64,6 +64,11 @@ namespace DataTypes
             }
         }
 
+        public String ToString()
+        {
+            return Subject.ToString();
+        }
+
         protected Object GetDrawableMapBeacon()
         {
             MapBeacon beacon = (MapBeacon)Subject;
