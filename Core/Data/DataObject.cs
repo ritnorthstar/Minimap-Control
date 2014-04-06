@@ -8,17 +8,17 @@ namespace Core.Data
 {
     public class DataObject : ICloneable
     {
-        private readonly string id;
-        public string Id { get { return id; } }
+        // TODO - Make Id readonly (will cause issues with current JSON deserialization)
+        public string Id;
 
         protected DataObject()
         {
-            id = System.Guid.NewGuid().ToString();
+            Id = System.Guid.NewGuid().ToString();
         }
 
         protected DataObject(DataObject copy)
         {
-            id = copy.Id;
+            Id = copy.Id;
         }
 
         /// <summary>

@@ -20,6 +20,8 @@ using System.Collections.Specialized;
 using System.Net;
 using System.Text.RegularExpressions;
 using Core.Data;
+using Server.Hosting;
+using Core;
 
 
 namespace Bridge
@@ -32,7 +34,7 @@ namespace Bridge
         Map activeMap;
         ZoomableCanvas zoomCanvas;
         private DrawingItemsSource source;
-        //private WebAPIServer server;
+        private WebAPIServer server;
 
         public MainWindow()
         {
@@ -41,7 +43,7 @@ namespace Bridge
             ListboxContainer.ItemsSource = source;
             Console.WriteLine("Hooked up item source; num items: " + source.Count);
 
-            //server = new WebAPIServer();
+            server = new WebAPIServer();
         }
 
         private void QuitProgram(object sender, ExecutedRoutedEventArgs args)
@@ -204,16 +206,16 @@ namespace Bridge
         const string SERVER_STOPPED = "Stopped", SERVER_RUNNING = "Running", SERVER_PAUSED = "Paused";
 
         private void RestartServer(object sender, RoutedEventArgs args)
-        {/*
+        {
             serverIsRunning = false;
             runningStatusItem.Text = SERVER_STOPPED;
             toggleRunningMenuItem.Header = "Start";
 
             server.Stop();
-        */}
+        }
 
         private void ToggleRunningStatus(object sender, RoutedEventArgs args)
-        {/*
+        {
             bool success = false;
             string status;
 
@@ -242,21 +244,10 @@ namespace Bridge
             if (success)
             {
                 runningStatusItem.Text = status;
-
-                try
-                {
-                    using (WebClient wb = new WebClient())
-                    {
-                        NameValueCollection data = new NameValueCollection();
-                        data["map"] = activeMap.ToJson();
-
-                        var response = wb.UploadValues("http://127.0.0.1:9000/api/Maps/", "POST", data);
-                    }
-                }
-
-                catch (WebException e) { Console.WriteLine(e.Data); }
+                DataManager<MapObject> manager = Minimap.MapManager();
+                manager.Add(activeMap);
             }
-        */}
+        }
       
         #endregion
 

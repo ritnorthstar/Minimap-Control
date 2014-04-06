@@ -172,6 +172,10 @@
       <Project>{ff378cd6-c1b8-4c5e-9544-a4ac26dbbc34}</Project>
       <Name>DataTypes</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Server\Server.csproj">
+      <Project>{1aee927c-8bc6-47d6-b25e-36dc92e42903}</Project>
+      <Name>Server</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Installer.ico" />

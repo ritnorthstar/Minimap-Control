@@ -17,39 +17,6 @@ namespace Core
         private static DataManager<MapObject> mapManager = new DataManager<MapObject>();
         private static DataManager<TeamObject> teamManager = new DataManager<TeamObject>();
 
-        /*
-        public static void LoadSampleData()
-        {
-            MapObject sampleMap = new MapObject();
-            sampleMap.Name = "Sample Map A";
-
-            MapComponent barrierA = new MapComponent();
-            barrierA.X = 100;
-            barrierA.Y = 100;
-            barrierA.Width = 10;
-            barrierA.Height = 100;
-
-            MapTables tablesA = new MapTables();
-            tablesA.X = 50;
-            tablesA.Y = 50;
-            tablesA.Width = 20;
-            tablesA.Height = 60;
-            tablesA.TablesTall = 3;
-            tablesA.TablesWide = 2;
-
-            MapBeacon beaconA = new MapBeacon();
-            beaconA.X = 75;
-            beaconA.Y = 75;
-            beaconA.BeaconId = "0001";
-
-            sampleMap.Barriers.Add(barrierA);
-            sampleMap.Tables.Add(tablesA);
-            sampleMap.Beacons.Add(beaconA);
-
-            mapManager.Add(sampleMap);
-        }
-        */
-
         /// <summary>
         /// Get the global map manager.</summary>
         /// <returns>

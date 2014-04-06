@@ -8,8 +8,8 @@ namespace Core.Data
 {
     public class MapComponent : ICloneable
     {
-        private readonly string id;
-        public string Id { get { return id; } }
+        // TODO - Make Id readonly (will cause issues with current JSON deserialization)
+        public string Id;
         public double X { get; set; }
         public double Y { get; set; }
         public double Z { get; set; }
@@ -18,12 +18,12 @@ namespace Core.Data
 
         public MapComponent()
         {
-            id = System.Guid.NewGuid().ToString();
+            Id = System.Guid.NewGuid().ToString();
         }
 
         protected MapComponent(MapComponent copy)
         {
-            id = copy.Id;
+            Id = copy.Id;
             X = copy.X;
             Y = copy.Y;
             Z = copy.Z;

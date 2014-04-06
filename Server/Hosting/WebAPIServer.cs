@@ -14,6 +14,7 @@ namespace Server.Hosting
         {
             if (instance == null)
             {
+                Console.WriteLine("STARTING SERVER");
                 instance = WebApp.Start<Startup>(url: "http://*:" + port);
             }
         }
@@ -22,6 +23,7 @@ namespace Server.Hosting
         {
             if (instance != null)
             {
+                Console.WriteLine("STOPPING SERVER");
                 instance.Dispose();
                 instance = null;
             }
