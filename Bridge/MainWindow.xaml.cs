@@ -16,7 +16,6 @@ using DataTypes;
 using System.IO;
 using System.Collections.ObjectModel;
 using System.Windows.Controls.Primitives;
-using Northstar.Minimap.Control.Server.Host;
 using System.Collections.Specialized;
 using System.Net;
 using System.Text.RegularExpressions;
@@ -32,7 +31,7 @@ namespace Bridge
         Map activeMap;
         ZoomableCanvas zoomCanvas;
         private DrawingItemsSource source;
-        private WebAPIServer server;
+        //private WebAPIServer server;
 
         public MainWindow()
         {
@@ -41,7 +40,7 @@ namespace Bridge
             ListboxContainer.ItemsSource = source;
             Console.WriteLine("Hooked up item source; num items: " + source.Count);
 
-            server = new WebAPIServer();
+            //server = new WebAPIServer();
         }
 
         private void QuitProgram(object sender, ExecutedRoutedEventArgs args)
@@ -202,16 +201,16 @@ namespace Bridge
         const string SERVER_STOPPED = "Stopped", SERVER_RUNNING = "Running", SERVER_PAUSED = "Paused";
 
         private void RestartServer(object sender, RoutedEventArgs args)
-        {
+        {/*
             serverIsRunning = false;
             runningStatusItem.Text = SERVER_STOPPED;
             toggleRunningMenuItem.Header = "Start";
 
             server.Stop();
-        }
+        */}
 
         private void ToggleRunningStatus(object sender, RoutedEventArgs args)
-        {
+        {/*
             bool success = false;
             string status;
 
@@ -254,7 +253,7 @@ namespace Bridge
 
                 catch (WebException e) { Console.WriteLine(e.Data); }
             }
-        }
+        */}
       
         #endregion
 

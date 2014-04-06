@@ -167,10 +167,6 @@
       <Project>{ff378cd6-c1b8-4c5e-9544-a4ac26dbbc34}</Project>
       <Name>DataTypes</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Northstar.Minimap.Control.Server\Northstar.Minimap.Control.Server.csproj">
-      <Project>{d44b7f0e-a27f-4310-99e7-21be1ff1c000}</Project>
-      <Name>Northstar.Minimap.Control.Server</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Installer.ico" />
