@@ -22,6 +22,7 @@ using System.Text.RegularExpressions;
 using Core.Data;
 using Server.Hosting;
 using Core;
+using DataTypes.UserManagement;
 
 
 namespace Bridge
@@ -88,7 +89,6 @@ namespace Bridge
             activeMap.DrawOn(source);
             source.AddChild(new DebugRect(0, 0, source.Extent.Width, source.Extent.Height));
 
-            /*
             TeamManager manager = TeamManager.Instance();
             Team t1 = manager.GetSampleTeam(0);
             Team t2 = manager.GetSampleTeam(1);
@@ -101,7 +101,6 @@ namespace Bridge
 
             manager.DrawOnSource(source);
             manager.UpdateIdTable(activeMap);
-            */
         }
 
         #endregion
@@ -194,7 +193,14 @@ namespace Bridge
             {
                 string guid = match.Groups[1].Value;
                 MapComponent selectedComponent = activeMap.GetComponent(guid);
-                selectedObjectText.Text = selectedComponent.ToString();
+                if (selectedComponent != null)
+                {
+                    selectedObjectText.Text = selectedComponent.ToString();
+                }
+                else
+                {
+                    selectedObjectText.Text = "Judge";
+                }
             }
         }
         

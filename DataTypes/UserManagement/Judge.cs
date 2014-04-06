@@ -1,5 +1,4 @@
-﻿/*
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +7,9 @@ using System.Windows.Controls;
 using System.Windows.Shapes;
 using System.Windows.Media;
 using ExtensionMethods;
+using System.Windows;
 
-namespace DataTypes
+namespace DataTypes.UserManagement
 {
     public class Judge : IDrawable
     {
@@ -45,10 +45,14 @@ namespace DataTypes
             return new { type, x, y, id, fill, border, z, guid };
         }
 
+        public Rect GetBounds()
+        {
+            return new Rect(x, y, width, height);
+        }
+
         public override string ToString()
         {
             return String.Format("{0} ({1}) @ {2}, {3}", id, team.name, x, y);
         }
     }
 }
-*/

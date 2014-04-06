@@ -1,5 +1,4 @@
-﻿/*
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -7,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 
-namespace DataTypes
+namespace DataTypes.UserManagement
 {
     public class TeamManager
     {
@@ -80,12 +79,12 @@ namespace DataTypes
         }
 
         public void UpdateIdTable(Map map)
-        {
+        {/*
             foreach (List<Judge> judgeList in teams.Values)
                 foreach (Judge j in judgeList)
                     if (!map.IdTable().ContainsKey(j.guid))
                         map.IdTable()[j.guid] = j;
-        }
+        */}
 
         public void Add(Judge j, Team t)
         {
@@ -129,4 +128,3 @@ namespace DataTypes
         public TeamList() : base() { }
     }
 }
-*/
