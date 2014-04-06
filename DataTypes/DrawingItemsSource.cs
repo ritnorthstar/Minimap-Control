@@ -75,9 +75,16 @@ namespace DataTypes
         
         private void updateDrawBounds(IDrawable child)
         {
-            if (extent.Width < child.x + child.width) extent = new Rect(0, 0, child.x + child.width + 50, extent.Height);
-            if (extent.Height < child.y + child.height) extent = new Rect(0, 0, extent.Width, child.y + child.height + 50);
-            //Console.WriteLine("Extent rect updated to " + extent.ToString());
+            try
+            {
+                Rect bounds = child.GetBounds();
+                extent.Union(bounds.BottomRight);
+                //Console.WriteLine("Extent rect updated to " + extent.ToString());
+            }
+            catch (NotImplementedException)
+            {
+                // do nothing
+            }
         }
 
         public void ClearChildren()

@@ -19,6 +19,7 @@ using System.Windows.Controls.Primitives;
 using System.Collections.Specialized;
 using System.Net;
 using System.Text.RegularExpressions;
+using Core.Data;
 
 
 namespace Bridge
@@ -78,13 +79,14 @@ namespace Bridge
             Console.WriteLine("File selected: " + filename);
 
             activeMap = Map.FromFile(filename);
-            Console.WriteLine("Name: " + activeMap.name);
-            Console.WriteLine("Number of tables: " + ((HashSet<DataTypes.TableBlock>)activeMap.tables).Count);
+            Console.WriteLine("Name: " + activeMap.Name);
+            Console.WriteLine("Number of tables: " + activeMap.Tables.Count);
 
             source.ClearChildren();
             activeMap.DrawOn(source);
             source.AddChild(new DebugRect(0, 0, source.Extent.Width, source.Extent.Height));
 
+            /*
             TeamManager manager = TeamManager.Instance();
             Team t1 = manager.GetSampleTeam(0);
             Team t2 = manager.GetSampleTeam(1);
@@ -97,6 +99,7 @@ namespace Bridge
 
             manager.DrawOnSource(source);
             manager.UpdateIdTable(activeMap);
+            */
         }
 
         #endregion
@@ -188,8 +191,8 @@ namespace Bridge
             if (match.Success)
             {
                 string guid = match.Groups[1].Value;
-                IDrawable selectedDrawable = activeMap.GetDrawable(guid);
-                selectedObjectText.Text = selectedDrawable.ToString();
+                MapComponent selectedComponent = activeMap.GetComponent(guid);
+                selectedObjectText.Text = selectedComponent.ToString();
             }
         }
         

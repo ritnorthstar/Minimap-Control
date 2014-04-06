@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Shapes;
 using System.Windows.Media;
 using ExtensionMethods;
+using System.Windows;
 
 namespace DataTypes
 {
@@ -42,6 +43,11 @@ namespace DataTypes
         {
             //return this;
             return new { type, id, x, y, width, height, border, fill, z, guid };
+        }
+
+        public Rect GetBounds()
+        {
+            return new Rect(x, y, width, height);
         }
 
         public override string ToString()

@@ -23,16 +23,16 @@ namespace Bridge
     /// </summary>
     public partial class SettingsWindow : Window
     {
-        public TeamList teams { get; set; }
-        public Team selectedTeam { get; set; }
+        //public TeamList teams { get; set; }
+        //public Team selectedTeam { get; set; }
         private bool saved = true;
 
         public SettingsWindow()
         {
-            teams = TeamManager.Instance().teamList;
-            this.DataContext = this.teams;
-            if (!Application.Current.Resources.Contains("selectedTeam"))
-                Application.Current.Resources.Add("selectedTeam", selectedTeam);
+            //teams = TeamManager.Instance().teamList;
+            //this.DataContext = this.teams;
+            //if (!Application.Current.Resources.Contains("selectedTeam"))
+            //    Application.Current.Resources.Add("selectedTeam", selectedTeam);
             InitializeComponent();
         }
 
@@ -54,7 +54,7 @@ namespace Bridge
         }
 
         private void ClickAddTeam(object sender, RoutedEventArgs e)
-        {
+        {/*
             TeamManager manager = TeamManager.Instance();
             Team toAdd = manager.GetSampleTeam(0);
             manager.unusedTeams.RemoveAt(0);
@@ -66,14 +66,14 @@ namespace Bridge
                 AddTeamButton.IsEnabled = false;
                 return;
             }
-        }
+        */}
 
         private void saveTeamData()
-        {
+        {/*
             selectedTeam.name = TeamName.Text;
             selectedTeam.color = PrimaryColorPicker.SelectedColor;
             selectedTeam.secondaryColor = SecondaryColorPicker.SelectedColor;
-        }
+        */}
 
         private void ClickSaveData(object sender, RoutedEventArgs e)
         {
@@ -84,7 +84,7 @@ namespace Bridge
         }
 
         private void ListTeamSelected(object sender, RoutedEventArgs e)
-        {
+        {/*
             selectedTeam = (Team)(sender as ListView).SelectedItem;
             if(selectedTeam == null)
                 return;
@@ -96,7 +96,7 @@ namespace Bridge
             saved = true;
             SaveButton.ToolTip = "No changes to save";
             SaveButton.IsEnabled = false;
-        }
+        */}
 
         private void RefreshTeamMembers(object sender, RoutedEventArgs e)
         {
@@ -121,10 +121,10 @@ namespace Bridge
         }
 
         private void DeleteTeam(object sender, RoutedEventArgs e)
-        {
+        {/*
             TeamManager.Instance().unusedTeams.Add(selectedTeam);
             teams.Remove(selectedTeam);
             AddTeamButton.IsEnabled = true;
-        }
+        */}
     }
 }

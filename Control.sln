@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{1AEE927C-8BC6-47D6-B25E-36DC92E42903}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapTest", "MapTest\MapTest.csproj", "{973BBEE3-A0C5-47E3-9766-D5EC258AD59A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CD_ROM|Any CPU = CD_ROM|Any CPU
@@ -99,6 +101,16 @@ Global
 		{1AEE927C-8BC6-47D6-B25E-36DC92E42903}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1AEE927C-8BC6-47D6-B25E-36DC92E42903}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
 		{1AEE927C-8BC6-47D6-B25E-36DC92E42903}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{973BBEE3-A0C5-47E3-9766-D5EC258AD59A}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{973BBEE3-A0C5-47E3-9766-D5EC258AD59A}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{973BBEE3-A0C5-47E3-9766-D5EC258AD59A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{973BBEE3-A0C5-47E3-9766-D5EC258AD59A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{973BBEE3-A0C5-47E3-9766-D5EC258AD59A}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{973BBEE3-A0C5-47E3-9766-D5EC258AD59A}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{973BBEE3-A0C5-47E3-9766-D5EC258AD59A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{973BBEE3-A0C5-47E3-9766-D5EC258AD59A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{973BBEE3-A0C5-47E3-9766-D5EC258AD59A}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{973BBEE3-A0C5-47E3-9766-D5EC258AD59A}.SingleImage|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

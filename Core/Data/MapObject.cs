@@ -71,7 +71,7 @@ namespace Core.Data
         public MapComponent GetComponent(string id)
         {
             MapComponent component = null;
-
+            
             if (Barriers.Contains(id))
             {
                 component = Barriers[id];
