@@ -87,17 +87,13 @@ namespace Bridge
 
             source.ClearChildren();
             activeMap.DrawOn(source);
-            source.AddChild(new DebugRect(0, 0, source.Extent.Width, source.Extent.Height));
+            source.AddChild(new DebugRect(0, 0, activeMap.Width, activeMap.Height));
 
             TeamManager manager = TeamManager.Instance();
-            Team t1 = manager.GetSampleTeam(0);
-            Team t2 = manager.GetSampleTeam(1);
-            manager.Add(new Judge(75, 75, "Jake"), t1);
-            manager.Add(new Judge(115, 75, "John"), t1);
-            manager.Add(new Judge(155, 75, "Jane"), t1);
-            manager.Add(new Judge(75, 175, "Rob"), t2);
-            manager.Add(new Judge(115, 175, "Ralph"), t2);
-            manager.Add(new Judge(155, 175, "Rufio"), t2);
+            Team t1 = manager.GetSampleTeam(manager.unusedTeams.Count - 1);
+            Team t2 = manager.GetSampleTeam(manager.unusedTeams.Count - 2);
+            manager.Add(new Judge(150, 50, "Clark Kent"), t1);
+            manager.Add(new Judge(150, 250, "Bruce Wayne"), t2);
 
             manager.DrawOnSource(source);
             manager.UpdateIdTable(activeMap);

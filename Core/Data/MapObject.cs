@@ -36,6 +36,8 @@ namespace Core.Data
         }
 
         public string Name { get; set; }
+        public double Width { get; set; }
+        public double Height { get; set; }
 
         public KeyedCollection<string, MapComponent> Barriers { get { return barriers; } }
         protected KeyedCollection<string, MapComponent> barriers;
