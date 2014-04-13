@@ -1,17 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+using System;
 using System.Windows;
+using System.Data;
+using System.Xml;
+using System.Configuration;
 
 namespace Cartographer
 {
     /// <summary>
-    /// Interaction logic for App.xaml
+    /// Application class
     /// </summary>
-    public partial class App : Application
+    public partial class App : System.Windows.Application
     {
+        #region Overrides
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            SettingsManager.OnStartup();
+
+            base.OnStartup(e);
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            SettingsManager.OnExit();
+
+            base.OnExit(e);
+        }
+
+        #endregion Overrides
     }
 }
