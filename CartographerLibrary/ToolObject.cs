@@ -59,6 +59,7 @@ namespace CartographerLibrary
             HelperFunctions.UnselectAll(drawingCanvas);
 
             o.IsSelected = true;
+            drawingCanvas.SelectedObject = o;
             o.Clip = new RectangleGeometry(new Rect(0, 0, drawingCanvas.ActualWidth, drawingCanvas.ActualHeight));
 
             drawingCanvas.GraphicsList.Add(o);

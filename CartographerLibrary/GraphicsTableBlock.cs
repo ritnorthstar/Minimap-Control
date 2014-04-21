@@ -13,7 +13,33 @@ namespace CartographerLibrary
     /// </summary>
     public class GraphicsTableBlock : GraphicsRectangleBase
     {
-        public int numTablesTall = 6, numTablesWide = 2;
+        public static int DefaultNumTablesTall = 6;
+        public static int DefaultNumTablesWide = 2;
+
+        private int numTablesTall = GraphicsTableBlock.DefaultNumTablesTall;
+        private int numTablesWide = GraphicsTableBlock.DefaultNumTablesWide;
+
+        public int NumTablesTall
+        {
+            get { return numTablesTall; }
+            set
+            {
+                numTablesTall = (value < 1 ? 1 : value);
+                GraphicsTableBlock.DefaultNumTablesTall = numTablesTall;
+                RefreshDrawing();
+            }
+        }
+
+        public int NumTablesWide
+        {
+            get { return numTablesWide; }
+            set
+            {
+                numTablesWide = (value < 1 ? 1 : value);
+                GraphicsTableBlock.DefaultNumTablesWide = numTablesWide;
+                RefreshDrawing();
+            }
+        }
 
         #region Constructors
 
@@ -31,11 +57,7 @@ namespace CartographerLibrary
             //RefreshDrawng();
         }
 
-        public GraphicsTableBlock()
-            :
-            this(0.0, 0.0, 100.0, 100.0, 1.0, Colors.Black, 1.0)
-        {
-        }
+        public GraphicsTableBlock() : this(0.0, 0.0, 100.0, 100.0, 1.0, Colors.Black, 1.0) { }
 
         #endregion Constructors
 

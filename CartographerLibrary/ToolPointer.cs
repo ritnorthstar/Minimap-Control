@@ -110,6 +110,7 @@ namespace CartographerLibrary
 
                     // Select clicked object
                     movedObject.IsSelected = true;
+                    drawingCanvas.SelectedObject = movedObject;
 
                     // Set move cursor
                     drawingCanvas.Cursor = Cursors.SizeAll;

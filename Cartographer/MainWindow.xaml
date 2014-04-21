@@ -6,6 +6,7 @@
     xmlns:util="clr-namespace:CartographerUtilities;assembly=Utilities"
     xmlns:libconvert="clr-namespace:Petzold.Converters;assembly=Utilities"
     xmlns:local="clr-namespace:Cartographer"
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     MinHeight="300" MinWidth="300"
     >
 
@@ -177,32 +178,6 @@
                 </Button>
             </ToolBar>
         </ToolBarTray>
-
-        <!-- Use one of three options: 
-             lib:DrawingCanvas                (white canvas)
-             Viewbox Name="viewBoxContainer"  (background image inside Viewbox)
-             Grid Name="gridContainer"        (background image inside Scrollviewer with zoom)
-        
-             Comment another options.
-        -->
-
-        <!--<lib:DrawingCanvas x:Name="drawingCanvas" Background="White"/>-->
-
-
-        
-        <!--<Viewbox Name="viewBoxContainer">
-            <Grid Name="gridContainer">
-                <Image Name="imageBackground"  Source="Images/background.jpg" Stretch="None"/>
-
-                <lib:DrawingCanvas x:Name="drawingCanvas" Background="#00000000"
-                    Width="{Binding ElementName=imageBackground, Path=ActualWidth, Mode=OneWay}"
-                    Height="{Binding ElementName=imageBackground, Path=ActualHeight, Mode=OneWay}"
-                    />
-            </Grid>
-        </Viewbox>-->
-        
-
-        
         <Grid Name="gridContainer">
             <Grid.RowDefinitions>
                 <RowDefinition Height="5*"/>
@@ -237,25 +212,47 @@
 
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="9*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
 
-                <Label Grid.Column="0">
-                    Scale
-                </Label>
-                
-                <Slider Grid.Column="1" Name="sliderScale"
+                    <Label Grid.Column="0">
+                        Scale
+                    </Label>
+
+                    <Slider Grid.Column="1" Name="sliderScale"
                     Orientation="Horizontal" Minimum="0.2" Maximum="5.0"
                     Margin="10,5,10,5"
-                    Value="1.0"
-                />
-
-                <Label Grid.Column="2" Content="{Binding ElementName=sliderScale, Path=Value, Mode=OneWay,
+                    Value="1.0"/>
+                    
+                    <Label Grid.Column="2" Content="{Binding ElementName=sliderScale, Path=Value, Mode=OneWay,
                    Converter={StaticResource convDoubleDecimal}, ConverterParameter=2}"/>
-
+                </Grid>
+                
+                <Grid Name="TableBlockDimensionsGrid" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Tables wide:" HorizontalAlignment="Right"  VerticalAlignment="Center" Grid.Column="0"/>
+                    <xctk:ButtonSpinner Spin="TableBlockSpinnerWide_Spin" Grid.Column="1">
+                        <TextBox Text="0" HorizontalContentAlignment="Right"/>
+                    </xctk:ButtonSpinner>
+                    <TextBlock Text="Tables tall:" Margin="0 0 0 0"  HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="2"/>
+                    <xctk:ButtonSpinner Spin="TableBlockSpinnerHeight_Spin" Grid.Column="3">
+                        <TextBox Text="0" HorizontalContentAlignment="Right"/>
+                    </xctk:ButtonSpinner>
+                </Grid>
             </Grid>
+
         </Grid>
         
         

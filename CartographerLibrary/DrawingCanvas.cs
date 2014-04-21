@@ -63,14 +63,14 @@ namespace CartographerLibrary
 
         public double MapWidth = 0, MapHeight = 0;
         public string MapName = String.Empty;
+        public GraphicsBase SelectedObject = null;
 
 
         #endregion Class Members
 
         #region Constructors
 
-        public DrawingCanvas()
-            : base()
+        public DrawingCanvas() : base()
         {
             graphicsList = new VisualCollection(this);
 

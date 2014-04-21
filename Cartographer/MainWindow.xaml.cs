@@ -15,7 +15,7 @@ using System.Globalization;
 using Microsoft.Win32;
 using System.Windows.Media.Effects;
 using System.Diagnostics;
-
+using Xceed.Wpf.Toolkit;
 
 using CartographerLibrary;
 using CartographerUtilities;
@@ -207,7 +207,7 @@ namespace Cartographer
             drawingCanvas.MapWidth = prompt.MapWidth;
             drawingCanvas.MapHeight = prompt.MapHeight;
             drawingCanvas.MapName = prompt.MapName;
-            MessageBox.Show(String.Format("{0} meters wide by {1} meters tall", prompt.MapWidth, prompt.MapHeight));
+            System.Windows.MessageBox.Show(String.Format("{0} meters wide by {1} meters tall", prompt.MapWidth, prompt.MapHeight));
         }
 
         /// <summary>
@@ -616,7 +616,7 @@ namespace Cartographer
                 return true;    // continue
             }
 
-            MessageBoxResult result = MessageBox.Show(
+            MessageBoxResult result = System.Windows.MessageBox.Show(
                 this,
                 "Do you want to save changes?",
                 Properties.Resources.ApplicationTitle,
@@ -715,7 +715,7 @@ namespace Cartographer
         /// </summary>
         void ShowError(string message)
         {
-            MessageBox.Show(
+            System.Windows.MessageBox.Show(
                 this,
                 message,
                 Properties.Resources.ApplicationTitle,
@@ -895,5 +895,37 @@ namespace Cartographer
         }
 
         #endregion Other Functions
+
+        private void TableBlockSpinnerWide_Spin(object sender, SpinEventArgs e)
+        {
+            if (!(drawingCanvas.SelectedObject is GraphicsTableBlock))
+                return;
+
+            ButtonSpinner spinner = (ButtonSpinner)sender;
+            TextBox txtBox = (TextBox)spinner.Content;
+            GraphicsTableBlock selected = (drawingCanvas.SelectedObject as GraphicsTableBlock);
+
+            if (e.Direction == SpinDirection.Increase)
+                selected.NumTablesWide++;
+            else
+                selected.NumTablesWide--;
+            txtBox.Text = selected.NumTablesWide.ToString();
+        }
+
+        private void TableBlockSpinnerHeight_Spin(object sender, SpinEventArgs e)
+        {
+            if (!(drawingCanvas.SelectedObject is GraphicsTableBlock))
+                return;
+
+            ButtonSpinner spinner = (ButtonSpinner)sender;
+            TextBox txtBox = (TextBox)spinner.Content;
+            GraphicsTableBlock selected = (drawingCanvas.SelectedObject as GraphicsTableBlock);
+
+            if (e.Direction == SpinDirection.Increase)
+                selected.NumTablesTall++;
+            else
+                selected.NumTablesTall--;
+            txtBox.Text = selected.NumTablesTall.ToString();
+        }
     }
 }

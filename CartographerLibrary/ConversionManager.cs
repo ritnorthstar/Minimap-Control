@@ -48,8 +48,8 @@ namespace CartographerLibrary
             output.Y = r.Top;
             output.Width = r.Width;
             output.Height = r.Height;
-            output.TablesTall = tableBlock.numTablesTall;
-            output.TablesWide = tableBlock.numTablesWide;
+            output.TablesTall = tableBlock.NumTablesTall;
+            output.TablesWide = tableBlock.NumTablesWide;
 
             return output;
         }
