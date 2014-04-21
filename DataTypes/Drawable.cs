@@ -18,6 +18,8 @@ namespace DataTypes
         public static string TABLES_TYPE = "tableBlock";
         public static Brush TABLES_FILL = Brushes.Transparent;
 
+        public static string BARRIERS_TYPE = "barrier";
+
         public Object Subject { get { return subject; } }
         protected Object subject;
 
@@ -36,6 +38,11 @@ namespace DataTypes
             else if (subject is MapTables)
             {
                 getDrawable = GetDrawableMapTables;
+                getBounds = GetBoundsMapComponent;
+            }
+            else if (subject is MapComponent)
+            {
+                getDrawable = GetDrawableMapComponent;
                 getBounds = GetBoundsMapComponent;
             }
         }
@@ -99,6 +106,22 @@ namespace DataTypes
                 height = tables.Height,
                 fill = TABLES_FILL,
                 tileRect = new Rect(0, 0, tables.Width / tables.TablesWide, tables.Height / tables.TablesTall)
+            };
+        }
+
+        protected Object GetDrawableMapComponent()
+        {
+            MapComponent barrier = (MapComponent)Subject;
+            return new
+            {
+                type = BARRIERS_TYPE,
+                guid = barrier.Id,
+                x = barrier.X,
+                y = barrier.Y,
+                z = barrier.Z,
+                width = barrier.Width,
+                height = barrier.Height,
+                rect = new Rect(0, 0, barrier.Width, barrier.Height)
             };
         }
 

@@ -160,16 +160,30 @@
                                 <Setter.Value>
                                     <DataTemplate>
                                         <Grid>
-                                            <Rectangle Stroke="Black" StrokeThickness="4" Width="{Binding width}" Height="{Binding height}">
+                                            <Rectangle Stroke="Green" StrokeThickness="4" Width="{Binding width}" Height="{Binding height}">
                                                 <Rectangle.Fill>
                                                     <VisualBrush TileMode="Tile" Viewport="{Binding tileRect}" ViewportUnits="Absolute">
                                                         <VisualBrush.Visual>
-                                                            <Rectangle Stroke="Black" StrokeThickness="2" Fill="Transparent"
+                                                            <Rectangle Stroke="Green" StrokeThickness="2" Fill="Transparent"
                                                                        Width="{Binding tileRect.Width}" Height="{Binding tileRect.Height}" />
                                                         </VisualBrush.Visual>
                                                     </VisualBrush>
                                                 </Rectangle.Fill>
                                             </Rectangle>
+                                        </Grid>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding type}" Value="barrier">
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Rectangle Stroke="Red" StrokeThickness="4" Width="{Binding width}" Height="{Binding height}" />
+                                            <Line Stroke="Red" StrokeThickness="2" X1="{Binding rect.Left}" Y1="{Binding rect.Top}" X2="{Binding rect.Right}" Y2="{Binding rect.Bottom}" />
+                                            <Line Stroke="Red" StrokeThickness="2" X1="{Binding rect.Left}" Y1="{Binding rect.Bottom}" X2="{Binding rect.Right}" Y2="{Binding rect.Top}" />
                                         </Grid>
                                     </DataTemplate>
                                 </Setter.Value>

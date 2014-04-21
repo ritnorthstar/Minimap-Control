@@ -87,7 +87,7 @@ namespace Bridge
 
             source.ClearChildren();
             activeMap.DrawOn(source);
-            source.AddChild(new DebugRect(0, 0, activeMap.Width, activeMap.Height));
+            source.AddChild(new DebugRect(0, 0, activeMap.Width*10, activeMap.Height*10));
 
             TeamManager manager = TeamManager.Instance();
             Team t1 = manager.GetSampleTeam(manager.unusedTeams.Count - 1);
