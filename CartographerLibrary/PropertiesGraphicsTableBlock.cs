@@ -11,7 +11,7 @@ namespace CartographerLibrary
     /// <summary>
     /// Rectangle object properties.
     /// </summary>
-    public class PropertiesGraphicsRectangle : PropertiesGraphicsBase
+    public class PropertiesGraphicsTableBlock : PropertiesGraphicsBase
     {
         private double left;
         private double top;
@@ -20,12 +20,12 @@ namespace CartographerLibrary
         private double lineWidth;
         private Color objectColor;
 
-        public PropertiesGraphicsRectangle()
+        public PropertiesGraphicsTableBlock()
         {
 
         }
 
-        public PropertiesGraphicsRectangle(GraphicsTableBlock rectangle)
+        public PropertiesGraphicsTableBlock(GraphicsTableBlock rectangle)
         {
             if (rectangle == null)
             {

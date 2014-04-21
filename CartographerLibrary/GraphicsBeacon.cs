@@ -96,7 +96,7 @@ namespace CartographerLibrary
         /// </summary>
         public override PropertiesGraphicsBase CreateSerializedObject()
         {
-            return new PropertiesGraphicsEllipse(this);
+            return new PropertiesGraphicsBeacon(this);
         }
 
         public override void MoveHandleTo(Point point, int handleNumber)

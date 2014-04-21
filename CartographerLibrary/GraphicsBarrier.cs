@@ -11,13 +11,11 @@ namespace CartographerLibrary
     /// <summary>
     ///  Rectangle graphics object.
     /// </summary>
-    public class GraphicsTableBlock : GraphicsRectangleBase
+    public class GraphicsBarrier : GraphicsRectangleBase
     {
-        public int numTablesTall = 6, numTablesWide = 2;
-
         #region Constructors
 
-        public GraphicsTableBlock(double left, double top, double right, double bottom,
+        public GraphicsBarrier(double left, double top, double right, double bottom,
             double lineWidth, Color objectColor, double actualScale)
         {
             this.rectangleLeft = left;
@@ -31,11 +29,7 @@ namespace CartographerLibrary
             //RefreshDrawng();
         }
 
-        public GraphicsTableBlock()
-            :
-            this(0.0, 0.0, 100.0, 100.0, 1.0, Colors.Black, 1.0)
-        {
-        }
+        public GraphicsBarrier() : this(0.0, 0.0, 100.0, 100.0, 1.0, Colors.Black, 1.0) { }
 
         #endregion Constructors
 
@@ -51,29 +45,13 @@ namespace CartographerLibrary
                 throw new ArgumentNullException("drawingContext");
             }
 
-            Pen pen = new Pen(Brushes.Green, 3);
+            Pen pen = new Pen(Brushes.Red, 3);
             Rect r = Rectangle;
 
             drawingContext.DrawRectangle(null, pen, r);
-            
-            // horizontal lines
-            for (int n = 1; n < numTablesTall; n++)
-            {
-                Point p1 = new Point(r.Left, r.Top + r.Height * (float)n / numTablesTall);
-                Point p2 = new Point(r.Right, p1.Y);
 
-                drawingContext.DrawLine(pen, p1, p2);
-            }
-
-            // vertical lines
-            for (int n = 1; n < numTablesWide; n++)
-            {
-                Point p1 = new Point(r.Left + r.Width * (float)n / numTablesWide, r.Top);
-                Point p2 = new Point(p1.X, r.Bottom);
-
-                drawingContext.DrawLine(pen, p1, p2);
-            }
-
+            drawingContext.DrawLine(pen, r.TopLeft, r.BottomRight);
+            drawingContext.DrawLine(pen, r.BottomLeft, r.TopRight);
 
             base.Draw(drawingContext);
         }
@@ -91,7 +69,7 @@ namespace CartographerLibrary
         /// </summary>
         public override PropertiesGraphicsBase CreateSerializedObject()
         {
-            return new PropertiesGraphicsTableBlock(this);
+            return new PropertiesGraphicsBarrier(this);
         }
 
 
