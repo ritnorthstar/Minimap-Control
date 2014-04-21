@@ -79,7 +79,7 @@
                                     <ColumnDefinition Width="2*"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="Primary Color" Grid.Column="0" HorizontalAlignment="Right" Margin="0 0 20 0"/>
-                                <xctk:ColorPicker Grid.Column="1" Height="24" Width="220" Margin="0,0,0,0" HorizontalAlignment="Left" SelectedColorChanged="ColorSelectionChanged"
+                                <xctk:ColorPicker Grid.Column="1" Height="24" Width="180" Margin="0,0,0,0" HorizontalAlignment="Left" SelectedColorChanged="ColorSelectionChanged"
                                                   ShowAdvancedButton="True" DisplayColorAndName="True" UsingAlphaChannel="False" ShowRecentColors="True"
                                                   StandardColors="{Binding ColorList}" AvailableColors="{Binding ColorList}" Name="PrimaryColorPicker"/>
                             </Grid>

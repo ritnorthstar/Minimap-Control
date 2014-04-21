@@ -181,6 +181,8 @@ namespace Cartographer
                 double xScale = ActualWidth * 0.8 / source.Width;
                 double yScale = ActualHeight * 0.8 / source.Height;
                 drawingCanvas.ActualScale = xScale < yScale ? xScale : yScale;
+
+                PromptForWidthAndHeight();
             }
             catch (DrawingCanvasException e)
             {
@@ -196,6 +198,16 @@ namespace Cartographer
 
             // Remember initial directory
             SettingsManager.ApplicationSettings.InitialDirectory = System.IO.Path.GetDirectoryName(dlg.FileName);
+        }
+
+        void PromptForWidthAndHeight()
+        {
+            MapDimensionsPrompt prompt = new MapDimensionsPrompt();
+            prompt.ShowDialog();
+            drawingCanvas.MapWidth = prompt.MapWidth;
+            drawingCanvas.MapHeight = prompt.MapHeight;
+            drawingCanvas.MapName = prompt.MapName;
+            MessageBox.Show(String.Format("{0} meters wide by {1} meters tall", prompt.MapWidth, prompt.MapHeight));
         }
 
         /// <summary>

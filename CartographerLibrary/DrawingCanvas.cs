@@ -61,6 +61,9 @@ namespace CartographerLibrary
 
         private UndoManager undoManager;
 
+        public double MapWidth = 0, MapHeight = 0;
+        public string MapName = String.Empty;
+
 
         #endregion Class Members
 
@@ -773,9 +776,9 @@ namespace CartographerLibrary
             {
                 Map toWrite = new Map();
 
-                toWrite.Name = "testFileName";
-                toWrite.Width = 1000;
-                toWrite.Height = 1000;
+                toWrite.Name = this.MapName;
+                toWrite.Width = this.MapWidth;
+                toWrite.Height = this.MapHeight;
 
                 ConversionManager.AddAll(toWrite, graphicsList);
 
