@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Xml.Serialization;
 using System.Collections.Generic;
-
+using DataTypes;
 
 
 namespace CartographerLibrary
@@ -81,8 +81,7 @@ namespace CartographerLibrary
 
             tools[(int)ToolType.TableBlock] = new ToolTableBlock();
             tools[(int)ToolType.Beacon] = new ToolBeacon();
-            tools[(int)ToolType.Barrier] = new ToolLine();
-            tools[(int)ToolType.PolyLine] = new ToolPolyLine();
+            tools[(int)ToolType.Barrier] = new ToolBarrier();
 
             toolText = new ToolText(this);
             tools[(int)ToolType.Text] = toolText;   // kept as class member for in-place editing
@@ -772,23 +771,16 @@ namespace CartographerLibrary
         {
             try
             {
-                foreach (GraphicsBase thing in graphicsList)
-                {
-                    // TODO
-                }
+                Map toWrite = new Map();
 
+                toWrite.Name = "testFileName";
+                toWrite.Width = 1000;
+                toWrite.Height = 1000;
 
-                SerializationHelper helper = new SerializationHelper(graphicsList);
+                ConversionManager.AddAll(toWrite, graphicsList);
 
-                XmlSerializer xml = new XmlSerializer(typeof(SerializationHelper));
-
-                using (Stream stream = new FileStream(fileName,
-                    FileMode.Create, FileAccess.Write, FileShare.None))
-                {
-                    xml.Serialize(stream, helper);
-                    ClearHistory();
-                    UpdateState();
-                }
+                //string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                System.IO.File.WriteAllText(fileName, toWrite.ToJson());
             }
             catch (IOException e)
             {

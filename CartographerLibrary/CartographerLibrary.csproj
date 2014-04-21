@@ -67,6 +67,7 @@
     <Compile Include="CommandChangeState.cs" />
     <Compile Include="CommandDelete.cs" />
     <Compile Include="CommandDeleteAll.cs" />
+    <Compile Include="ConversionManager.cs" />
     <Compile Include="Definitions.cs" />
     <Compile Include="DrawingCanvas.cs" />
     <Compile Include="DrawingCanvasException.cs" />
@@ -81,15 +82,13 @@
     <Compile Include="SerializationHelper.cs" />
     <Compile Include="PropertiesGraphicsText.cs" />
     <Compile Include="ToolBeacon.cs" />
-    <Compile Include="ToolLine.cs" />
+    <Compile Include="ToolBarrier.cs" />
     <Compile Include="ToolObject.cs" />
     <Compile Include="ToolPointer.cs" />
-    <Compile Include="ToolPolyLine.cs" />
     <Compile Include="ToolTableBlock.cs" />
     <Compile Include="HelperFunctions.cs" />
     <Compile Include="GraphicsBeacon.cs" />
-    <Compile Include="GraphicsLine.cs" />
-    <Compile Include="GraphicsPolyLine.cs" />
+    <Compile Include="GraphicsBarrier.cs" />
     <Compile Include="GraphicsTableBlock.cs" />
     <Compile Include="GraphicsRectangleBase.cs" />
     <Compile Include="GraphicsSelectionRectangle.cs" />
@@ -100,10 +99,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="PropertiesGraphicsBase.cs" />
-    <Compile Include="PropertiesGraphicsEllipse.cs" />
-    <Compile Include="PropertiesGraphicsLine.cs" />
-    <Compile Include="PropertiesGraphicsPolyLine.cs" />
-    <Compile Include="PropertiesGraphicsRectangle.cs" />
+    <Compile Include="PropertiesGraphicsBeacon.cs" />
+    <Compile Include="PropertiesGraphicsBarrier.cs" />
+    <Compile Include="PropertiesGraphicsTableBlock.cs" />
     <Compile Include="Tool.cs" />
     <Compile Include="ToolRectangleBase.cs" />
     <Compile Include="ToolText.cs" />
@@ -154,6 +152,16 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{8fe3d7ed-bdbd-47cb-9d20-d5e803b019d7}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataTypes\DataTypes.csproj">
+      <Project>{ff378cd6-c1b8-4c5e-9544-a4ac26dbbc34}</Project>
+      <Name>DataTypes</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

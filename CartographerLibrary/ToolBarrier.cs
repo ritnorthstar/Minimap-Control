@@ -9,25 +9,25 @@ using System.IO;
 namespace CartographerLibrary
 {
     /// <summary>
-    /// TableBlock tool
+    /// Barrier tool
     /// </summary>
-    class ToolTableBlock : ToolRectangleBase
+    class ToolBarrier : ToolRectangleBase
     {
-        public ToolTableBlock()
+        public ToolBarrier()
         {
             MemoryStream stream = new MemoryStream(Properties.Resources.Rectangle);
             ToolCursor = new Cursor(stream);
         }
 
         /// <summary>
-        /// Create new TableBlock
+        /// Create new rectangle
         /// </summary>
         public override void OnMouseDown(DrawingCanvas drawingCanvas, MouseButtonEventArgs e)
         {
             Point p = e.GetPosition(drawingCanvas);
 
-            AddNewObject(drawingCanvas, 
-                new GraphicsTableBlock(
+            AddNewObject(drawingCanvas,
+                new GraphicsBarrier(
                 p.X,
                 p.Y,
                 p.X + 1,

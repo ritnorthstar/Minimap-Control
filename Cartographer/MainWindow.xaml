@@ -156,17 +156,17 @@
                 <ToggleButton Name="buttonToolTableBlock" ToolTip="TableBlock" Tag="TableBlock"
                     IsChecked="{Binding ElementName=drawingCanvas, Path=Tool, Mode=OneWay,
                     Converter={StaticResource convToolType}, ConverterParameter=TableBlock}">
-                    <Image Source="Images/rectangle.png"/>
+                    <Image Source="Images/TableBlock.ico" Width="24" Height="24"/>
                 </ToggleButton>
                 <ToggleButton Name="buttonToolBeacon" ToolTip="Beacon" Tag="Beacon"
                      IsChecked="{Binding ElementName=drawingCanvas, Path=Tool, Mode=OneWay,
                          Converter={StaticResource convToolType}, ConverterParameter=Beacon}">
-                    <Image Source="Images/ellipse.png"/>
+                    <Image Source="Images/Beacon.ico" Width="24" Height="24"/>
                 </ToggleButton>
                 <ToggleButton Name="buttonToolBarrier" ToolTip="Barrier" Tag="Barrier"
                      IsChecked="{Binding ElementName=drawingCanvas, Path=Tool, Mode=OneWay,
                          Converter={StaticResource convToolType}, ConverterParameter=Barrier}">
-                    <Image Source="Images/line.png"/>
+                    <Image Source="Images/Barrier.ico" Width="24" Height="24"/>
                 </ToggleButton>
                 <Separator/>
                 <Button Command="ApplicationCommands.Undo"  ToolTip="Undo" IsEnabled="{Binding ElementName=drawingCanvas, Path=CanUndo, Mode=OneWay}">
@@ -219,7 +219,7 @@
                          />
                     </Grid.LayoutTransform>
 
-                    <Image Name="imageBackground"  Source="Images/background.jpg" Stretch="None"/>
+                    <Image Name="imageBackground" Stretch="None"/>
 
                     <lib:DrawingCanvas Name="drawingCanvas" Background="#00000000"
                             Width="{Binding ElementName=imageBackground, Path=ActualWidth, Mode=OneWay}"

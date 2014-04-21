@@ -178,8 +178,7 @@ namespace CartographerLibrary
             {
                 if (g is GraphicsTableBlock ||
                      g is GraphicsBeacon ||
-                     g is GraphicsLine ||
-                     g is GraphicsPolyLine)
+                     g is GraphicsBarrier)
                 {
                     if ( g.LineWidth != value )
                     {

@@ -189,9 +189,9 @@ namespace Cartographer
                 return;
             }
 
-            this.fileName = dlg.FileName;
-            UpdateTitle();
-            mruManager.Add(this.fileName);
+            //this.fileName = dlg.FileName;
+            //UpdateTitle();
+            //mruManager.Add(this.fileName);
             drawingCanvas.Clear();
 
             // Remember initial directory

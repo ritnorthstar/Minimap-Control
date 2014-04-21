@@ -58,10 +58,9 @@ namespace CartographerLibrary
         /// and then used by called to create VisualCollection.
         /// </summary>
 
-        [XmlArrayItem(typeof(PropertiesGraphicsEllipse)),
-         XmlArrayItem(typeof(PropertiesGraphicsLine)),
-         XmlArrayItem(typeof(PropertiesGraphicsPolyLine)),
-         XmlArrayItem(typeof(PropertiesGraphicsRectangle)),
+        [XmlArrayItem(typeof(PropertiesGraphicsBeacon)),
+         XmlArrayItem(typeof(PropertiesGraphicsBarrier)),
+         XmlArrayItem(typeof(PropertiesGraphicsTableBlock)),
          XmlArrayItem(typeof(PropertiesGraphicsText))]
         public PropertiesGraphicsBase[] Graphics
         {
