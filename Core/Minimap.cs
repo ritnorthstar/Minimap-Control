@@ -10,9 +10,9 @@ namespace Core
     public static class Minimap
     {
         public static bool MAPS_ALLOW_REMOTE_READ = true;
-        public static bool MAPS_ALLOW_REMOTE_WRITE = true;
+        public static bool MAPS_ALLOW_REMOTE_WRITE = false;
         public static bool TEAMS_ALLOW_REMOTE_READ = true;
-        public static bool TEAMS_ALLOW_REMOTE_WRITE = true;
+        public static bool TEAMS_ALLOW_REMOTE_WRITE = false;
         public static bool USERS_ALLOW_REMOTE_READ = true;
         public static bool USERS_ALLOW_REMOTE_WRITE = true;
 
