@@ -12,7 +12,6 @@
 
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.New" Executed="FileNewCommand" />
-        <CommandBinding Command="ApplicationCommands.Print" Executed="FilePrintCommand" />
         <CommandBinding Command="ApplicationCommands.Close" Executed="FileCloseCommand" />
         <CommandBinding Command="ApplicationCommands.Save" Executed="FileSaveCommand" />
         <CommandBinding Command="ApplicationCommands.SaveAs" Executed="FileSaveAsCommand" />

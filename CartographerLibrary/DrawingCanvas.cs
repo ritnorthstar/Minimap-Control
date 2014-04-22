@@ -8,6 +8,7 @@ using System.IO;
 using System.Xml.Serialization;
 using System.Collections.Generic;
 using DataTypes;
+using Core.Data;
 
 
 namespace CartographerLibrary
@@ -70,7 +71,8 @@ namespace CartographerLibrary
 
         #region Constructors
 
-        public DrawingCanvas() : base()
+        public DrawingCanvas()
+            : base()
         {
             graphicsList = new VisualCollection(this);
 
@@ -780,10 +782,12 @@ namespace CartographerLibrary
                 toWrite.Width = this.MapWidth;
                 toWrite.Height = this.MapHeight;
 
-                ConversionManager.AddAll(toWrite, graphicsList);
+                ConversionManager.AddToMinimap(toWrite, graphicsList);
 
                 //string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                 System.IO.File.WriteAllText(fileName, toWrite.ToJson());
+
+                this.IsDirty = false;
             }
             catch (IOException e)
             {
@@ -799,31 +803,26 @@ namespace CartographerLibrary
         /// Load graphics from XML file.
         /// Throws: DrawingCanvasException.
         /// </summary>
-        public void LoadMap(string fileName)
+        public void LoadMap(string filename)
         {
             try
             {
-                SerializationHelper helper;
-
-                XmlSerializer xml = new XmlSerializer(typeof(SerializationHelper));
-
-                using (Stream stream = new FileStream(fileName,
-                    FileMode.Open, FileAccess.Read, FileShare.Read))
-                {
-                    helper = (SerializationHelper)xml.Deserialize(stream);
-                }
-
-                if (helper.Graphics == null)
-                {
-                    throw new DrawingCanvasException(Properties.Settings.Default.NoInfoInXMLFile);
-                }
-
                 graphicsList.Clear();
 
-                foreach (PropertiesGraphicsBase g in helper.Graphics)
-                {
-                    graphicsList.Add(g.CreateGraphics());
-                }
+                Map loadedMap = Map.FromFile(filename);
+
+                foreach (MapComponent barrier in loadedMap.Barriers)
+                    graphicsList.Add(ConversionManager.ConvertFromMM(barrier));
+
+                foreach (MapTables tableBlock in loadedMap.Tables)
+                    graphicsList.Add(ConversionManager.ConvertFromMM(tableBlock));
+
+                foreach (MapBeacon beacon in loadedMap.Beacons)
+                    graphicsList.Add(ConversionManager.ConvertFromMM(beacon));
+
+                this.MapHeight = loadedMap.Height;
+                this.MapWidth = loadedMap.Width;
+                this.MapName = loadedMap.Name;
 
                 // Update clip for all loaded objects.
                 RefreshClip();

@@ -261,9 +261,8 @@ namespace Bridge
         private void RefreshTeamMembers(object sender, RoutedEventArgs e)
         {
             TeamManager manager = TeamManager.Instance();
-
-
-
+            TeamListPanel.Children.Clear();
+            
             foreach (Team team in manager.teamList)
             {
                 Grid layout = new Grid();

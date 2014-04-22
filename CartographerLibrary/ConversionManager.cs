@@ -7,17 +7,59 @@ using DataTypes;
 using Core.Data;
 using System.Windows.Media;
 using System.Windows;
+using Core.Data;
 
 namespace CartographerLibrary
 {
     public class ConversionManager
     {
-        public static void AddAll(Map map, VisualCollection graphicsList)
+        public static GraphicsBase ConvertFromMM(MapComponent item)
+        {
+            GraphicsBase output = null;
+
+            if (item is MapBeacon)
+            {
+                output = new GraphicsBeacon(
+                    item.X - 10,
+                    item.Y - 10,
+                    item.X + 10,
+                    item.Y + 10,
+                    1, Colors.DodgerBlue, 1.0);
+            }
+
+            else if (item is MapTables)
+            {
+                GraphicsTableBlock o = new GraphicsTableBlock(
+                item.X,
+                item.Y,
+                item.X + item.Width,
+                item.Y + item.Height,
+                1, Colors.Green, 1.0);
+
+                o.NumTablesTall = (item as MapTables).TablesTall;
+                o.NumTablesWide = (item as MapTables).TablesWide;
+                output = o;
+            }
+
+            else if (item is MapComponent)
+            {
+                output = new GraphicsBarrier(
+                item.X,
+                item.Y,
+                item.X + item.Width,
+                item.Y + item.Height,
+                1, Colors.Red, 1.0);
+            }
+
+            return output;
+        }
+
+        public static void AddToMinimap(Map map, VisualCollection graphicsList)
         {
             TypeSwitch ts = new TypeSwitch()
-                .Case((GraphicsBeacon x) => map.Beacons.Add(Convert(x)))
-                .Case((GraphicsTableBlock x) => map.Tables.Add(Convert(x)))
-                .Case((GraphicsBarrier x) => map.Barriers.Add(Convert(x)));
+                .Case((GraphicsBeacon x) => map.Beacons.Add(ConvertToMM(x)))
+                .Case((GraphicsTableBlock x) => map.Tables.Add(ConvertToMM(x)))
+                .Case((GraphicsBarrier x) => map.Barriers.Add(ConvertToMM(x)));
 
             foreach (GraphicsBase mapObject in graphicsList)
             {
@@ -25,7 +67,7 @@ namespace CartographerLibrary
             }
         }
 
-        private static MapBeacon Convert(GraphicsBeacon beacon)
+        private static MapBeacon ConvertToMM(GraphicsBeacon beacon)
         {
             MapBeacon output = new MapBeacon();
 
@@ -39,7 +81,7 @@ namespace CartographerLibrary
             return output;
         }
 
-        private static MapTables Convert(GraphicsTableBlock tableBlock)
+        private static MapTables ConvertToMM(GraphicsTableBlock tableBlock)
         {
             MapTables output = new MapTables();
 
@@ -54,7 +96,7 @@ namespace CartographerLibrary
             return output;
         }
 
-        private static MapComponent Convert(GraphicsBarrier barrier)
+        private static MapComponent ConvertToMM(GraphicsBarrier barrier)
         {
             MapComponent output = new MapComponent();
 

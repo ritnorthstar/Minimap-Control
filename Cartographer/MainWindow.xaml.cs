@@ -76,28 +76,6 @@ namespace Cartographer
         }
 
         /// <summary>
-        /// Print command
-        /// </summary>
-        void FilePrintCommand(object sender, ExecutedRoutedEventArgs args)
-        {
-            // Depending on XAML version, call required Print function.
-            Object o = FindName("imageBackground");
-
-            if (o != null)
-            {
-                Image image = o as Image;
-
-                if (image != null)
-                {
-                    PrintWithBackgroundImage(image);
-                    return;
-                }
-            }
-
-            PrintWithoutBackground();
-        }
-
-        /// <summary>
         /// Exit
         /// </summary>
         void FileCloseCommand(object sender, ExecutedRoutedEventArgs args)
@@ -118,8 +96,8 @@ namespace Cartographer
             // Show Open File dialog
             OpenFileDialog dlg = new OpenFileDialog();
 
-            dlg.Filter = "XML files (*.xml)|*.xml|All Files|*.*";
-            dlg.DefaultExt = "xml";
+            dlg.Filter = "Minimap maps (*.map)|*.map";
+            dlg.DefaultExt = "map";
             dlg.InitialDirectory = SettingsManager.ApplicationSettings.InitialDirectory;
             dlg.RestoreDirectory = true;
 
@@ -142,7 +120,6 @@ namespace Cartographer
 
             this.fileName = dlg.FileName;
             UpdateTitle();
-            mruManager.Add(this.fileName);
 
             // Remember initial directory
             SettingsManager.ApplicationSettings.InitialDirectory = System.IO.Path.GetDirectoryName(dlg.FileName);
@@ -207,7 +184,6 @@ namespace Cartographer
             drawingCanvas.MapWidth = prompt.MapWidth;
             drawingCanvas.MapHeight = prompt.MapHeight;
             drawingCanvas.MapName = prompt.MapName;
-            System.Windows.MessageBox.Show(String.Format("{0} meters wide by {1} meters tall", prompt.MapWidth, prompt.MapHeight));
         }
 
         /// <summary>
@@ -765,7 +741,6 @@ namespace Cartographer
 
             this.fileName = file;
             UpdateTitle();
-            mruManager.Add(this.fileName);
 
             return true;
         }

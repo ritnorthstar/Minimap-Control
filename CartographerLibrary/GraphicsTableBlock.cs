@@ -13,7 +13,7 @@ namespace CartographerLibrary
     /// </summary>
     public class GraphicsTableBlock : GraphicsRectangleBase
     {
-        public static int DefaultNumTablesTall = 6;
+        public static int DefaultNumTablesTall = 2;
         public static int DefaultNumTablesWide = 2;
 
         private int numTablesTall = GraphicsTableBlock.DefaultNumTablesTall;

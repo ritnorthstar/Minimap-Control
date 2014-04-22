@@ -27,11 +27,7 @@ namespace CartographerLibrary
             //RefreshDrawng();
         }
 
-        public GraphicsBeacon()
-            :
-            this(0.0, 0.0, 100.0, 100.0, 1.0, Colors.Black, 1.0)
-        {
-        }
+        public GraphicsBeacon() : this(0.0, 0.0, 100.0, 100.0, 1.0, Colors.Black, 1.0) { }
 
         #endregion Constructors
 
