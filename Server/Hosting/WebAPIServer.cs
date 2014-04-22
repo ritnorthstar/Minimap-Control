@@ -10,18 +10,35 @@ namespace Server.Hosting
     {
         private IDisposable instance;
 
-        public void Start(int port = 9000)
+        public int Port
         {
-            if (instance == null)
+            get
+            {
+                return Port;
+            }
+            set
+            {
+                port = value;
+                if (IsRunning())
+                {
+                    Restart();
+                }
+            }
+        }
+        protected int port = 9000;
+
+        public void Start()
+        {
+            if (!IsRunning())
             {
                 Console.WriteLine("STARTING SERVER");
-                instance = WebApp.Start<Startup>(url: "http://*:" + port);
+                instance = WebApp.Start<Startup>(url: "http://*:" + Port);
             }
         }
 
         public void Stop()
         {
-            if (instance != null)
+            if (IsRunning())
             {
                 Console.WriteLine("STOPPING SERVER");
                 instance.Dispose();
