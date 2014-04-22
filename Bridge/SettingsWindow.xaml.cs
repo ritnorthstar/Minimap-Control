@@ -84,9 +84,14 @@ namespace Bridge
 
         private void saveTeamData()
         {
-            selectedTeam.Name = TeamName.Text;
-            selectedTeam.PrimaryColor = PrimaryColorPicker.SelectedColor;
-            selectedTeam.SecondaryColor = SecondaryColorPicker.SelectedColor;
+            if (selectedTeam != null)
+            {
+                selectedTeam.Name = TeamName.Text;
+                selectedTeam.PrimaryColor = PrimaryColorPicker.SelectedColor;
+                selectedTeam.SecondaryColor = SecondaryColorPicker.SelectedColor;
+
+                Minimap.TeamManager().Add(selectedTeam);
+            }
         }
 
         private void ClickSaveData(object sender, RoutedEventArgs e)
@@ -138,10 +143,17 @@ namespace Bridge
         {
             if (Minimap.TeamManager().Remove(selectedTeam.Id))
             {
-                Console.WriteLine("Removing");
                 unusedTeams.Add(selectedTeam);
                 teams.Remove(selectedTeam);
                 AddTeamButton.IsEnabled = true;
+
+                TeamName.Text = "";
+                PrimaryColorPicker.SelectedColor = Colors.Black;
+                SecondaryColorPicker.SelectedColor = Colors.Black;
+
+                saved = true;
+                SaveButton.ToolTip = "No changes to save";
+                SaveButton.IsEnabled = false;
             }
         }
     }
