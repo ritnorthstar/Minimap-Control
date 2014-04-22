@@ -40,13 +40,13 @@ namespace Server.Controllers
             {
                 UserObject user = Minimap.UserManager().Get(id);
 
-                // map not found
+                // user not found
                 if (user == null)
                 {
                     response = Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
-                // map found
+                // user found
                 else
                 {
                     response = Request.CreateResponse<UserObject>(HttpStatusCode.OK, user);
@@ -95,14 +95,16 @@ namespace Server.Controllers
             return response;
         }
 
-        public HttpResponseMessage PutUser(UserObject user)
+        public HttpResponseMessage PutUser(string id, UserObject user)
         {
             HttpResponseMessage response;
+
+            user.Id = id;
 
             // remote write enabled
             if (Minimap.USERS_ALLOW_REMOTE_WRITE)
             {
-                // map found
+                // user found
                 if (user != null && Minimap.UserManager().Get(user.Id) != null)
                 {
                     // add successful
@@ -119,7 +121,7 @@ namespace Server.Controllers
                 }
 
 
-                // map not found
+                // user not found
                 else
                 {
                     response = PostUser(user);

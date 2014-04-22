@@ -40,13 +40,13 @@ namespace Server.Controllers
             {
                 TeamObject team = Minimap.TeamManager().Get(id);
 
-                // map not found
+                // team not found
                 if (team == null)
                 {
                     response = Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
-                // map found
+                // team found
                 else
                 {
                     response = Request.CreateResponse<TeamObject>(HttpStatusCode.OK, team);
@@ -102,7 +102,7 @@ namespace Server.Controllers
             // remote write enabled
             if (Minimap.TEAMS_ALLOW_REMOTE_WRITE)
             {
-                // map found
+                // team found
                 if (team != null && Minimap.TeamManager().Get(team.Id) != null)
                 {
                     // add successful
@@ -119,7 +119,7 @@ namespace Server.Controllers
                 }
 
 
-                // map not found
+                // team not found
                 else
                 {
                     response = PostTeam(team);
