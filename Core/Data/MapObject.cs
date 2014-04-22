@@ -49,8 +49,6 @@ namespace Core.Data
         public KeyedCollection<string, MapBeacon> Beacons { get { return beacons; } }
         protected KeyedCollection<string, MapBeacon> beacons;
 
-        public IEnumerable<MapComponent> Components { get { return Barriers.Concat(Tables).Concat(Beacons); } }
-
         public MapObject()
         {
             barriers = new ComponentCollection<MapComponent>();
@@ -92,6 +90,11 @@ namespace Core.Data
             }
 
             return component;
+        }
+
+        public IEnumerable<MapComponent> GetComponents()
+        {
+            return Barriers.Concat(Tables).Concat(Beacons);
         }
     }
 }

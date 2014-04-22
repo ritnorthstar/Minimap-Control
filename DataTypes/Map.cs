@@ -29,7 +29,7 @@ namespace DataTypes
 
         public void DrawOn(DrawingItemsSource source)
         {
-            foreach (MapComponent component in Components)
+            foreach (MapComponent component in GetComponents())
             {
                 source.AddChild(new Drawable(component));
             }
