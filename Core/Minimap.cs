@@ -13,9 +13,12 @@ namespace Core
         public static bool MAPS_ALLOW_REMOTE_WRITE = true;
         public static bool TEAMS_ALLOW_REMOTE_READ = true;
         public static bool TEAMS_ALLOW_REMOTE_WRITE = true;
+        public static bool USERS_ALLOW_REMOTE_READ = true;
+        public static bool USERS_ALLOW_REMOTE_WRITE = true;
 
         private static DataManager<MapObject> mapManager = new DataManager<MapObject>();
         private static DataManager<TeamObject> teamManager = new DataManager<TeamObject>();
+        private static DataManager<UserObject> userManager = new DataManager<UserObject>();
 
         /// <summary>
         /// Get the global map manager.</summary>
@@ -33,6 +36,15 @@ namespace Core
         public static DataManager<TeamObject> TeamManager()
         {
             return teamManager;
+        }
+
+        /// <summary>
+        /// Get the global user manager.</summary>
+        /// <returns>
+        /// Returns the global user manager instance.</returns>
+        public static DataManager<UserObject> UserManager()
+        {
+            return userManager;
         }
     }
 }

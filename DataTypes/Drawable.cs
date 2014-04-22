@@ -18,7 +18,7 @@ namespace DataTypes
         public static string TABLES_TYPE = "tableBlock";
         public static Brush TABLES_FILL = Brushes.Transparent;
 
-        public static string BARRIERS_TYPE = "barrier";
+        public static string BARRIER_TYPE = "barrier";
 
         public Object Subject { get { return subject; } }
         protected Object subject;
@@ -71,7 +71,7 @@ namespace DataTypes
             }
         }
 
-        public String ToString()
+        public override String ToString()
         {
             return Subject.ToString();
         }
@@ -114,7 +114,7 @@ namespace DataTypes
             MapComponent barrier = (MapComponent)Subject;
             return new
             {
-                type = BARRIERS_TYPE,
+                type = BARRIER_TYPE,
                 guid = barrier.Id,
                 x = barrier.X,
                 y = barrier.Y,
