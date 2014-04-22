@@ -15,7 +15,8 @@ using System.Collections.ObjectModel;
 using DataTypes;
 using Xceed.Wpf.Toolkit;
 using System.Globalization;
-using DataTypes.UserManagement;
+using Core.Data;
+using Core;
 
 namespace Bridge
 {
@@ -24,17 +25,31 @@ namespace Bridge
     /// </summary>
     public partial class SettingsWindow : Window
     {
-        public TeamList teams { get; set; }
+        public List<Team> teams { get; set; }
         public Team selectedTeam { get; set; }
+
+        private List<Team> unusedTeams;
         private bool saved = true;
 
         public SettingsWindow()
         {
-            teams = TeamManager.Instance().teamList;
+            teams = getTeams();
+            unusedTeams = Team.GetDefaultTeams();
             this.DataContext = this.teams;
             if (!Application.Current.Resources.Contains("selectedTeam"))
                 Application.Current.Resources.Add("selectedTeam", selectedTeam);
             InitializeComponent();
+        }
+
+        private List<Team> getTeams()
+        {
+            IEnumerable<TeamObject> teamObjs = Minimap.TeamManager().GetAll();
+            List<Team> copy = new List<Team>(teamObjs.Count());
+            foreach (TeamObject team in teamObjs)
+            {
+                copy.Add(new Team(team));
+            }
+            return copy;
         }
 
         private void SettingsWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -56,24 +71,22 @@ namespace Bridge
 
         private void ClickAddTeam(object sender, RoutedEventArgs e)
         {
-            TeamManager manager = TeamManager.Instance();
-            Team toAdd = manager.GetSampleTeam(0);
-            manager.unusedTeams.RemoveAt(0);
-                        
+            Team toAdd = unusedTeams.ElementAt(0);
+            Console.WriteLine("Adding " + toAdd.Name);
+            unusedTeams.RemoveAt(0);
             teams.Add(toAdd);
 
-            if (manager.unusedTeams.Count == 0)
+            if (unusedTeams.Count == 0)
             {
                 AddTeamButton.IsEnabled = false;
-                return;
             }
         }
 
         private void saveTeamData()
         {
-            selectedTeam.name = TeamName.Text;
-            selectedTeam.color = PrimaryColorPicker.SelectedColor;
-            selectedTeam.secondaryColor = SecondaryColorPicker.SelectedColor;
+            selectedTeam.Name = TeamName.Text;
+            selectedTeam.PrimaryColor = PrimaryColorPicker.SelectedColor;
+            selectedTeam.SecondaryColor = SecondaryColorPicker.SelectedColor;
         }
 
         private void ClickSaveData(object sender, RoutedEventArgs e)
@@ -90,9 +103,9 @@ namespace Bridge
             if(selectedTeam == null)
                 return;
             TeamInfo.Visibility = Visibility.Visible;
-            TeamName.Text = selectedTeam.name;
-            PrimaryColorPicker.SelectedColor = selectedTeam.color;
-            SecondaryColorPicker.SelectedColor = selectedTeam.secondaryColor;
+            TeamName.Text = selectedTeam.Name;
+            PrimaryColorPicker.SelectedColor = selectedTeam.PrimaryColor;
+            SecondaryColorPicker.SelectedColor = selectedTeam.SecondaryColor;
 
             saved = true;
             SaveButton.ToolTip = "No changes to save";
@@ -123,9 +136,12 @@ namespace Bridge
 
         private void DeleteTeam(object sender, RoutedEventArgs e)
         {
-            TeamManager.Instance().unusedTeams.Add(selectedTeam);
-            teams.Remove(selectedTeam);
-            AddTeamButton.IsEnabled = true;
+            if (Minimap.TeamManager().Remove(selectedTeam.Id))
+            {
+                unusedTeams.Add(selectedTeam);
+                teams.Remove(selectedTeam);
+                AddTeamButton.IsEnabled = true;
+            }
         }
     }
 }

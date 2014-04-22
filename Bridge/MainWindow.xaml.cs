@@ -22,7 +22,6 @@ using System.Text.RegularExpressions;
 using Core.Data;
 using Server.Hosting;
 using Core;
-using DataTypes.UserManagement;
 
 
 namespace Bridge
@@ -89,14 +88,18 @@ namespace Bridge
             activeMap.DrawOn(source);
             source.AddChild(new DebugRect(0, 0, activeMap.Width*10, activeMap.Height*10));
 
-            TeamManager manager = TeamManager.Instance();
-            Team t1 = manager.GetSampleTeam(manager.unusedTeams.Count - 1);
-            Team t2 = manager.GetSampleTeam(manager.unusedTeams.Count - 2);
-            manager.Add(new Judge(150, 50, "Clark Kent"), t1);
-            manager.Add(new Judge(150, 250, "Bruce Wayne"), t2);
+            Team t1 = new Team("Scorpion", Colors.SandyBrown, Colors.Maroon);
+            Team t2 = new Team("Spider", Colors.Teal, Colors.Purple);
+            Minimap.TeamManager().Add(t1);
+            Minimap.TeamManager().Add(t2);
 
-            manager.DrawOnSource(source);
-            manager.UpdateIdTable(activeMap);
+            User u1 = new User("Clark Kent", t1, 150, 50, 50);
+            User u2 = new User("Bruce Wayne", t2, 150, 250, 50);
+            Minimap.UserManager().Add(u1);
+            Minimap.UserManager().Add(u2);
+
+            u1.DrawOn(source);
+            u2.DrawOn(source);
         }
 
         #endregion

@@ -39,15 +39,15 @@
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
                                         
-                                        <TextBlock Text="{Binding name}" Margin="3" Grid.Column="0"/>
+                                        <TextBlock Text="{Binding Name}" Margin="3" Grid.Column="0"/>
                                         <Rectangle Width="20" Margin="3" Stroke="Black" Grid.Column="1">
                                             <Rectangle.Fill>
-                                                <SolidColorBrush Color="{Binding color}"/>
+                                                <SolidColorBrush Color="{Binding PrimaryColor}"/>
                                             </Rectangle.Fill>
                                         </Rectangle>
                                         <Rectangle Width="20" Margin="3" Stroke="Black" Grid.Column="2">
                                             <Rectangle.Fill>
-                                                <SolidColorBrush Color="{Binding secondaryColor}"/>
+                                                <SolidColorBrush Color="{Binding SecondaryColor}"/>
                                             </Rectangle.Fill>
                                         </Rectangle>
                                     </Grid>
