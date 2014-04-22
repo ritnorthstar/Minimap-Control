@@ -25,7 +25,7 @@ namespace Bridge
     /// </summary>
     public partial class SettingsWindow : Window
     {
-        public List<Team> teams { get; set; }
+        public ObservableCollection<Team> teams { get; set; }
         public Team selectedTeam { get; set; }
 
         private List<Team> unusedTeams;
@@ -41,10 +41,10 @@ namespace Bridge
             InitializeComponent();
         }
 
-        private List<Team> getTeams()
+        private ObservableCollection<Team> getTeams()
         {
             IEnumerable<TeamObject> teamObjs = Minimap.TeamManager().GetAll();
-            List<Team> copy = new List<Team>(teamObjs.Count());
+            ObservableCollection<Team> copy = new ObservableCollection<Team>();
             foreach (TeamObject team in teamObjs)
             {
                 copy.Add(new Team(team));
@@ -72,9 +72,9 @@ namespace Bridge
         private void ClickAddTeam(object sender, RoutedEventArgs e)
         {
             Team toAdd = unusedTeams.ElementAt(0);
-            Console.WriteLine("Adding " + toAdd.Name);
             unusedTeams.RemoveAt(0);
             teams.Add(toAdd);
+            Minimap.TeamManager().Add(toAdd);
 
             if (unusedTeams.Count == 0)
             {
@@ -138,6 +138,7 @@ namespace Bridge
         {
             if (Minimap.TeamManager().Remove(selectedTeam.Id))
             {
+                Console.WriteLine("Removing");
                 unusedTeams.Add(selectedTeam);
                 teams.Remove(selectedTeam);
                 AddTeamButton.IsEnabled = true;

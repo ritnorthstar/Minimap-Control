@@ -1,6 +1,7 @@
 ﻿using Core.Data;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,8 +9,10 @@ using System.Windows.Media;
 
 namespace DataTypes
 {
-    public class Team : TeamObject
+    public class Team : TeamObject, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public Team(string name, Color primaryColor, Color secondaryColor)
         {
             Name = name;
@@ -22,6 +25,19 @@ namespace DataTypes
             // do nothing
         }
 
+        public new string Name
+        {
+            get
+            {
+                return base.Name;
+            }
+            set
+            {
+                base.Name = value;
+                OnPropertyChanged("Name");
+            }
+        }
+
         public new Color PrimaryColor
         {
             get
@@ -31,6 +47,7 @@ namespace DataTypes
             set
             {
                 base.PrimaryColor = new TeamColor(value.A, value.R, value.G, value.B);
+                OnPropertyChanged("PrimaryColor");
             }
         }
 
@@ -43,6 +60,7 @@ namespace DataTypes
             set
             {
                 base.SecondaryColor = new TeamColor(value.A, value.R, value.G, value.B);
+                OnPropertyChanged("SecondaryColor");
             }
         }
 
@@ -61,6 +79,14 @@ namespace DataTypes
             };
 
             return defaultTeams;
+        }
+
+        protected void OnPropertyChanged(string property)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(property));
+            }
         }
     }
 }
