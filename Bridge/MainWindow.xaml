@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Minimap" Height="800" Width="1200"
         Icon="./Resources/Logo.ico">
-    
+
     <!-- Region Bindings-->
     <Window.CommandBindings>
         <CommandBinding Command="Open" Executed="OpenMapDialog" />
@@ -13,7 +13,7 @@
         <KeyBinding Key="O" Modifiers="Control" Command="Open" />
         <KeyBinding Key="Q" Modifiers="Control" Command="Close" />
     </Window.InputBindings>
-    
+
     <!-- EndRegion -->
 
     <DockPanel>
@@ -77,11 +77,32 @@
             </StatusBarItem>
         </StatusBar>
 
-        <StackPanel DockPanel.Dock="Right" Width="250">
-            <TextBlock Margin="10" FontSize="20" TextAlignment="Center">Selected object:</TextBlock>
-            <TextBlock Margin="10" FontSize="14" TextAlignment="Left" TextWrapping="Wrap" Name="selectedObjectText"></TextBlock>
-        </StackPanel>
-        
+        <Grid DockPanel.Dock="Right" Width="250">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0">
+                <Grid Margin="0 8 10 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Margin="10" FontSize="20" TextAlignment="Center" Grid.Column="0" Padding="50 0 0 0" Text="Judges" />
+                    <Button Click="RefreshTeamMembers" Width="32" Height="32"  Grid.Column="1">
+                        <Image Source="Resources/Icons/refresh.png" Width="32"/>
+                    </Button>
+                </Grid>
+                <StackPanel Name="TeamListPanel" Margin="20 0">
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Grid.Row="1">
+                <TextBlock Margin="10" FontSize="20" TextAlignment="Center">Selected object:</TextBlock>
+                <TextBlock Margin="10" FontSize="14" TextAlignment="Left" TextWrapping="Wrap" Name="selectedObjectText"></TextBlock>
+            </StackPanel>
+        </Grid>
+
         <ListBox x:Name="ListboxContainer" SizeChanged="Canvas_SizeChanged" SelectionChanged="ListboxContainer_SelectionChanged">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -203,7 +224,7 @@
                                 </Setter.Value>
                             </Setter>
                         </DataTrigger>
-                        
+
                         <DataTrigger Binding="{Binding type}" Value="judge">
                             <Setter Property="ContentTemplate">
                                 <Setter.Value>

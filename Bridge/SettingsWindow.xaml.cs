@@ -71,7 +71,7 @@ namespace Bridge
 
         private void saveTeamData()
         {
-            selectedTeam.name = TeamName.Text;
+            selectedTeam.Name = TeamName.Text;
             selectedTeam.color = PrimaryColorPicker.SelectedColor;
             selectedTeam.secondaryColor = SecondaryColorPicker.SelectedColor;
         }
@@ -90,7 +90,7 @@ namespace Bridge
             if(selectedTeam == null)
                 return;
             TeamInfo.Visibility = Visibility.Visible;
-            TeamName.Text = selectedTeam.name;
+            TeamName.Text = selectedTeam.Name;
             PrimaryColorPicker.SelectedColor = selectedTeam.color;
             SecondaryColorPicker.SelectedColor = selectedTeam.secondaryColor;
 

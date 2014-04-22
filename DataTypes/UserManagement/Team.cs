@@ -14,7 +14,7 @@ namespace DataTypes.UserManagement
         private Color _color;
         private Color _secondaryColor;
 
-        public string name
+        public string Name
         {
             get { return _name; }
             set
@@ -56,7 +56,7 @@ namespace DataTypes.UserManagement
 
         override public string ToString()
         {
-            return String.Format("{0}({1})", name, color.ToString());
+            return String.Format("{0}({1})", Name, color.ToString());
         }
 
         protected void OnPropertyChanged(string propertyName)

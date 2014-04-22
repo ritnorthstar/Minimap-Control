@@ -52,7 +52,7 @@ namespace DataTypes.UserManagement
 
         public override string ToString()
         {
-            return String.Format("{0} ({1}) @ {2}, {3}", id, team.name, x, y);
+            return String.Format("{0} ({1}) @ {2}, {3}", id, team.Name, x, y);
         }
     }
 }

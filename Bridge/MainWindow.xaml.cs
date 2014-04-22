@@ -51,7 +51,7 @@ namespace Bridge
         {
             Application.Current.Shutdown();
         }
-        
+
         #region Dialog launching
 
         private void LaunchAboutWindow(object sender, RoutedEventArgs args)
@@ -87,7 +87,7 @@ namespace Bridge
 
             source.ClearChildren();
             activeMap.DrawOn(source);
-            source.AddChild(new DebugRect(0, 0, activeMap.Width*10, activeMap.Height*10));
+            source.AddChild(new DebugRect(0, 0, activeMap.Width * 10, activeMap.Height * 10));
 
             TeamManager manager = TeamManager.Instance();
             Team t1 = manager.GetSampleTeam(manager.unusedTeams.Count - 1);
@@ -100,7 +100,7 @@ namespace Bridge
         }
 
         #endregion
-        
+
         #region UI handling
 
         #region Canvas
@@ -122,36 +122,38 @@ namespace Bridge
         {
             Point position = e.GetPosition(ListboxContainer);
 
-            if (e.LeftButton == MouseButtonState.Pressed && !(e.OriginalSource is Thumb)) // Don't block the scrollbars.
-            {
-                CaptureMouse();
-
-                Vector delta = position - LastMousePosition;
-                double nextX = zoomCanvas.Offset.X - delta.X;
-                double nextY = zoomCanvas.Offset.Y - delta.Y;
-
-                if (zoomCanvas.ActualWidth < source.Extent.Width * zoomCanvas.Scale) // viewport is narrower than contents, constrain if necessary
+            if (e.LeftButton == MouseButtonState.Pressed)
+                if (!(e.OriginalSource is Thumb || e.OriginalSource is Button)) // Don't block the scrollbars.
                 {
-                    if (nextX < 0) nextX = 0;
-                    else if (nextX + zoomCanvas.ActualWidth > source.Extent.Width * zoomCanvas.Scale)
-                        nextX = source.Extent.Width * zoomCanvas.Scale - zoomCanvas.ActualWidth;
+                    CaptureMouse();
+
+                    Vector delta = position - LastMousePosition;
+                    double nextX = zoomCanvas.Offset.X - delta.X;
+                    double nextY = zoomCanvas.Offset.Y - delta.Y;
+
+                    if (zoomCanvas.ActualWidth < source.Extent.Width * zoomCanvas.Scale) // viewport is narrower than contents, constrain if necessary
+                    {
+                        if (nextX < 0) nextX = 0;
+                        else if (nextX + zoomCanvas.ActualWidth > source.Extent.Width * zoomCanvas.Scale)
+                            nextX = source.Extent.Width * zoomCanvas.Scale - zoomCanvas.ActualWidth;
+                    }
+
+                    else { nextX = (zoomCanvas.ActualWidth - source.Extent.Width * zoomCanvas.Scale) / -2; } // viewport is wider than contents, center
+
+                    if (zoomCanvas.ActualHeight < source.Extent.Height * zoomCanvas.Scale) // viewport is shorter than contents, constrain if necessary
+                    {
+                        if (nextY < 0) nextY = 0;
+                        else if (nextY + zoomCanvas.ActualHeight > source.Extent.Height * zoomCanvas.Scale)
+                            nextY = source.Extent.Height * zoomCanvas.Scale - zoomCanvas.ActualHeight;
+                    }
+
+                    else { nextY = (zoomCanvas.ActualHeight - source.Extent.Height * zoomCanvas.Scale) / -2; } // viewport is taller than contents, center
+
+                    zoomCanvas.Offset = new Point(nextX, nextY);
+                    e.Handled = true;
                 }
-
-                else { nextX = (zoomCanvas.ActualWidth - source.Extent.Width * zoomCanvas.Scale) / -2; } // viewport is wider than contents, center
-
-                if (zoomCanvas.ActualHeight < source.Extent.Height * zoomCanvas.Scale) // viewport is shorter than contents, constrain if necessary
-                {
-                    if (nextY < 0) nextY = 0;
-                    else if (nextY + zoomCanvas.ActualHeight > source.Extent.Height * zoomCanvas.Scale)
-                        nextY = source.Extent.Height * zoomCanvas.Scale - zoomCanvas.ActualHeight;
-                }
-
-                else { nextY = (zoomCanvas.ActualHeight - source.Extent.Height * zoomCanvas.Scale) / -2; } // viewport is taller than contents, center
-
-                zoomCanvas.Offset = new Point(nextX, nextY);
-                e.Handled = true;
-            }
-            else { ReleaseMouseCapture(); }
+                else ReleaseMouseCapture();
+            else ReleaseMouseCapture();
 
             LastMousePosition = position;
         }
@@ -182,7 +184,7 @@ namespace Bridge
         private void ListboxContainer_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             object selected = e.AddedItems[0];
-            
+
             Match match = Regex.Match(selected.ToString(), "guid = ((?:[0-9a-f]+-?)+)");
 
             if (match.Success)
@@ -199,7 +201,7 @@ namespace Bridge
                 }
             }
         }
-        
+
         #endregion
 
         #region Menu
@@ -233,7 +235,7 @@ namespace Bridge
 
             else
             {
-                if(activeMap == null) OpenMapDialog(null, null);
+                if (activeMap == null) OpenMapDialog(null, null);
                 if (activeMap == null) return; // user cancelled map-opening
                 serverIsRunning = true; // resume server
                 success = true;
@@ -250,12 +252,71 @@ namespace Bridge
                 manager.Add(activeMap);
             }
         }
-      
+
         #endregion
 
         #region Sidebar
 
+        Thickness indentation = new Thickness(10, 0, 0, 0);
+        private void RefreshTeamMembers(object sender, RoutedEventArgs e)
+        {
+            TeamManager manager = TeamManager.Instance();
 
+
+
+            foreach (Team team in manager.teamList)
+            {
+                Grid layout = new Grid();
+                ColumnDefinition listCell = new ColumnDefinition();
+                listCell.Width = new GridLength(3, GridUnitType.Star);
+                ColumnDefinition emblemCell = new ColumnDefinition();
+                emblemCell.Width = new GridLength(1, GridUnitType.Star);
+                layout.ColumnDefinitions.Add(listCell);
+                layout.ColumnDefinitions.Add(emblemCell);
+
+                StackPanel sp = new StackPanel();
+
+                TextBlock teamName = new TextBlock();
+                teamName.Text = team.Name;
+                teamName.FontSize = 16;
+                sp.Children.Add(teamName);
+
+                if (manager.Get(team) != null)
+                    foreach (Judge judge in manager.Get(team))
+                    {
+                        TextBlock judgeName = new TextBlock();
+                        judgeName.Text = judge.id;
+                        judgeName.FontSize = 14;
+                        judgeName.Margin = indentation;
+                        sp.Children.Add(judgeName);
+                    }
+
+                Grid.SetRow(sp, 0);
+                Grid.SetColumn(sp, 0);
+                layout.Children.Add(sp);
+
+                Polygon emblem = new Polygon();
+                emblem.Stroke = new SolidColorBrush(team.secondaryColor);
+                emblem.Fill = new SolidColorBrush(team.color);
+                emblem.StrokeThickness = 2;
+                emblem.HorizontalAlignment = HorizontalAlignment.Left;
+                emblem.VerticalAlignment = VerticalAlignment.Center;
+
+                PointCollection myPointCollection = new PointCollection();
+                myPointCollection.Add(new System.Windows.Point(0, 0));
+                myPointCollection.Add(new System.Windows.Point(20, 0));
+                myPointCollection.Add(new System.Windows.Point(10, 20));
+                emblem.Points = myPointCollection;
+
+                Grid.SetRow(emblem, 0);
+                Grid.SetColumn(emblem, 1);
+
+                layout.Children.Add(emblem);
+
+                TeamListPanel.Children.Add(layout);
+            }
+
+        }
 
         #endregion
 
@@ -278,7 +339,6 @@ namespace Bridge
 
         #endregion
 
-        
         #endregion
 
     }
