@@ -46,6 +46,7 @@
     <Compile Include="Data\MapBeacon.cs" />
     <Compile Include="Data\MapComponent.cs" />
     <Compile Include="Data\MapObject.cs" />
+    <Compile Include="Data\MapPoint.cs" />
     <Compile Include="Data\MapTables.cs" />
     <Compile Include="Data\TeamObject.cs" />
     <Compile Include="Data\UserObject.cs" />

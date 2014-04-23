@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace DataTypes
 {
-    public class User : UserObject
+    public class POI : MapPoint
     {
-        public User()
+        public POI()
         {
             // do nothing
         }
 
-        public User(string name, int x, int y, int z)
+        public POI(string name, int x, int y, int z)
         {
             Name = name;
             X = x;
