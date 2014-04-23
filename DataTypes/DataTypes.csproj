@@ -55,6 +55,7 @@
     <Compile Include="IDrawable.cs" />
     <Compile Include="DrawingItemsSource.cs" />
     <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="POI.cs" />
     <Compile Include="Team.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Map.cs" />

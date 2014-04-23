@@ -25,6 +25,10 @@ namespace DataTypes
         public static int USER_WIDTH = 25;
         public static int USER_HEIGHT = 25;
 
+        public static string POI_TYPE = "point";
+        public static int POI_WIDTH = 25;
+        public static int POI_HEIGHT = 25;
+
         public Object Subject { get { return subject; } }
         protected Object subject;
 
@@ -57,6 +61,13 @@ namespace DataTypes
             {
                 getDrawable = GetDrawableUser;
                 getBounds = GetBoundsUser;
+            }
+
+            // Itinerary Points
+            else if (subject is POI)
+            {
+                getDrawable = GetDrawablePOI;
+                getBounds = GetBoundsPOI;
             }
         }
 
@@ -162,6 +173,11 @@ namespace DataTypes
             };
         }
 
+        protected Object GetDrawablePOI()
+        {
+            throw new NotImplementedException();
+        }
+
         protected Rect GetBoundsMapComponent()
         {
             MapComponent component = (MapComponent)Subject;
@@ -172,6 +188,12 @@ namespace DataTypes
         {
             User user = (User)Subject;
             return new Rect(user.X, user.Y, USER_WIDTH, USER_HEIGHT);
+        }
+
+        protected Rect GetBoundsPOI()
+        {
+            POI point = (POI)Subject;
+            return new Rect(point.X, point.Y, POI_WIDTH, POI_HEIGHT);
         }
     }
 }

@@ -92,6 +92,14 @@ namespace Bridge
             t1.MapId = activeMap.Id;
             Team t2 = new Team("Spider", Colors.Teal, Colors.Purple);
             t2.MapId = activeMap.Id;
+
+            POI p1 = new POI("Table A", 250, 125, 0);
+            POI p2 = new POI("Table B", 250, 275, 0);
+            POI p3 = new POI("Table C", 250, 425, 0);
+            t1.Points.Add(p1);
+            t1.Points.Add(p2);
+            t2.Points.Add(p3);
+
             Minimap.TeamManager().Add(t1);
             Minimap.TeamManager().Add(t2);
 
