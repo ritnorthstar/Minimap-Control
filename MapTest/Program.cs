@@ -18,25 +18,25 @@ namespace MapTest
             map.Height = 300;
 
             MapBeacon beacon1 = new MapBeacon();
-            beacon1.BeaconId = "#1";
+            beacon1.DeviceLabel = "#1";
             beacon1.X = 10;
             beacon1.Y = 10;
             map.Beacons.Add(beacon1);
 
             MapBeacon beacon2 = new MapBeacon();
-            beacon2.BeaconId = "#2";
+            beacon2.DeviceLabel = "#2";
             beacon2.X = 290;
             beacon2.Y = 10;
             map.Beacons.Add(beacon2);
 
             MapBeacon beacon3 = new MapBeacon();
-            beacon3.BeaconId = "#3";
+            beacon3.DeviceLabel = "#3";
             beacon3.X = 290;
             beacon3.Y = 290;
             map.Beacons.Add(beacon3);
 
             MapBeacon beacon4 = new MapBeacon();
-            beacon4.BeaconId = "#4";
+            beacon4.DeviceLabel = "#4";
             beacon4.X = 10;
             beacon4.Y = 290;
             map.Beacons.Add(beacon4);

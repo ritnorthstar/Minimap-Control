@@ -14,7 +14,7 @@ namespace Server.Hosting
         {
             get
             {
-                return Port;
+                return port;
             }
             set
             {

@@ -96,7 +96,7 @@ namespace DataTypes
             {
                 type = BEACON_TYPE,
                 guid = beacon.Id,
-                id = beacon.BeaconId,
+                id = beacon.DeviceLabel,
                 x = beacon.X - (BEACON_OUTER_RADIUS / 2),
                 y = beacon.Y - (BEACON_OUTER_RADIUS / 2),
                 z = beacon.Z,
