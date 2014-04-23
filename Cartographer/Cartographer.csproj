@@ -88,6 +88,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BeaconSettings.xaml.cs">
+      <DependentUpon>BeaconSettings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UICommand.cs" />
     <Compile Include="MapDimensionsPrompt.xaml.cs">
       <DependentUpon>MapDimensionsPrompt.xaml</DependentUpon>
@@ -99,6 +102,10 @@
     <Page Include="AboutWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="BeaconSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -219,6 +226,9 @@
     <Resource Include="Images\Barrier.ico" />
     <Resource Include="Images\Beacon.ico" />
     <Resource Include="Images\TableBlock.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\delete.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -34,11 +34,11 @@ namespace CartographerLibrary
         // therefore I don't use pens, because actual pen size can change.
 
         // external rectangle
-        static SolidColorBrush handleBrush1 = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
+        static SolidColorBrush handleBrush1 = new SolidColorBrush(Color.FromArgb(200, 0, 0, 0));
         // middle
-        static SolidColorBrush handleBrush2 = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+        static SolidColorBrush handleBrush2 = new SolidColorBrush(Color.FromArgb(200, 255, 255, 255));
         // internal
-        static SolidColorBrush handleBrush3 = new SolidColorBrush(Color.FromArgb(255, 0, 0, 255));    
+        static SolidColorBrush handleBrush3 = new SolidColorBrush(Color.FromArgb(200, 0, 0, 255));    
 
         #endregion Class Members
 

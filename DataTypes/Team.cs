@@ -64,6 +64,11 @@ namespace DataTypes
             }
         }
 
+        public static Color ConvertColor(TeamColor c)
+        {
+            return Color.FromArgb(c.A, c.R, c.G, c.B);
+        }
+
         public static List<Team> GetDefaultTeams()
         {
             List<Team> defaultTeams = new List<Team> {

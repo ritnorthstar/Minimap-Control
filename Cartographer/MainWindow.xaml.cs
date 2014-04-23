@@ -16,9 +16,9 @@ using Microsoft.Win32;
 using System.Windows.Media.Effects;
 using System.Diagnostics;
 using Xceed.Wpf.Toolkit;
-
 using CartographerLibrary;
 using CartographerUtilities;
+using System.Text.RegularExpressions;
 
 namespace Cartographer
 {
@@ -31,8 +31,8 @@ namespace Cartographer
 
         WindowStateManager windowStateManager;
         MruManager mruManager;
-
         string fileName;    // name of currently opened file
+        public BeaconInfo selectedInfo { get; set; }
 
         #endregion Class Members
 
@@ -46,6 +46,11 @@ namespace Cartographer
             // When application is closed, ApplicationSettings is saved with new window state
             // information. Next time this information is loaded from XML file.
             windowStateManager = new WindowStateManager(SettingsManager.ApplicationSettings.MainWindowStateInfo, this);
+
+            BeaconInfoList beacons = BeaconInfoManager.Instance().beacons;
+            this.DataContext = beacons;
+            if (!Application.Current.Resources.Contains("selectedInfo"))
+                Application.Current.Resources.Add("selectedInfo", selectedInfo);
 
             InitializeComponent();
             SubscribeToEvents();
@@ -179,7 +184,7 @@ namespace Cartographer
 
         void PromptForWidthAndHeight()
         {
-            MapDimensionsPrompt prompt = new MapDimensionsPrompt();
+            MapDimensionsPrompt prompt = new MapDimensionsPrompt { Owner = this };
             prompt.ShowDialog();
             drawingCanvas.MapWidth = prompt.MapWidth;
             drawingCanvas.MapHeight = prompt.MapHeight;
@@ -458,8 +463,6 @@ namespace Cartographer
             menuEditRedo.IsEnabled = drawingCanvas.CanRedo;
         }
 
-
-
         /// <summary>
         /// Show About box
         /// </summary>
@@ -669,8 +672,7 @@ namespace Cartographer
             mruManager = new MruManager(SettingsManager.ApplicationSettings.RecentFilesList, menuFileRecentFiles);
             mruManager.FileSelected += new EventHandler<MruFileOpenEventArgs>(mruManager_FileSelected);
         }
-
-
+        
         /// <summary>
         /// Set initial properties of drawing canvas
         /// </summary>
@@ -901,6 +903,67 @@ namespace Cartographer
             else
                 selected.NumTablesTall--;
             txtBox.Text = selected.NumTablesTall.ToString();
+        }
+
+        private void OpenBluetoothIdWindow(object sender, RoutedEventArgs e)
+        {
+            BeaconSettings beaconWindow = new BeaconSettings { Owner = this };
+            beaconWindow.ShowDialog(); 
+        }
+
+        Regex shortIdRegex = new Regex(@"^\d+$");
+
+        private void BeaconIdSetter_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+
+
+            if (shortIdRegex.IsMatch(e.Text))
+            {
+                e.Handled = true;
+                GraphicsBeacon selected = (drawingCanvas.SelectedObject as GraphicsBeacon);
+
+                BeaconInfo thisOne = null;
+
+                foreach (BeaconInfo check in BeaconInfoManager.Instance().beacons)
+                {
+                    if (check.ShortID.Equals(e.Text))
+                    {
+                        thisOne = check;
+                        break;
+                    }
+                }
+
+                selected.Info = thisOne;
+            }
+
+            else { }
+            e.Handled = false;
+        }
+
+        private void RefreshBeaconList(object sender, EventArgs e)
+        {
+            BeaconIdSelector.ItemsSource = BeaconInfoManager.Instance().beacons;
+            BeaconIdSelector.DisplayMemberPath = "ShortID";
+        }
+
+        private void BeaconIdSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!(drawingCanvas.SelectedObject is GraphicsBeacon))
+            return;
+
+            GraphicsBeacon selected = (drawingCanvas.SelectedObject as GraphicsBeacon);
+            BeaconInfo thisOne = null;
+
+            foreach (BeaconInfo check in BeaconInfoManager.Instance().beacons)
+            {
+                if (check.Equals(BeaconIdSelector.SelectedValue))
+                {
+                    thisOne = check;
+                    break;
+                }
+            }
+
+            selected.Info = thisOne;
         }
     }
 }
