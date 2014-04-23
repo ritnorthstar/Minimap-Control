@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,6 +40,32 @@ namespace Core.Data
         public virtual Object Clone()
         {
             return new MapComponent(this);
+        }
+    }
+
+    public class MapComponentCollection<T> : KeyedCollection<string, T> where T : MapComponent
+    {
+        public MapComponentCollection()
+        {
+            // do nothing
+        }
+
+        protected MapComponentCollection(MapComponentCollection<T> copy)
+        {
+            foreach (T t in copy)
+            {
+                Add((T)t.Clone());
+            }
+        }
+
+        protected override string GetKeyForItem(T t)
+        {
+            return t.Id;
+        }
+
+        public virtual MapComponentCollection<T> Clone()
+        {
+            return new MapComponentCollection<T>(this);
         }
     }
 }

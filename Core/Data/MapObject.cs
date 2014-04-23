@@ -9,32 +9,6 @@ namespace Core.Data
 {
     public class MapObject : DataObject
     {
-        protected class ComponentCollection<T> : KeyedCollection<string, T> where T:MapComponent
-        {
-            public ComponentCollection()
-            {
-                // do nothing
-            }
-
-            protected ComponentCollection(ComponentCollection<T> copy)
-            {
-                foreach (T t in copy)
-                {
-                    Add((T)t.Clone());
-                }
-            }
-
-            protected override string GetKeyForItem(T t)
-            {
-                return t.Id;
-            }
-
-            public virtual ComponentCollection<T> Clone()
-            {
-                return new ComponentCollection<T>(this);
-            }
-        }
-
         public string Name { get; set; }
         public double Width { get; set; }
         public double Height { get; set; }
@@ -51,9 +25,9 @@ namespace Core.Data
 
         public MapObject()
         {
-            barriers = new ComponentCollection<MapComponent>();
-            tables = new ComponentCollection<MapTables>();
-            beacons = new ComponentCollection<MapBeacon>();
+            barriers = new MapComponentCollection<MapComponent>();
+            tables = new MapComponentCollection<MapTables>();
+            beacons = new MapComponentCollection<MapBeacon>();
         }
 
         protected MapObject(MapObject copy) : base(copy)
@@ -62,9 +36,9 @@ namespace Core.Data
             Width = copy.Width;
             Height = copy.Height;
             Tech = copy.Tech;
-            barriers = ((ComponentCollection<MapComponent>)copy.Barriers).Clone();
-            tables = ((ComponentCollection<MapTables>)copy.Tables).Clone();
-            beacons = ((ComponentCollection<MapBeacon>)copy.Beacons).Clone();
+            barriers = ((MapComponentCollection<MapComponent>)copy.Barriers).Clone();
+            tables = ((MapComponentCollection<MapTables>)copy.Tables).Clone();
+            beacons = ((MapComponentCollection<MapBeacon>)copy.Beacons).Clone();
         }
 
         public override Object Clone()

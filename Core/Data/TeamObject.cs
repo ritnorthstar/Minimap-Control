@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,13 +29,16 @@ namespace Core.Data
         public string MapId { get; set; }
 
         public TeamColor PrimaryColor { get; set; }
-
         public TeamColor SecondaryColor { get; set; }
+
+        public KeyedCollection<string, MapPoint> Points { get { return points; } }
+        protected KeyedCollection<string, MapPoint> points;
 
         public TeamObject()
         {
             PrimaryColor = new TeamColor(255, 255, 255, 255);
             SecondaryColor = new TeamColor(255, 255, 255, 255);
+            points = new MapComponentCollection<MapPoint>();
         }
 
         protected TeamObject(TeamObject copy) : base(copy)
@@ -43,6 +47,7 @@ namespace Core.Data
             MapId = copy.MapId;
             PrimaryColor = copy.PrimaryColor;
             SecondaryColor = copy.SecondaryColor;
+            points = ((MapComponentCollection<MapPoint>)copy.Points).Clone();
         }
 
         public override Object Clone()
