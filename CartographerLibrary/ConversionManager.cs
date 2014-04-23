@@ -13,6 +13,8 @@ namespace CartographerLibrary
 {
     public class ConversionManager
     {
+        public Point scale;
+
         public static GraphicsBase ConvertFromMM(MapComponent item)
         {
             GraphicsBase output = null;
