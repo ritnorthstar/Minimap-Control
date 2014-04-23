@@ -21,6 +21,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using Core.Data;
 using Server.Hosting;
+using Core.Data;
 using Core;
 
 
@@ -275,10 +276,10 @@ namespace Bridge
         Thickness indentation = new Thickness(10, 0, 0, 0);
         private void RefreshTeamMembers(object sender, RoutedEventArgs e)
         {
-            TeamManager manager = TeamManager.Instance();
+            DataManager<TeamObject> manager = Minimap.TeamManager();
             TeamListPanel.Children.Clear();
-            
-            foreach (Team team in manager.teamList)
+
+            foreach (TeamObject team in manager.GetAll())
             {
                 Grid layout = new Grid();
                 ColumnDefinition listCell = new ColumnDefinition();
@@ -295,23 +296,23 @@ namespace Bridge
                 teamName.FontSize = 16;
                 sp.Children.Add(teamName);
 
-                if (manager.Get(team) != null)
-                    foreach (Judge judge in manager.Get(team))
-                    {
-                        TextBlock judgeName = new TextBlock();
-                        judgeName.Text = judge.id;
-                        judgeName.FontSize = 14;
-                        judgeName.Margin = indentation;
-                        sp.Children.Add(judgeName);
-                    }
+                foreach (UserObject judge in Minimap.UserManager().GetAll().Where(u => u.TeamId.Equals(team.Id)))//for each user in team
+                {
+                    TextBlock judgeName = new TextBlock();
+                    judgeName.Text = judge.Name;
+                    judgeName.FontSize = 14;
+                    judgeName.Margin = indentation;
+                    sp.Children.Add(judgeName);
+                }
 
                 Grid.SetRow(sp, 0);
                 Grid.SetColumn(sp, 0);
                 layout.Children.Add(sp);
 
                 Polygon emblem = new Polygon();
-                emblem.Stroke = new SolidColorBrush(team.secondaryColor);
-                emblem.Fill = new SolidColorBrush(team.color);
+                
+                emblem.Stroke = new SolidColorBrush(Team.ConvertColor(team.SecondaryColor));
+                emblem.Fill = new SolidColorBrush(Team.ConvertColor(team.PrimaryColor));
                 emblem.StrokeThickness = 2;
                 emblem.HorizontalAlignment = HorizontalAlignment.Left;
                 emblem.VerticalAlignment = VerticalAlignment.Center;

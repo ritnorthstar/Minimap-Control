@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -13,6 +14,22 @@ namespace CartographerLibrary
     {
         #region Constructors
 
+        private BeaconInfo info;
+        private FormattedText formattedText;
+
+        Typeface font = new Typeface("Calibri");
+
+
+        public BeaconInfo Info
+        {
+            get { return info; }
+            set
+            {
+                info = value;
+                RefreshDrawing();
+            }
+        }
+
         public GraphicsBeacon(double left, double top, double right, double bottom,
             double lineWidth, Color objectColor, double actualScale)
         {
@@ -23,7 +40,6 @@ namespace CartographerLibrary
             this.graphicsLineWidth = lineWidth;
             this.graphicsObjectColor = objectColor;
             this.graphicsActualScale = actualScale;
-
             //RefreshDrawng();
         }
 
@@ -53,7 +69,21 @@ namespace CartographerLibrary
             drawingContext.DrawEllipse(Brushes.DodgerBlue, null, center, radiusX, radiusY);
             drawingContext.DrawEllipse(Brushes.SkyBlue, null, center, radiusX * 2 / 3, radiusY * 2 / 3);
 
+            formattedText = new FormattedText((info == null ? String.Empty : info.ShortID), CultureInfo.GetCultureInfo("en-us"), FlowDirection.LeftToRight, font, 18, Brushes.MediumBlue);
+
+            drawingContext.DrawText(formattedText, new Point(r.Left, r.Top));
+
             base.Draw(drawingContext);
+        }
+
+        public override void DrawTracker(DrawingContext drawingContext)
+        {
+            drawingContext.DrawRectangle(null, new Pen(Brushes.Black, 2), Rectangle);
+        }
+
+        public override Cursor GetHandleCursor(int handleNumber)
+        {
+            return HelperFunctions.DefaultCursor;
         }
 
         /// <summary>

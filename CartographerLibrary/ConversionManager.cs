@@ -73,7 +73,11 @@ namespace CartographerLibrary
         {
             MapBeacon output = new MapBeacon();
 
-            output.DeviceLabel = String.Empty;
+            if (beacon.Info != null)
+            {
+                output.DeviceLabel = beacon.Info.ShortID;
+                output.DeviceId = beacon.Info.BluetoothID;
+            }
 
             Rect r = beacon.Rectangle;
             Point center = new Point((r.Left + r.Right) / 2.0, (r.Top + r.Bottom) / 2.0);
