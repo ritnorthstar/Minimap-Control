@@ -1,0 +1,51 @@
+<Window x:Class="Cartographer.BeaconSettings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowStartupLocation="CenterOwner"
+        Title="Beacon Settings" Height="600" Width="600">
+    <DockPanel>
+        <TextBlock Text="Beacon Identifiers" FontSize="18" TextAlignment="Center" DockPanel.Dock="Top"/>
+        <Button Click="DeleteBeacon" Width="60" Padding="5 0" DockPanel.Dock="Bottom">
+            <Image Source="Images\delete.png" Width="32"/>
+        </Button>
+        <StackPanel>
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Physical ID" TextAlignment="Center" Margin="3" FontSize="14" Grid.Column="0" Grid.Row="0"/>
+                    <TextBlock Text="Bluetooth ID" TextAlignment="Center" Margin="3" FontSize="14" Grid.Column="1" Grid.Row="0"/>
+                    <TextBox Margin="3" Grid.Column="0" Grid.Row="1"  PreviewTextInput="ShortID_PreviewTextInput" Name="ShortIdTextbox"/>
+                    <TextBox Margin="3" Grid.Column="1" Grid.Row="1" PreviewTextInput="BluetoothID_PreviewTextInput" Name="BluetoothIdTextbox"/>
+                    <Button Name="AddBeaconButton" Content="Add" Click="AddBeaconButton_Click" Grid.Column="2" Grid.Row="1"/>
+                </Grid>
+
+                <ListView ItemsSource="{Binding}" SelectionChanged="ListView_SelectionChanged" Grid.Column="0" Grid.Row="1">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Text="{Binding ShortID}" Width="150" Margin="3" Grid.Column="0"/>
+                                <TextBlock Text="{Binding BluetoothID}" Width="300" Margin="3" Grid.Column="1"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+        </StackPanel>
+
+    </DockPanel>
+</Window>

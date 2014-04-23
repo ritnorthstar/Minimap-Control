@@ -9,7 +9,26 @@
     <Grid Margin="5">
         <TabControl>
             <TabItem Header="General">
-                
+                <StackPanel Margin="0 10 0 10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        
+                        <TextBlock Text="Port Number" Grid.Column="0"/>
+                        <TextBox Name="PortNumberBox" Grid.Column="1"/>
+                        <Button Content="Set Port Number" Click="Button_Click" Grid.Column="2"/>
+                        <Button Content="Set Port Number" Click="Button_Click" Grid.Column="3"/>
+                    </Grid>
+                    <GroupBox Header="Beacon IDs" Height="300">
+                        <Grid Name="BeaconIDs" Margin="5">
+                            
+                        </Grid>
+                    </GroupBox>
+                </StackPanel>
             </TabItem>
             <TabItem Header="Teams and Judges">
                 <Grid Margin="10 5 10 10">

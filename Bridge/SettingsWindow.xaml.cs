@@ -33,12 +33,42 @@ namespace Bridge
 
         public SettingsWindow()
         {
-            teams = getTeams();
             unusedTeams = Team.GetDefaultTeams();
+            loadBeaconData();
             this.DataContext = this.teams;
             if (!Application.Current.Resources.Contains("selectedTeam"))
                 Application.Current.Resources.Add("selectedTeam", selectedTeam);
             InitializeComponent();
+            teams = getTeams();
+        }
+
+        private void loadBeaconData()
+        {
+            //ColumnDefinition labelCol = new ColumnDefinition();
+            //labelCol.Width = new GridLength(1, GridUnitType.Star);
+            //ColumnDefinition idCol = new ColumnDefinition();
+            //idCol.Width = new GridLength(2, GridUnitType.Star);
+            //BeaconIDs.ColumnDefinitions.Add(labelCol);
+            //BeaconIDs.ColumnDefinitions.Add(idCol);
+            
+            //for (int i = 0; i < SharedDataManager.Beacons.Count; i++)
+            //{
+            //    BeaconInfo b = SharedDataManager.Beacons[i];
+
+            //    TextBlock label = new TextBlock();
+            //    label.Text = b.DeviceLabel;
+
+            //    TextBlock id = new TextBlock();
+            //    id.Text = b.DeviceID;
+
+            //    Grid.SetRow(label, i);
+            //    Grid.SetRow(id, i);
+            //    Grid.SetColumn(label, 0);
+            //    Grid.SetColumn(id, 1);
+
+            //    BeaconIDs.Children.Add(label);
+            //    BeaconIDs.Children.Add(id);
+            //}
         }
 
         private ObservableCollection<Team> getTeams()
@@ -155,6 +185,11 @@ namespace Bridge
                 SaveButton.ToolTip = "No changes to save";
                 SaveButton.IsEnabled = false;
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

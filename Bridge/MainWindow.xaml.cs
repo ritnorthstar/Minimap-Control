@@ -21,7 +21,6 @@ using System.Net;
 using System.Text.RegularExpressions;
 using Core.Data;
 using Server.Hosting;
-using Core.Data;
 using Core;
 
 
@@ -42,7 +41,7 @@ namespace Bridge
             InitializeComponent();
             source = new DrawingItemsSource();
             ListboxContainer.ItemsSource = source;
-            Console.WriteLine("Hooked up item source; num items: " + source.Count);
+            //Console.WriteLine("Hooked up item source; num items: " + source.Count);
 
             server = new WebAPIServer();
         }
@@ -88,6 +87,9 @@ namespace Bridge
             source.ClearChildren();
             activeMap.DrawOn(source);
             source.AddChild(new DebugRect(0, 0, activeMap.Width * 10, activeMap.Height * 10));
+
+            foreach(MapBeacon b in activeMap.Beacons)
+                SharedDataManager.Beacons.Add(new BeaconInfo(b.DeviceLabel, b.DeviceId));
 
             Team t1 = new Team("Scorpion", Colors.SandyBrown, Colors.Maroon);
             t1.MapId = activeMap.Id;
