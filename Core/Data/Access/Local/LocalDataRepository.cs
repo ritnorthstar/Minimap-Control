@@ -41,8 +41,15 @@ namespace Core.Data.Access.Local
 
         public T1 Get(string id)
         {
-            T1 t = data[id];
-            return t == null ? default(T1) : (T1)t.Clone();
+            try
+            {
+                T1 t = data[id];
+                return (T1)t.Clone();
+            }
+            catch (KeyNotFoundException e)
+            {
+                return null;
+            }
         }
 
         public bool Add(T1 t)

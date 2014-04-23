@@ -48,6 +48,7 @@
     <Compile Include="Data\MapObject.cs" />
     <Compile Include="Data\MapTables.cs" />
     <Compile Include="Data\TeamObject.cs" />
+    <Compile Include="Data\UserObject.cs" />
     <Compile Include="Minimap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

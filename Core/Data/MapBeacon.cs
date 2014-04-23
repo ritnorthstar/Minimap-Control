@@ -8,7 +8,8 @@ namespace Core.Data
 {
     public class MapBeacon : MapComponent
     {
-        public string BeaconId { get; set; }
+        public string DeviceId { get; set; }
+        public string DeviceLabel { get; set; }
 
         public MapBeacon()
         {
@@ -17,12 +18,13 @@ namespace Core.Data
 
         protected MapBeacon(MapBeacon copy) : base(copy)
         {
-            BeaconId = copy.BeaconId;
+            DeviceId = copy.DeviceId;
+            DeviceLabel = copy.DeviceLabel;
         }
 
         public override String ToString()
         {
-            return String.Format("Beacon {0} - ({1}, {2})", BeaconId, X, Y);
+            return String.Format("Beacon {0} - ({1}, {2})", DeviceLabel, X, Y);
         }
 
         public override Object Clone()

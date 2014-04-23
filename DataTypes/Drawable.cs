@@ -1,4 +1,5 @@
-﻿using Core.Data;
+﻿using Core;
+using Core.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,11 @@ namespace DataTypes
         public static string TABLES_TYPE = "tableBlock";
         public static Brush TABLES_FILL = Brushes.Transparent;
 
-        public static string BARRIERS_TYPE = "barrier";
+        public static string BARRIER_TYPE = "barrier";
+
+        public static string USER_TYPE = "judge";
+        public static int USER_WIDTH = 25;
+        public static int USER_HEIGHT = 25;
 
         public Object Subject { get { return subject; } }
         protected Object subject;
@@ -30,6 +35,7 @@ namespace DataTypes
         {
             this.subject = subject;
 
+            // Map Components
             if (subject is MapBeacon)
             {
                 getDrawable = GetDrawableMapBeacon;
@@ -44,6 +50,13 @@ namespace DataTypes
             {
                 getDrawable = GetDrawableMapComponent;
                 getBounds = GetBoundsMapComponent;
+            }
+
+            // Users
+            else if (subject is User)
+            {
+                getDrawable = GetDrawableUser;
+                getBounds = GetBoundsUser;
             }
         }
 
@@ -71,7 +84,7 @@ namespace DataTypes
             }
         }
 
-        public String ToString()
+        public override String ToString()
         {
             return Subject.ToString();
         }
@@ -83,7 +96,7 @@ namespace DataTypes
             {
                 type = BEACON_TYPE,
                 guid = beacon.Id,
-                id = beacon.BeaconId,
+                id = beacon.DeviceLabel,
                 x = beacon.X - (BEACON_OUTER_RADIUS / 2),
                 y = beacon.Y - (BEACON_OUTER_RADIUS / 2),
                 z = beacon.Z,
@@ -114,7 +127,7 @@ namespace DataTypes
             MapComponent barrier = (MapComponent)Subject;
             return new
             {
-                type = BARRIERS_TYPE,
+                type = BARRIER_TYPE,
                 guid = barrier.Id,
                 x = barrier.X,
                 y = barrier.Y,
@@ -125,10 +138,40 @@ namespace DataTypes
             };
         }
 
+        protected Object GetDrawableUser()
+        {
+            User user = (User)Subject;
+
+            Brush fill = new SolidColorBrush();
+            Brush border = new SolidColorBrush();
+
+            Team team = new Team(Minimap.TeamManager().Get(user.TeamId));
+            fill = new SolidColorBrush(team.PrimaryColor);
+            border = new SolidColorBrush(team.SecondaryColor);
+
+            return new
+            {
+                type = USER_TYPE,
+                id = user.Name,
+                guid = user.Id,
+                x = user.X,
+                y = user.Y,
+                z = user.Z,
+                fill = fill,
+                border = border
+            };
+        }
+
         protected Rect GetBoundsMapComponent()
         {
             MapComponent component = (MapComponent)Subject;
             return new Rect(component.X, component.Y, component.Width, component.Height);
+        }
+
+        protected Rect GetBoundsUser()
+        {
+            User user = (User)Subject;
+            return new Rect(user.X, user.Y, USER_WIDTH, USER_HEIGHT);
         }
     }
 }

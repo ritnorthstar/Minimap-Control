@@ -71,7 +71,7 @@ namespace CartographerLibrary
         {
             MapBeacon output = new MapBeacon();
 
-            output.BeaconId = String.Empty;
+            output.DeviceLabel = String.Empty;
 
             Rect r = beacon.Rectangle;
             Point center = new Point((r.Left + r.Right) / 2.0, (r.Top + r.Bottom) / 2.0);

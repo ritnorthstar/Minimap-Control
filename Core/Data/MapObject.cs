@@ -38,6 +38,7 @@ namespace Core.Data
         public string Name { get; set; }
         public double Width { get; set; }
         public double Height { get; set; }
+        public string Tech { get; set; }
 
         public KeyedCollection<string, MapComponent> Barriers { get { return barriers; } }
         protected KeyedCollection<string, MapComponent> barriers;
@@ -47,8 +48,6 @@ namespace Core.Data
 
         public KeyedCollection<string, MapBeacon> Beacons { get { return beacons; } }
         protected KeyedCollection<string, MapBeacon> beacons;
-
-        public IEnumerable<MapComponent> Components { get { return Barriers.Concat(Tables).Concat(Beacons); } }
 
         public MapObject()
         {
@@ -60,6 +59,9 @@ namespace Core.Data
         protected MapObject(MapObject copy) : base(copy)
         {
             Name = copy.Name;
+            Width = copy.Width;
+            Height = copy.Height;
+            Tech = copy.Tech;
             barriers = ((ComponentCollection<MapComponent>)copy.Barriers).Clone();
             tables = ((ComponentCollection<MapTables>)copy.Tables).Clone();
             beacons = ((ComponentCollection<MapBeacon>)copy.Beacons).Clone();
@@ -88,6 +90,11 @@ namespace Core.Data
             }
 
             return component;
+        }
+
+        public IEnumerable<MapComponent> GetComponents()
+        {
+            return Barriers.Concat(Tables).Concat(Beacons);
         }
     }
 }
