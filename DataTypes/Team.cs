@@ -13,16 +13,16 @@ namespace DataTypes
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public Team(TeamObject team) : base(team)
+        {
+            // do nothing
+        }
+
         public Team(string name, Color primaryColor, Color secondaryColor)
         {
             Name = name;
             PrimaryColor = primaryColor;
             SecondaryColor = secondaryColor;
-        }
-
-        public Team(TeamObject team) : base(team)
-        {
-            // do nothing
         }
 
         public new string Name

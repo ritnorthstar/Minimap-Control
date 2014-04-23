@@ -14,10 +14,9 @@ namespace DataTypes
             // do nothing
         }
 
-        public User(string name, Team team, int x, int y, int z)
+        public User(string name, int x, int y, int z)
         {
             Name = name;
-            TeamId = team.Id;
             X = x;
             Y = y;
             Z = z;

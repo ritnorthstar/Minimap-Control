@@ -62,6 +62,40 @@ namespace Server.Controllers
             return response;
         }
 
+        [Route("api/maps/{id}/teams")]
+        [HttpGet]
+        public HttpResponseMessage GetTeamsByMap(string id)
+        {
+            HttpResponseMessage response;
+
+            // remote read enabled
+            if (Minimap.TEAMS_ALLOW_REMOTE_READ)
+            {
+                MapObject map = Minimap.MapManager().Get(id);
+
+                // map not found
+                if (map == null)
+                {
+                    response = Request.CreateResponse(HttpStatusCode.NotFound);
+                }
+
+                // map found
+                else
+                {
+                    IEnumerable<TeamObject> teams = Minimap.TeamManager().GetAll().Where(t => t.MapId == id);
+                    response = Request.CreateResponse<IEnumerable<TeamObject>>(HttpStatusCode.OK, teams);
+                }
+            }
+
+            // remote read disabled
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.Forbidden);
+            }
+
+            return response;
+        }
+
         public HttpResponseMessage PostMap(MapObject map)
         {
             HttpResponseMessage response;

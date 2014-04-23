@@ -89,12 +89,16 @@ namespace Bridge
             source.AddChild(new DebugRect(0, 0, activeMap.Width*10, activeMap.Height*10));
 
             Team t1 = new Team("Scorpion", Colors.SandyBrown, Colors.Maroon);
+            t1.MapId = activeMap.Id;
             Team t2 = new Team("Spider", Colors.Teal, Colors.Purple);
+            t2.MapId = activeMap.Id;
             Minimap.TeamManager().Add(t1);
             Minimap.TeamManager().Add(t2);
 
-            User u1 = new User("Clark Kent", t1, 150, 50, 50);
-            User u2 = new User("Bruce Wayne", t2, 150, 250, 50);
+            User u1 = new User("Clark Kent", 150, 50, 50);
+            u1.TeamId = t1.Id;
+            User u2 = new User("Bruce Wayne", 150, 250, 50);
+            u2.TeamId = t2.Id;
             Minimap.UserManager().Add(u1);
             Minimap.UserManager().Add(u2);
 

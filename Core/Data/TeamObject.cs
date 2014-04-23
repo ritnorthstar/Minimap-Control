@@ -25,6 +25,7 @@ namespace Core.Data
         }
 
         public string Name { get; set; }
+        public string MapId { get; set; }
 
         public TeamColor PrimaryColor { get; set; }
 
@@ -39,6 +40,7 @@ namespace Core.Data
         protected TeamObject(TeamObject copy) : base(copy)
         {
             Name = copy.Name;
+            MapId = copy.MapId;
             PrimaryColor = copy.PrimaryColor;
             SecondaryColor = copy.SecondaryColor;
         }
