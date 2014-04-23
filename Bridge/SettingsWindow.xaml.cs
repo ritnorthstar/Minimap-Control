@@ -34,43 +34,13 @@ namespace Bridge
         public SettingsWindow()
         {
             unusedTeams = Team.GetDefaultTeams();
-            loadBeaconData();
             this.DataContext = this.teams;
             if (!Application.Current.Resources.Contains("selectedTeam"))
                 Application.Current.Resources.Add("selectedTeam", selectedTeam);
             InitializeComponent();
             teams = getTeams();
         }
-
-        private void loadBeaconData()
-        {
-            //ColumnDefinition labelCol = new ColumnDefinition();
-            //labelCol.Width = new GridLength(1, GridUnitType.Star);
-            //ColumnDefinition idCol = new ColumnDefinition();
-            //idCol.Width = new GridLength(2, GridUnitType.Star);
-            //BeaconIDs.ColumnDefinitions.Add(labelCol);
-            //BeaconIDs.ColumnDefinitions.Add(idCol);
-            
-            //for (int i = 0; i < SharedDataManager.Beacons.Count; i++)
-            //{
-            //    BeaconInfo b = SharedDataManager.Beacons[i];
-
-            //    TextBlock label = new TextBlock();
-            //    label.Text = b.DeviceLabel;
-
-            //    TextBlock id = new TextBlock();
-            //    id.Text = b.DeviceID;
-
-            //    Grid.SetRow(label, i);
-            //    Grid.SetRow(id, i);
-            //    Grid.SetColumn(label, 0);
-            //    Grid.SetColumn(id, 1);
-
-            //    BeaconIDs.Children.Add(label);
-            //    BeaconIDs.Children.Add(id);
-            //}
-        }
-
+        
         private ObservableCollection<Team> getTeams()
         {
             IEnumerable<TeamObject> teamObjs = Minimap.TeamManager().GetAll();
@@ -190,6 +160,41 @@ namespace Bridge
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void PopulateBeaconData(object sender, RoutedEventArgs e)
+        {
+            Thickness margin = new Thickness(0, 0, 10, 0);
+
+            for (int i = 0; i < SharedDataManager.Beacons.Count; i++)
+            {
+                BeaconInfo b = SharedDataManager.Beacons[i];
+                Grid layout = new Grid();
+                ColumnDefinition labelCol = new ColumnDefinition();
+                labelCol.Width = new GridLength(1, GridUnitType.Star);
+                ColumnDefinition idCol = new ColumnDefinition();
+                idCol.Width = new GridLength(7, GridUnitType.Star);
+                layout.ColumnDefinitions.Add(labelCol);
+                layout.ColumnDefinitions.Add(idCol);
+
+                TextBlock label = new TextBlock();
+                label.Text = b.DeviceLabel;
+                label.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
+                label.Margin = margin;
+
+                TextBlock id = new TextBlock();
+                id.Text = b.DeviceID;
+
+                Grid.SetRow(label, i);
+                Grid.SetRow(id, i);
+                Grid.SetColumn(label, 0);
+                Grid.SetColumn(id, 1);
+
+                layout.Children.Add(label);
+                layout.Children.Add(id);
+
+                BeaconIDs.Children.Add(layout);
+            }
         }
     }
 }

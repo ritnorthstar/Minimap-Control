@@ -31,9 +31,9 @@
                 <Separator />
                 <MenuItem Header="Configuration" />
             </MenuItem>
-            <MenuItem Header="_Debug">
+            <!--<MenuItem Header="_Debug">
                 <MenuItem Header="Clear screen" Click="ClearScreen" />
-            </MenuItem>
+            </MenuItem>-->
         </Menu>
 
         <StatusBar DockPanel.Dock="Bottom">

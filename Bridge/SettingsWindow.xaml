@@ -5,31 +5,9 @@
         Title="Settings" Height="480" Width="600"
         WindowStartupLocation="CenterOwner"
         Closing="SettingsWindow_Closing">
-    
+
     <Grid Margin="5">
         <TabControl>
-            <TabItem Header="General">
-                <StackPanel Margin="0 10 0 10">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        
-                        <TextBlock Text="Port Number" Grid.Column="0"/>
-                        <TextBox Name="PortNumberBox" Grid.Column="1"/>
-                        <Button Content="Set Port Number" Click="Button_Click" Grid.Column="2"/>
-                        <Button Content="Set Port Number" Click="Button_Click" Grid.Column="3"/>
-                    </Grid>
-                    <GroupBox Header="Beacon IDs" Height="300">
-                        <Grid Name="BeaconIDs" Margin="5">
-                            
-                        </Grid>
-                    </GroupBox>
-                </StackPanel>
-            </TabItem>
             <TabItem Header="Teams and Judges">
                 <Grid Margin="10 5 10 10">
                     <Grid.RowDefinitions>
@@ -57,7 +35,7 @@
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
-                                        
+
                                         <TextBlock Text="{Binding Name}" Margin="3" Grid.Column="0"/>
                                         <Rectangle Width="20" Margin="3" Stroke="Black" Grid.Column="1">
                                             <Rectangle.Fill>
@@ -82,7 +60,7 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            
+
                             <Grid Margin="0 0 0 3" Grid.Row="0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -91,7 +69,7 @@
                                 <TextBlock Text="Name" Grid.Column="0" HorizontalAlignment="Right" Margin="0 0 20 0"/>
                                 <TextBox Name="TeamName" Grid.Column="1" TextChanged="TeamName_TextChanged"/>
                             </Grid>
-                            
+
                             <Grid Margin="0 0 0 3" Grid.Row="1">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -102,7 +80,7 @@
                                                   ShowAdvancedButton="True" DisplayColorAndName="True" UsingAlphaChannel="False" ShowRecentColors="True"
                                                   StandardColors="{Binding ColorList}" AvailableColors="{Binding ColorList}" Name="PrimaryColorPicker"/>
                             </Grid>
-                            
+
                             <Grid Margin="0 0 0 3" Grid.Row="2">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -113,7 +91,7 @@
                                                   ShowAdvancedButton="True" DisplayColorAndName="True" UsingAlphaChannel="False" ShowRecentColors="True"
                                                   StandardColors="{Binding ColorList}" AvailableColors="{Binding ColorList}" Name="SecondaryColorPicker"/>
                             </Grid>
-                            
+
                             <Grid Grid.Row="3">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"/>
@@ -137,6 +115,27 @@
                         </Grid>
                     </DockPanel>
                 </Grid>
+            </TabItem>
+            <TabItem Header="Configuration" Loaded="PopulateBeaconData">
+                <StackPanel Margin="0 10 0 10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="Port Number" Grid.Column="0" HorizontalAlignment="Right" Margin="5,0" />
+                        <TextBox Name="PortNumberBox" Grid.Column="1" Margin="5,0" />
+                        <Button Content="Set Port Number" Click="Button_Click" Grid.Column="2" Margin="5,0" />
+                    </Grid>
+
+                    <GroupBox Header="Beacon IDs" Height="300">
+                        <StackPanel Name="BeaconIDs" Margin="5">
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
             </TabItem>
         </TabControl>
     </Grid>
