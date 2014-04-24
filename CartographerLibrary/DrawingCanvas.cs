@@ -782,7 +782,7 @@ namespace CartographerLibrary
                 toWrite.Width = this.MapWidth;
                 toWrite.Height = this.MapHeight;
 
-                ConversionManager.AddToMinimap(toWrite, graphicsList);
+                ConversionManager.AddToMinimap(toWrite, graphicsList, new Point(Width, Height));
 
                 //string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                 System.IO.File.WriteAllText(fileName, toWrite.ToJson());
@@ -810,15 +810,16 @@ namespace CartographerLibrary
                 graphicsList.Clear();
 
                 Map loadedMap = Map.FromFile(filename);
+                Point dimensions = new Point(Width, Height);
 
                 foreach (MapComponent barrier in loadedMap.Barriers)
-                    graphicsList.Add(ConversionManager.ConvertFromMM(barrier));
+                    graphicsList.Add(ConversionManager.ConvertFromMM(barrier, loadedMap, dimensions));
 
                 foreach (MapTables tableBlock in loadedMap.Tables)
-                    graphicsList.Add(ConversionManager.ConvertFromMM(tableBlock));
+                    graphicsList.Add(ConversionManager.ConvertFromMM(tableBlock, loadedMap, dimensions));
 
                 foreach (MapBeacon beacon in loadedMap.Beacons)
-                    graphicsList.Add(ConversionManager.ConvertFromMM(beacon));
+                    graphicsList.Add(ConversionManager.ConvertFromMM(beacon, loadedMap, dimensions));
 
                 this.MapHeight = loadedMap.Height;
                 this.MapWidth = loadedMap.Width;
