@@ -27,11 +27,11 @@ namespace DataTypes
             return Map.FromJson(File.ReadAllText(filename));
         }
 
-        public void DrawOn(DrawingItemsSource source)
+        public void DrawOn(DrawingItemsSource source, double scalar)
         {
             foreach (MapComponent component in GetComponents())
             {
-                source.AddChild(new Drawable(component));
+                source.AddChild(new Drawable(component, scalar));
             }
         }
     }

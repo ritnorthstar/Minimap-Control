@@ -24,7 +24,7 @@ namespace DataTypes
 
         public void DrawOn(DrawingItemsSource source)
         {
-            source.AddChild(new Drawable(this));
+            source.AddChild(new Drawable(this, -1));
         }
     }
 }

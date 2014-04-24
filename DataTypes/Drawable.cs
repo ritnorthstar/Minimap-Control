@@ -28,6 +28,7 @@ namespace DataTypes
         public static string POI_TYPE = "point";
         public static int POI_WIDTH = 25;
         public static int POI_HEIGHT = 25;
+        public static double scalar = 5.0;
 
         public Object Subject { get { return subject; } }
         protected Object subject;
@@ -35,9 +36,12 @@ namespace DataTypes
         protected Func<Object> getDrawable;
         protected Func<Rect> getBounds;
 
-        public Drawable(Object subject)
+        public Drawable(Object subject, double s)
         {
             this.subject = subject;
+
+            if(s > 0) // negative values for dynamic elements
+                scalar = s;
 
             // Map Components
             if (subject is MapBeacon)
@@ -108,8 +112,8 @@ namespace DataTypes
                 type = BEACON_TYPE,
                 guid = beacon.Id,
                 id = beacon.DeviceLabel,
-                x = beacon.X - (BEACON_OUTER_RADIUS / 2),
-                y = beacon.Y - (BEACON_OUTER_RADIUS / 2),
+                x = beacon.X * scalar - (BEACON_OUTER_RADIUS / 2),
+                y = beacon.Y * scalar - (BEACON_OUTER_RADIUS / 2),
                 z = beacon.Z,
                 innerRadius = BEACON_INNER_RADIUS,
                 outerRadius = BEACON_OUTER_RADIUS
@@ -123,13 +127,13 @@ namespace DataTypes
             {
                 type = TABLES_TYPE,
                 guid = tables.Id,
-                x = tables.X,
-                y = tables.Y,
+                x = tables.X * scalar,
+                y = tables.Y * scalar,
                 z = tables.Z,
-                width = tables.Width,
-                height = tables.Height,
+                width = tables.Width * scalar,
+                height = tables.Height * scalar,
                 fill = TABLES_FILL,
-                tileRect = new Rect(0, 0, tables.Width / tables.TablesWide, tables.Height / tables.TablesTall)
+                tileRect = new Rect(0, 0, tables.Width * scalar / tables.TablesWide, tables.Height * scalar / tables.TablesTall)
             };
         }
 
@@ -140,12 +144,12 @@ namespace DataTypes
             {
                 type = BARRIER_TYPE,
                 guid = barrier.Id,
-                x = barrier.X,
-                y = barrier.Y,
+                x = barrier.X * scalar,
+                y = barrier.Y * scalar,
                 z = barrier.Z,
-                width = barrier.Width,
-                height = barrier.Height,
-                rect = new Rect(0, 0, barrier.Width, barrier.Height)
+                width = barrier.Width * scalar,
+                height = barrier.Height * scalar,
+                rect = new Rect(0, 0, barrier.Width * scalar, barrier.Height * scalar)
             };
         }
 

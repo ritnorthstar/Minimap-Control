@@ -84,9 +84,15 @@ namespace Bridge
             Console.WriteLine("Name: " + activeMap.Name);
             Console.WriteLine("Number of tables: " + activeMap.Tables.Count);
 
+            double scaleX = 1024 / activeMap.Width;
+            double scaleY = 1024 / activeMap.Height;
+
+            double scalar = scaleX < scaleY ? scaleX : scaleY;
+
             source.ClearChildren();
-            activeMap.DrawOn(source);
-            source.AddChild(new DebugRect(0, 0, activeMap.Width * 10, activeMap.Height * 10));
+            activeMap.DrawOn(source, scalar);
+
+            source.AddChild(new DebugRect(0, 0, activeMap.Width * scalar, activeMap.Height * scalar));
 
             foreach(MapBeacon b in activeMap.Beacons)
                 SharedDataManager.Beacons.Add(new BeaconInfo(b.DeviceLabel, b.DeviceId));
