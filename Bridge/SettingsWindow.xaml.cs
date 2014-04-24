@@ -34,11 +34,11 @@ namespace Bridge
         public SettingsWindow()
         {
             unusedTeams = Team.GetDefaultTeams();
+            teams = getTeams();
             this.DataContext = this.teams;
             if (!Application.Current.Resources.Contains("selectedTeam"))
                 Application.Current.Resources.Add("selectedTeam", selectedTeam);
             InitializeComponent();
-            teams = getTeams();
         }
         
         private ObservableCollection<Team> getTeams()
