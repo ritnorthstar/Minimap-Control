@@ -163,6 +163,8 @@ namespace Cartographer
                 double xScale = ActualWidth * 0.8 / source.Width;
                 double yScale = ActualHeight * 0.8 / source.Height;
                 drawingCanvas.ActualScale = xScale < yScale ? xScale : yScale;
+                
+
 
                 PromptForWidthAndHeight();
             }
