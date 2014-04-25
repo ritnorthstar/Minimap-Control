@@ -158,7 +158,7 @@ namespace Cartographer
                 double yScale = ActualHeight * 0.8 / source.Height;
                 drawingCanvas.ActualScale = xScale < yScale ? xScale : yScale;
 
-
+                OpenMapButton.IsEnabled = true;
 
                 PromptForWidthAndHeight();
             }
