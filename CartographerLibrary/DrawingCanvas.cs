@@ -799,10 +799,6 @@ namespace CartographerLibrary
             }
         }
 
-        /// <summary>
-        /// Load graphics from XML file.
-        /// Throws: DrawingCanvasException.
-        /// </summary>
         public void LoadMap(string filename)
         {
             try
@@ -819,7 +815,10 @@ namespace CartographerLibrary
                     graphicsList.Add(ConversionManager.ConvertFromMM(tableBlock, loadedMap, dimensions));
 
                 foreach (MapBeacon beacon in loadedMap.Beacons)
+                {
                     graphicsList.Add(ConversionManager.ConvertFromMM(beacon, loadedMap, dimensions));
+                    BeaconInfoManager.Instance().beacons.Add(new BeaconInfo(beacon.DeviceLabel, beacon.DeviceId));
+                }
 
                 this.MapHeight = loadedMap.Height;
                 this.MapWidth = loadedMap.Width;

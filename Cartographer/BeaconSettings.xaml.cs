@@ -14,6 +14,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using CartographerLibrary;
+using Microsoft.Win32;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace Cartographer
 {
@@ -41,7 +44,7 @@ namespace Cartographer
         {
             if (!(shortIdRegex.IsMatch(ShortIdTextbox.Text) || bluetoothIdRegex.IsMatch(BluetoothIdTextbox.Text)))
                 return;
-            
+
             BeaconInfoManager.Instance().beacons.Add(new BeaconInfo(ShortIdTextbox.Text, BluetoothIdTextbox.Text));
             ShortIdTextbox.Text = String.Empty;
             BluetoothIdTextbox.Text = String.Empty;
@@ -73,6 +76,46 @@ namespace Cartographer
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             selectedInfo = (BeaconInfo)(sender as ListView).SelectedItem;
+        }
+
+        private void SaveBeaconInfo(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog dlg = new SaveFileDialog();
+
+            dlg.Filter = "Minimap beacon files (*.bcn)|*.bcn";
+            dlg.OverwritePrompt = true;
+            dlg.DefaultExt = "bcn";
+            dlg.InitialDirectory = SettingsManager.ApplicationSettings.InitialDirectory;
+            dlg.RestoreDirectory = true;
+
+            if (dlg.ShowDialog().GetValueOrDefault() != true)
+            {
+                return;
+            }
+
+            System.IO.File.WriteAllText(dlg.FileName, JsonConvert.SerializeObject(BeaconInfoManager.Instance().beacons));
+        }
+
+        private void LoadBeaconInfo(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+
+            dlg.Filter = "Minimap beacon files (*.bcn)|*.bcn";
+            dlg.DefaultExt = "map";
+            dlg.InitialDirectory = SettingsManager.ApplicationSettings.InitialDirectory;
+            dlg.RestoreDirectory = true;
+
+            if (dlg.ShowDialog().GetValueOrDefault() != true)
+                return;
+
+            BeaconInfoList openedList = JsonConvert.DeserializeObject<BeaconInfoList>(File.ReadAllText(dlg.FileName));
+            BeaconInfoManager manager = BeaconInfoManager.Instance();
+
+            foreach (BeaconInfo b in openedList)
+                manager.beacons.Add(b);
+
+            BeaconInfoList list = BeaconInfoManager.Instance().beacons;
+            return;
         }
     }
 

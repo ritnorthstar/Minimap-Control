@@ -107,15 +107,9 @@ namespace Cartographer
             dlg.RestoreDirectory = true;
 
             if (dlg.ShowDialog().GetValueOrDefault() != true)
-            {
                 return;
-            }
 
-            try
-            {
-                // Load file
-                drawingCanvas.LoadMap(dlg.FileName);
-            }
+            try { drawingCanvas.LoadMap(dlg.FileName); }
             catch (DrawingCanvasException e)
             {
                 ShowError(e.Message);
@@ -163,7 +157,7 @@ namespace Cartographer
                 double xScale = ActualWidth * 0.8 / source.Width;
                 double yScale = ActualHeight * 0.8 / source.Height;
                 drawingCanvas.ActualScale = xScale < yScale ? xScale : yScale;
-                
+
 
 
                 PromptForWidthAndHeight();
@@ -674,7 +668,7 @@ namespace Cartographer
             mruManager = new MruManager(SettingsManager.ApplicationSettings.RecentFilesList, menuFileRecentFiles);
             mruManager.FileSelected += new EventHandler<MruFileOpenEventArgs>(mruManager_FileSelected);
         }
-        
+
         /// <summary>
         /// Set initial properties of drawing canvas
         /// </summary>
@@ -910,7 +904,7 @@ namespace Cartographer
         private void OpenBluetoothIdWindow(object sender, RoutedEventArgs e)
         {
             BeaconSettings beaconWindow = new BeaconSettings { Owner = this };
-            beaconWindow.ShowDialog(); 
+            beaconWindow.ShowDialog();
         }
 
         Regex shortIdRegex = new Regex(@"^\d+$");
@@ -951,7 +945,7 @@ namespace Cartographer
         private void BeaconIdSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (!(drawingCanvas.SelectedObject is GraphicsBeacon))
-            return;
+                return;
 
             GraphicsBeacon selected = (drawingCanvas.SelectedObject as GraphicsBeacon);
             BeaconInfo thisOne = null;
