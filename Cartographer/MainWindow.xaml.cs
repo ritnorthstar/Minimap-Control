@@ -168,12 +168,7 @@ namespace Cartographer
                 mruManager.Delete(dlg.FileName);
                 return;
             }
-
-            //this.fileName = dlg.FileName;
-            //UpdateTitle();
-            //mruManager.Add(this.fileName);
-            drawingCanvas.Clear();
-
+            
             // Remember initial directory
             SettingsManager.ApplicationSettings.InitialDirectory = System.IO.Path.GetDirectoryName(dlg.FileName);
         }
@@ -182,9 +177,22 @@ namespace Cartographer
         {
             MapDimensionsPrompt prompt = new MapDimensionsPrompt { Owner = this };
             prompt.ShowDialog();
-            drawingCanvas.MapWidth = prompt.MapWidth;
-            drawingCanvas.MapHeight = prompt.MapHeight;
-            drawingCanvas.MapName = prompt.MapName;
+
+            if(prompt.Next == MapDimensionsPrompt.NextState.New)
+            {
+                drawingCanvas.MapWidth = prompt.MapWidth;
+                drawingCanvas.MapHeight = prompt.MapHeight;
+                drawingCanvas.MapName = prompt.MapName;
+                drawingCanvas.Clear();
+            }
+
+            else
+            {
+                FileOpenMapCommand(null, null);
+                drawingCanvas.RefreshClip();
+            }
+
+
         }
 
         /// <summary>

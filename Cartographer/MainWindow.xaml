@@ -55,6 +55,13 @@
         </Style>
     </Window.Resources>
 
+    <Window.Background>
+        <VisualBrush TileMode="Tile" Viewport="0,0,8,8" ViewportUnits="Absolute">
+            <VisualBrush.Visual>
+                <Image Source="Images\bg.png"></Image>
+            </VisualBrush.Visual>
+        </VisualBrush>
+    </Window.Background>
 
     <DockPanel LastChildFill="True">
 
@@ -137,7 +144,7 @@
                 <Button Command="ApplicationCommands.New" ToolTip="New">
                     <Image Source="Images/NewDocumentHS.png"  />
                 </Button>
-                <Button Command="ApplicationCommands.Open" ToolTip="Open">
+                <Button Command="local:UICommand.OpenMapImage" ToolTip="Open">
                     <Image Source="Images/openHS.png"  />
                 </Button>
                 <Button Command="ApplicationCommands.Save" ToolTip="Save">
@@ -189,7 +196,7 @@
                          />
                     </Grid.LayoutTransform>
 
-                    <Image Name="imageBackground" Stretch="None"/>
+                    <Image Name="imageBackground" Stretch="None" />
 
                     <lib:DrawingCanvas Name="drawingCanvas" Background="#00000000"
                             Width="{Binding ElementName=imageBackground, Path=ActualWidth, Mode=OneWay}"
@@ -204,8 +211,8 @@
                           HorizontalAlignment="Stretch"
                           VerticalAlignment="Top" ResizeDirection="Rows"
                       />
-
-            <Grid Grid.Row="2" Margin="5 0 5 3">
+            <StackPanel Grid.Row="2" Background="White">
+            <Grid Margin="5 3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="2*"/>
@@ -260,7 +267,7 @@
                     </ComboBox>
                 </Grid>
             </Grid>
-
+            </StackPanel>
         </Grid>
         
         

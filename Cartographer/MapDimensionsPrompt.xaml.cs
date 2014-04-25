@@ -21,6 +21,7 @@ namespace Cartographer
     public partial class MapDimensionsPrompt : Window
     {
         private double width = 0, height = 0;
+        public enum NextState { New, Open };
 
         public MapDimensionsPrompt()
         {
@@ -56,8 +57,11 @@ namespace Cartographer
             get { return MapNameBox.Text; }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public NextState Next = NextState.Open;
+
+        private void SetNewButton_Click(object sender, RoutedEventArgs e)
         {
+            Next = NextState.New;
             this.Close();
         }
 
@@ -125,6 +129,12 @@ namespace Cartographer
             {
                 (sender as TextBox).Text = String.Format("{0:N1}", MapWidth);
             }
+        }
+
+        private void OpenExistingButton_Click(object sender, RoutedEventArgs e)
+        {
+            Next = NextState.Open;
+            this.Close();
         }
     }
 }
