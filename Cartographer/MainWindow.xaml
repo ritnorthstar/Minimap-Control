@@ -8,6 +8,7 @@
     xmlns:local="clr-namespace:Cartographer"
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     MinHeight="300" MinWidth="300"
+        Icon="./Images/Cartographer.ico"
     >
 
     <Window.CommandBindings>

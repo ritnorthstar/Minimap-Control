@@ -468,31 +468,6 @@ namespace Cartographer
         }
 
         /// <summary>
-        /// Show About box
-        /// </summary>
-        void HelpCommand(object sender, ExecutedRoutedEventArgs args)
-        {
-            AboutWindow dlg = new AboutWindow();
-            dlg.Owner = this;
-
-            try
-            {
-                dlg.ShowDialog();
-            }
-            catch (System.Net.WebException e)
-            {
-                // Click on Hyperlink without Internet connection
-
-                if (dlg != null)
-                {
-                    dlg.Close();
-                }
-
-                ShowError(e.Message);
-            }
-        }
-
-        /// <summary>
         /// Form is closing - ask to save
         /// </summary>
         void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
