@@ -136,5 +136,10 @@ namespace Cartographer
             Next = NextState.Open;
             this.Close();
         }
+
+        private void DimensionTextbox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            (sender as TextBox).SelectAll();
+        }
     }
 }

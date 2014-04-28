@@ -29,7 +29,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>false</MapFileExtensions>
-    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationRevision>2</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -162,33 +162,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\About.bmp" />
-    <Resource Include="Images\App.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="App.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\PointerHS.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\NewDocumentHS.png" />
-    <Resource Include="Images\openHS.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\saveHS.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\rectangle.PNG" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\line.PNG" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\pencil.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\PrintHS.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CartographerLibrary\CartographerLibrary.csproj">
@@ -202,9 +176,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\background.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Text.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Transparent.png" />
@@ -237,16 +208,18 @@
     <Resource Include="Images\delete.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\save.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\open.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\bg.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Cartographer.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\open.ico" />
+    <Resource Include="Images\pointer.ico" />
+    <Resource Include="Images\save.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\new.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

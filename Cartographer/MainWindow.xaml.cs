@@ -168,7 +168,7 @@ namespace Cartographer
                 mruManager.Delete(dlg.FileName);
                 return;
             }
-            
+
             // Remember initial directory
             SettingsManager.ApplicationSettings.InitialDirectory = System.IO.Path.GetDirectoryName(dlg.FileName);
         }
@@ -178,7 +178,7 @@ namespace Cartographer
             MapDimensionsPrompt prompt = new MapDimensionsPrompt { Owner = this };
             prompt.ShowDialog();
 
-            if(prompt.Next == MapDimensionsPrompt.NextState.New)
+            if (prompt.Next == MapDimensionsPrompt.NextState.New)
             {
                 drawingCanvas.MapWidth = prompt.MapWidth;
                 drawingCanvas.MapHeight = prompt.MapHeight;
@@ -943,6 +943,27 @@ namespace Cartographer
             }
 
             selected.Info = thisOne;
+        }
+
+        private void SwapDimensions(object sender, RoutedEventArgs e)
+        {
+            if (!(drawingCanvas.SelectedObject is GraphicsTableBlock))
+            {
+                int temp = GraphicsTableBlock.DefaultNumTablesTall;
+                GraphicsTableBlock.DefaultNumTablesTall = GraphicsTableBlock.DefaultNumTablesWide;
+                GraphicsTableBlock.DefaultNumTablesWide = temp;
+            }
+
+            else
+            {
+                GraphicsTableBlock selected = (drawingCanvas.SelectedObject as GraphicsTableBlock);
+                int temp = selected.NumTablesTall;
+                selected.NumTablesTall = selected.NumTablesWide;
+                selected.NumTablesWide = temp;
+            }
+
+            (WidthSpinner.Content as TextBox).Text = GraphicsTableBlock.DefaultNumTablesWide.ToString();
+            (HeightSpinner.Content as TextBox).Text = GraphicsTableBlock.DefaultNumTablesTall.ToString();
         }
     }
 }

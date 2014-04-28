@@ -32,12 +32,12 @@
 
             <TextBlock Text="The map is " Grid.Column="0" Grid.Row="0" TextAlignment="Right"/>
             <xctk:ButtonSpinner Spin="WidthSpinner_Spin" Grid.Row="0" Grid.Column="1">
-                <TextBox Text="0" HorizontalContentAlignment="Right" TextChanged="WidthBox_TextChanged"/>
+                <TextBox Text="0" HorizontalContentAlignment="Right" TextChanged="WidthBox_TextChanged" Name="WidthTextbox" GotFocus="DimensionTextbox_GotFocus"/>
             </xctk:ButtonSpinner>
             <TextBlock Text=" feet wide " Grid.Column="2" Grid.Row="0"/>
             <TextBlock Text="and " Grid.Column="0" Grid.Row="1" TextAlignment="Right"/>
             <xctk:ButtonSpinner Spin="HeightSpinner_Spin" Grid.Row="1" Grid.Column="1">
-                <TextBox Text="0" HorizontalContentAlignment="Right" TextChanged="HeightBox_TextChanged"/>
+                <TextBox Text="0" HorizontalContentAlignment="Right" TextChanged="HeightBox_TextChanged" Name="HeightTextbox" GotFocus="DimensionTextbox_GotFocus"/>
             </xctk:ButtonSpinner>
             <TextBlock Text=" feet tall " Grid.Column="2" Grid.Row="1"/>
         </Grid>
