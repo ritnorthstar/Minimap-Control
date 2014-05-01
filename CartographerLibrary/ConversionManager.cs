@@ -31,10 +31,14 @@ namespace CartographerLibrary
             {
                 Point center = convertBack(item.X, item.Y, map, canvasDimensions);
 
-                output = new GraphicsBeacon(
+                GraphicsBeacon beacon = new GraphicsBeacon(
                     center.X - 10, center.Y - 10,
                     center.X + 10, center.Y + 10,
                     1, Colors.DodgerBlue, 1.0);
+
+                beacon.Info = new BeaconInfo((item as MapBeacon).DeviceLabel, (item as MapBeacon).DeviceId);
+
+                output = beacon;
             }
 
             else
@@ -66,6 +70,8 @@ namespace CartographerLibrary
             return output;
         }
 
+        // Saving
+
         private static Map map;
         private static Point canvasDimensions;
 
@@ -84,7 +90,7 @@ namespace CartographerLibrary
                 ts.Switch(mapObject);
             }
         }
-
+        
         private static MapBeacon convertToMM(GraphicsBeacon beacon)
         {
             MapBeacon output = new MapBeacon();
