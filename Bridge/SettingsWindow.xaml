@@ -97,8 +97,9 @@
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
-                                <ListView Name="TeamMemberList" Grid.Row="0" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                                </ListView>
+                                <GroupBox Header="Team Members">
+                                    <StackPanel Name="CurrentTeamMembers" Margin="5"/>
+                                </GroupBox>
 
                                 <WrapPanel HorizontalAlignment="Center" Height="Auto" Grid.Row="1" Margin="0 8 0 0">
                                     <Button Name="SaveButton" Click="ClickSaveData" Width="Auto" Padding="5 0" IsEnabled="False">
@@ -128,7 +129,7 @@
 
                         <TextBlock Text="Port Number" Grid.Column="0" HorizontalAlignment="Right" Margin="5,0" />
                         <TextBox Name="PortNumberBox" Grid.Column="1" Margin="5,0" />
-                        <Button Content="Set Port Number" Click="Button_Click" Grid.Column="2" Margin="5,0" />
+                        <Button Content="Set Port Number" Click="SetPortButton_Click" Grid.Column="2" Margin="5,0" />
                     </Grid>
 
                     <GroupBox Header="Beacon IDs" Height="300">

@@ -69,7 +69,7 @@ namespace CartographerLibrary
             drawingContext.DrawEllipse(Brushes.DodgerBlue, null, center, radiusX, radiusY);
             drawingContext.DrawEllipse(Brushes.SkyBlue, null, center, radiusX * 2 / 3, radiusY * 2 / 3);
 
-            formattedText = new FormattedText((info == null ? String.Empty : info.ShortID), CultureInfo.GetCultureInfo("en-us"), FlowDirection.LeftToRight, font, 18, Brushes.MediumBlue);
+            formattedText = new FormattedText((info == null ? String.Empty : info.DeviceLabel), CultureInfo.GetCultureInfo("en-us"), FlowDirection.LeftToRight, font, 18, Brushes.MediumBlue);
 
             drawingContext.DrawText(formattedText, new Point(r.Left, r.Top));
 

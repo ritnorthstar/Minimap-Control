@@ -68,8 +68,8 @@ namespace Cartographer
             BeaconInfo oldInfo = selectedInfo.Clone();
             if (BeaconInfoManager.Instance().beacons.Remove(selectedInfo))
             {
-                ShortIdTextbox.Text = oldInfo.ShortID;
-                BluetoothIdTextbox.Text = oldInfo.BluetoothID;
+                ShortIdTextbox.Text = oldInfo.DeviceLabel;
+                BluetoothIdTextbox.Text = oldInfo.DeviceID;
             }
         }
 

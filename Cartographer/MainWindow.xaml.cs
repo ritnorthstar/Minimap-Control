@@ -905,7 +905,7 @@ namespace Cartographer
 
                 foreach (BeaconInfo check in BeaconInfoManager.Instance().beacons)
                 {
-                    if (check.ShortID.Equals(e.Text))
+                    if (check.DeviceLabel.Equals(e.Text))
                     {
                         thisOne = check;
                         break;

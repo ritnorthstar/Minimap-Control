@@ -102,24 +102,18 @@ namespace Bridge
             SaveButton.IsEnabled = false;
         }
 
-        private void ListTeamSelected(object sender, RoutedEventArgs e)
-        {
-            selectedTeam = (Team)(sender as ListView).SelectedItem;
-            if(selectedTeam == null)
-                return;
-            TeamInfo.Visibility = Visibility.Visible;
-            TeamName.Text = selectedTeam.Name;
-            PrimaryColorPicker.SelectedColor = selectedTeam.PrimaryColor;
-            SecondaryColorPicker.SelectedColor = selectedTeam.SecondaryColor;
-
-            saved = true;
-            SaveButton.ToolTip = "No changes to save";
-            SaveButton.IsEnabled = false;
-        }
-
         private void RefreshTeamMembers(object sender, RoutedEventArgs e)
         {
+            CurrentTeamMembers.Children.Clear();
+            
+            foreach (UserObject judge in Minimap.UserManager().GetAll().Where(u => u.TeamId.Equals(selectedTeam.Id)))//for each user in team
+            {
+                TextBlock judgeLabel = new TextBlock();
+                judgeLabel.Text = judge.Name;
+                judgeLabel.FontSize = 14;
 
+                CurrentTeamMembers.Children.Add(judgeLabel);
+            }
         }
 
         private void invalidateSaved()
@@ -156,8 +150,8 @@ namespace Bridge
                 SaveButton.IsEnabled = false;
             }
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        
+        private void SetPortButton_Click(object sender, RoutedEventArgs e)
         {
 
         }
@@ -196,5 +190,23 @@ namespace Bridge
                 BeaconIDs.Children.Add(layout);
             }
         }
+
+        private void ListTeamSelected(object sender, SelectionChangedEventArgs e)
+        {
+            selectedTeam = (Team)(sender as ListView).SelectedItem;
+            if (selectedTeam == null)
+                return;
+            TeamInfo.Visibility = Visibility.Visible;
+            TeamName.Text = selectedTeam.Name;
+            PrimaryColorPicker.SelectedColor = selectedTeam.PrimaryColor;
+            SecondaryColorPicker.SelectedColor = selectedTeam.SecondaryColor;
+
+            saved = true;
+            SaveButton.ToolTip = "No changes to save";
+            SaveButton.IsEnabled = false;
+
+            RefreshTeamMembers(null, null);
+        }
+
     }
 }

@@ -40,7 +40,7 @@ namespace CartographerLibrary
         private string shortId;
         private string bluetoothId;
 
-        public string ShortID
+        public string DeviceLabel
         {
             get { return shortId; }
             set
@@ -50,7 +50,7 @@ namespace CartographerLibrary
             }
         }
 
-        public string BluetoothID
+        public string DeviceID
         {
             get { return bluetoothId; }
             set
@@ -63,10 +63,10 @@ namespace CartographerLibrary
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public BeaconInfo(string shortId, string bluetoothId)
+        public BeaconInfo(string deviceLabel, string deviceID)
         {
-            this.shortId = shortId;
-            this.bluetoothId = bluetoothId;
+            this.shortId = deviceLabel;
+            this.bluetoothId = deviceID;
         }
 
         protected void OnPropertyChanged(string property)

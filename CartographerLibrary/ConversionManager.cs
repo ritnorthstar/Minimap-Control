@@ -97,8 +97,8 @@ namespace CartographerLibrary
 
             if (beacon.Info != null)
             {
-                output.DeviceLabel = beacon.Info.ShortID;
-                output.DeviceId = beacon.Info.BluetoothID;
+                output.DeviceLabel = beacon.Info.DeviceLabel;
+                output.DeviceId = beacon.Info.DeviceID;
             }
 
             Rect r = beacon.Rectangle;
