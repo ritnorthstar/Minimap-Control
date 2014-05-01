@@ -29,7 +29,7 @@
                 <MenuItem Header="Start" Click="ToggleRunningStatus" Name="toggleRunningMenuItem" />
                 <MenuItem Header="Reset" Click="RestartServer" />
                 <Separator />
-                <MenuItem Header="Configuration" />
+                <MenuItem Header="Configuration" Click="ServerConfig_Click"/>
             </MenuItem>
             <!--<MenuItem Header="_Debug">
                 <MenuItem Header="Clear screen" Click="ClearScreen" />

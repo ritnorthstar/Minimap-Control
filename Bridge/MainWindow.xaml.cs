@@ -362,6 +362,13 @@ namespace Bridge
 
         #endregion
 
+        private void ServerConfig_Click(object sender, RoutedEventArgs e)
+        {
+            SettingsWindow settingsWindow = new SettingsWindow { Owner = this };
+            settingsWindow.Tabs.SelectedItem = (TabItem)settingsWindow.Tabs.FindName("Configuration");
+            settingsWindow.ShowDialog();
+        }
+
         #endregion
 
     }
