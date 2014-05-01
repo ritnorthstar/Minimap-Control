@@ -10,6 +10,18 @@ namespace Server.Hosting
     {
         private IDisposable instance;
 
+        private static WebAPIServer singleton = null;
+
+        public static WebAPIServer Instance()
+        {
+            if (singleton == null)
+                singleton = new WebAPIServer();
+
+            return singleton;
+        }
+
+        private WebAPIServer() {}
+
         public int Port
         {
             get

@@ -17,6 +17,7 @@ using Xceed.Wpf.Toolkit;
 using System.Globalization;
 using Core.Data;
 using Core;
+using Server.Hosting;
 
 namespace Bridge
 {
@@ -153,7 +154,18 @@ namespace Bridge
         
         private void SetPortButton_Click(object sender, RoutedEventArgs e)
         {
+            WebAPIServer server = WebAPIServer.Instance();
 
+            try
+            {
+                server.Port = Int32.Parse(PortNumberBox.Text);
+                PortMessage.Text = "Port successfully set";
+            }
+
+            catch (Exception)
+            {
+                PortMessage.Text = "Bad port number";
+            }
         }
 
         private void PopulateBeaconData(object sender, RoutedEventArgs e)

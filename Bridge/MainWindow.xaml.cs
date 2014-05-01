@@ -43,7 +43,7 @@ namespace Bridge
             ListboxContainer.ItemsSource = source;
             //Console.WriteLine("Hooked up item source; num items: " + source.Count);
 
-            server = new WebAPIServer();
+            server = WebAPIServer.Instance();
         }
 
         private void QuitProgram(object sender, ExecutedRoutedEventArgs args)
