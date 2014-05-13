@@ -97,30 +97,31 @@ namespace Bridge
             foreach(MapBeacon b in activeMap.Beacons)
                 SharedDataManager.Beacons.Add(new BeaconInfo(b.DeviceLabel, b.DeviceId));
 
-            Team t1 = new Team("Scorpion", Colors.SandyBrown, Colors.Maroon);
-            t1.MapId = activeMap.Id;
-            Team t2 = new Team("Spider", Colors.Teal, Colors.Purple);
-            t2.MapId = activeMap.Id;
 
-            POI p1 = new POI("Table A", 250, 125, 0);
-            POI p2 = new POI("Table B", 250, 275, 0);
-            POI p3 = new POI("Table C", 250, 425, 0);
-            t1.Points.Add(p1);
-            t1.Points.Add(p2);
-            t2.Points.Add(p3);
+            //Team t1 = new Team("Scorpion", Colors.SandyBrown, Colors.Maroon);
+            //t1.MapId = activeMap.Id;
+            //Team t2 = new Team("Spider", Colors.Teal, Colors.Purple);
+            //t2.MapId = activeMap.Id;
 
-            Minimap.TeamManager().Add(t1);
-            Minimap.TeamManager().Add(t2);
+            //POI p1 = new POI("Table A", 250, 125, 0);
+            //POI p2 = new POI("Table B", 250, 275, 0);
+            //POI p3 = new POI("Table C", 250, 425, 0);
+            //t1.Points.Add(p1);
+            //t1.Points.Add(p2);
+            //t2.Points.Add(p3);
 
-            User u1 = new User("Clark Kent", 150, 50, 50);
-            u1.TeamId = t1.Id;
-            User u2 = new User("Bruce Wayne", 150, 250, 50);
-            u2.TeamId = t2.Id;
-            Minimap.UserManager().Add(u1);
-            Minimap.UserManager().Add(u2);
+            //Minimap.TeamManager().Add(t1);
+            //Minimap.TeamManager().Add(t2);
 
-            u1.DrawOn(source);
-            u2.DrawOn(source);
+            //User u1 = new User("Clark Kent", 150, 50, 50);
+            //u1.TeamId = t1.Id;
+            //User u2 = new User("Bruce Wayne", 150, 250, 50);
+            //u2.TeamId = t2.Id;
+            //Minimap.UserManager().Add(u1);
+            //Minimap.UserManager().Add(u2);
+
+            //u1.DrawOn(source);
+            //u2.DrawOn(source);
         }
 
         #endregion

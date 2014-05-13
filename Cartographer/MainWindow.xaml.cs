@@ -922,7 +922,7 @@ namespace Cartographer
         private void RefreshBeaconList(object sender, EventArgs e)
         {
             BeaconIdSelector.ItemsSource = BeaconInfoManager.Instance().beacons;
-            BeaconIdSelector.DisplayMemberPath = "ShortID";
+            BeaconIdSelector.DisplayMemberPath = "DeviceLabel";
         }
 
         private void BeaconIdSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)

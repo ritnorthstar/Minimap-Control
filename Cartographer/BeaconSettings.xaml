@@ -46,8 +46,8 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Text="{Binding ShortID}" Width="150" Margin="3" Grid.Column="0"/>
-                                <TextBlock Text="{Binding BluetoothID}" Width="300" Margin="3" Grid.Column="1"/>
+                                <TextBlock Text="{Binding DeviceLabel}" Width="150" Margin="3" Grid.Column="0"/>
+                                <TextBlock Text="{Binding DeviceID}" Width="300" Margin="3" Grid.Column="1"/>
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>

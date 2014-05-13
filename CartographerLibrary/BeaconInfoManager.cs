@@ -37,25 +37,25 @@ namespace CartographerLibrary
     [Serializable]
     public class BeaconInfo
     {
-        private string shortId;
-        private string bluetoothId;
+        private string deviceLabel;
+        private string deviceId;
 
         public string DeviceLabel
         {
-            get { return shortId; }
+            get { return deviceLabel; }
             set
             {
-                shortId = value;
+                deviceLabel = value;
                 OnPropertyChanged("ShortID");
             }
         }
 
         public string DeviceID
         {
-            get { return bluetoothId; }
+            get { return deviceId; }
             set
             {
-                bluetoothId = value;
+                deviceId = value;
                 OnPropertyChanged("BluetoothID");
             }
         }
@@ -65,8 +65,8 @@ namespace CartographerLibrary
 
         public BeaconInfo(string deviceLabel, string deviceID)
         {
-            this.shortId = deviceLabel;
-            this.bluetoothId = deviceID;
+            this.deviceLabel = deviceLabel;
+            this.deviceId = deviceID;
         }
 
         protected void OnPropertyChanged(string property)
