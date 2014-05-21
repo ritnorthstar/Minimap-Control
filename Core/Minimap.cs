@@ -18,7 +18,7 @@ namespace Core
 
         private static DataManager<MapObject> mapManager = new DataManager<MapObject>();
         private static DataManager<TeamObject> teamManager = new DataManager<TeamObject>();
-        private static DataManager<UserObject> userManager = new DataManager<UserObject>();
+        private static DataManager<UserObject> userManager = new DataManager<UserObject>(TimeSpan.FromMinutes(5));
 
         /// <summary>
         /// Get the global map manager.</summary>

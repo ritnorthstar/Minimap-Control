@@ -10,6 +10,7 @@ namespace Core.Data
     {
         // TODO - Make Id readonly (will cause issues with current JSON deserialization)
         public string Id;
+        public DateTime LastModified;
 
         protected DataObject()
         {
@@ -19,6 +20,7 @@ namespace Core.Data
         protected DataObject(DataObject copy)
         {
             Id = copy.Id;
+            LastModified = copy.LastModified;
         }
 
         /// <summary>

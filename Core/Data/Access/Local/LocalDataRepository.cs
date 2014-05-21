@@ -57,6 +57,7 @@ namespace Core.Data.Access.Local
             if (t != null)
             {
                 data.Remove(t.Id);
+                t.LastModified = DateTime.Now;
                 data.Add((T1)t.Clone());
                 return true;
             }
