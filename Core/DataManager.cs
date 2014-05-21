@@ -88,12 +88,6 @@ namespace Core
                 {
                     purgeTimer = new Timer(new TimerCallback(purgeExpiredData), null, new TimeSpan(0), TimeSpan.FromSeconds(10));
                 }
-
-                // update purge timer
-                else
-                {
-                    purgeTimer.Change(new TimeSpan(0), TimeSpan.FromSeconds(10));
-                }
             }
             
             // disable purge thread
