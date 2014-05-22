@@ -137,7 +137,7 @@ namespace Cartographer
             // Show Open File dialog
             OpenFileDialog dlg = new OpenFileDialog();
 
-            dlg.Filter = "Image files (*.png, *.jpg)|*.png;*.jpg ";
+            dlg.Filter = "Image files (*.png, *.jpg, *.jpeg, *.gif, *.bmp)|*.png;*.jpg;*.jpeg;*.gif;*.bmp";
             //dlg.DefaultExt = "xml";
             dlg.InitialDirectory = SettingsManager.ApplicationSettings.InitialDirectory;
             dlg.RestoreDirectory = true;
